@@ -1,0 +1,7 @@
+bind status P !git push origin
+bind status U !git pull
+
+bind status p !git add --patch %(file)
+
+bind status a !git commit --amend
+

@@ -67,6 +67,7 @@ export PS1=\
 source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.profile-binds
+source $HOME/.git-completion.sh
 
 # Use git completion with git alias 'g'
 complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \
