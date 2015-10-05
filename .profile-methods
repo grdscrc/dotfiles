@@ -1,0 +1,4 @@
+function httpless {
+  # `httpless example.org'
+  http --pretty=all --print=hb "$@" | less -R;
+}
