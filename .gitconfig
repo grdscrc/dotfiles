@@ -1,0 +1,43 @@
+[core]
+	quotepath = false
+	excludesfile = /Users/igor/.gitignore_global
+	autocrlf = input
+[user]
+	name = Igor Descayrac
+	email = igor.descayrac@gmail.com
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[alias]
+	switch = !legit switch \"$@\"
+	branches = !legit branches
+	sprout = !legit sprout \"$@\"
+	unpublish = !legit unpublish \"$@\"
+	harvest = !legit harvest \"$@\"
+	sync = !legit sync \"$@\"
+	publish = !legit publish \"$@\"
+	graft = !legit graft \"$@\"
+	where = !git branch -vv|grep '^*'|sed -e 's/^..//'
+	current-branch = !git branch|grep '^*'|sed -e 's/^..//'
+	push-new-branch = !git push -u origin `git current-branch`
+	list-modified= !git status --porcelain|grep '^ M '|sed -e 's/^...//'
+	list-untracked= !git status --porcelain|grep '^?? '|sed -e 's/^...//'
+	drop = !git stash && git stash drop
+	patch = add -p
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+	co = checkout
+	br = branch -vv
+	ci = commit
+	s = status
+[color]
+	ui = auto
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[instaweb]
+	httpd = webrick
+[push]
+	default = current

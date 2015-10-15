@@ -1,14 +1,14 @@
 #!/bin/bash
 
-export PATH="/bin"
-PATH="/sbin:$PATH"
-PATH="/usr/bin:$PATH"
-PATH="/usr/sbin:$PATH"
-PATH="/usr/local/bin:$PATH"
-PATH="/usr/local/sbin:$PATH"
-PATH="/Applications/MAMP/bin:$PATH"
-PATH="/opt/X11/bin:$PATH"
-PATH="/usr/texbin:$PATH"
+# export PATH="/bin"
+# PATH="/sbin:$PATH"
+# PATH="/usr/bin:$PATH"
+# PATH="/usr/sbin:$PATH"
+# PATH="/usr/local/bin:$PATH"
+# PATH="/usr/local/sbin:$PATH"
+# PATH="/Applications/MAMP/bin:$PATH"
+# PATH="/opt/X11/bin:$PATH"
+# PATH="/usr/texbin:$PATH"
 
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi # Rbenv shims
 export CC=/usr/bin/clang #Fixes bug in 'rbenv install'
@@ -66,12 +66,11 @@ export PS1=\
 
 source $HOME/.profile-aliases
 source $HOME/.profile-methods
-source $HOME/.profile-binds
 source $HOME/.git-completion.sh
 
 # Use git completion with git alias 'g'
-complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \
-	    || complete -o default -o nospace -F _git g
+# complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \
+#     || complete -o default -o nospace -F _git g
 
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
