@@ -64,6 +64,7 @@ export PS1=\
 #   . $(brew --prefix)/etc/bash_completion
 # fi
 
+source $HOME/.secrets # For secret things such as api tokens
 source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.git-completion.sh

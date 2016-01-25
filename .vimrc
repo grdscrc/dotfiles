@@ -1,3 +1,5 @@
+execute pathogen#infect()
+
 " ------------------------- 
 " ----- VUNDLE CONFIG ----- 
 " ------------------------- 
@@ -31,7 +33,11 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
 " Plugin 'user/L9', {'name': 'newL9'}
 
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+
+" Markdown plugin
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -161,10 +167,6 @@ set tabstop=2 shiftwidth=2
 " Ruby plugin
 Bundle 'vim-ruby/vim-ruby'
 
-" Markdown plugin
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-
 inoremap jk <Esc>  " Use jk to escape insert mode
 " set relativenumber " Use relative numbering for blocks
 
@@ -175,4 +177,17 @@ nnoremap <Leader>o :CtrlP<CR>
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+" Use fzf (fuzzy search)
+set rtp+=/usr/local/opt/fzf
+
+" Theme
+set background=dark
+colorscheme solarized
+let g:solarized_termcolors=256
+
+" Configure airline
+set t_Co=256
+set laststatus=2
+let g:airline_theme='simple'
 

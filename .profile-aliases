@@ -1,23 +1,25 @@
 # Practices
 alias ls='ls -G'
-alias la='ls -a'
 alias ll='ls -l'
-alias lal='ls -ahl'
+alias la='ls -ahlT'
 alias rm='rm -i'
 alias t="trash"
 alias tailf='tail -f'
 alias openports='lsof -Pan -i tcp -i udp'
 alias binds="bind -P | grep 'can be'"
+alias shortcuts="cat $HOME/shortcuts"
+# Find out if any duplicate file exist in the current directory (From https://twitter.com/climagic)
+alias dups="shasum * | awk -F' ' '_[$1]++'"
 
 # Software
 alias g='git'
 alias rg='ranger'
-alias ngrok='$HOME/bin/ngrok'
-alias eclipse='$HOME/bin/eclipse/Eclipse'
-alias subl='$HOME/bin/subl'
 alias ttytter='rlwrap ttytter'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc'
 alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
+alias fzsub='subl $(fzf)'
+alias fzvim='vim $(fzf)'
+alias be='bundle exec'
 
 # MVX app
 alias mvxstart='(cd /Users/igor/work/syadem/mvx && ./script/start.sh)'
@@ -25,6 +27,6 @@ alias mvxstop='(cd /Users/igor/work/syadem/mvx && ./script/stop.sh)'
 alias mvxsetup='(cd /Users/igor/work/syadem/mvx && ./script/setup)'
 alias mvxrestart='mvxstop || mvxstart'
 alias mvxguard='(cd /Users/igor/work/syadem/mvx && guard)'
-alias mvxtailf='(cd /Users/igor/work/syadem/mvx && tailf log/{test,development}.log |grep "tailor"'
-alias cap_stage_branch='cap staging deploy -S branch=`git current-branch`'
-alias cap_stage_branch_on_pro='cap staging_professional deploy -S branch=`git current-branch`'
+alias mvxtailf='(cd /Users/igor/work/syadem/mvx && tailf log/{test,development}.log)'
+alias stage_branch='cap staging deploy -S branch=`git current-branch`'
+alias stage_branch_on_pro='cap staging_professional deploy -S branch=`git current-branch`'

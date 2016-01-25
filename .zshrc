@@ -98,6 +98,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+setopt interactivecomments # Commented commands begin with #
 
 . `brew --prefix`/etc/profile.d/z.sh
 
@@ -118,3 +119,5 @@ usercolor=green
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
 
+# Fuzzy find
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

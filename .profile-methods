@@ -2,3 +2,10 @@ function httpless {
   # `httpless example.org'
   http --pretty=all --print=hb "$@" | less -R;
 }
+
+function choose {
+  # Simple lunch location decider. Separate possibilities with ','
+  # From https://twitter.com/climagic
+  echo "$@" | tr ',' '\n' | gshuf | head -1
+}
+
