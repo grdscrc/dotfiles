@@ -1,21 +1,10 @@
 #!/bin/bash
 
-# export PATH="/bin"
-# PATH="/sbin:$PATH"
-# PATH="/usr/bin:$PATH"
-# PATH="/usr/sbin:$PATH"
-# PATH="/usr/local/bin:$PATH"
-# PATH="/usr/local/sbin:$PATH"
-# PATH="/Applications/MAMP/bin:$PATH"
-# PATH="/opt/X11/bin:$PATH"
-# PATH="/usr/texbin:$PATH"
-
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi # Rbenv shims
 export CC=/usr/bin/clang #Fixes bug in 'rbenv install'
 
 export PROFILE=$HOME/.profile 
 export EDITOR=/usr/bin/vim # Default editor
-# export ARCHFLAGS=-Wno-error=unused-command-line-argument-hard-error-in-future
 
 export HISTSIZE=9001 # Reasonable HISTSIZE
 
@@ -49,29 +38,12 @@ else
 	start_agent;
 fi
 
-# Custom prompt
-# (<wdir>)
-# <user>:
-wdircolor="38;5;111m" #cyan
-usercolor="1;32m" #green
-export PS1=\
-"(\[\033[$wdircolor\]\w\[\033[0m\]\])
-\[\033[$usercolor\]\u\[\033[0m\]:"
-
 . `brew --prefix`/etc/profile.d/z.sh
-
-# if [ -f $(brew --prefix)/etc/bash_completion ]; then
-#   . $(brew --prefix)/etc/bash_completion
-# fi
 
 source $HOME/.secrets # For secret things such as api tokens
 source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.git-completion.sh
-
-# Use git completion with git alias 'g'
-# complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \
-#     || complete -o default -o nospace -F _git g
 
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"

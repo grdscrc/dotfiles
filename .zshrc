@@ -68,8 +68,6 @@ PATH="/usr/texbin:$PATH"
 # Rbenv shims
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi 
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -78,14 +76,7 @@ if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='vim'
-  #export EDITOR='mvim'
 fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # export CC=/usr/bin/clang #Fixes bug in 'rbenv install'
 
@@ -103,18 +94,6 @@ setopt interactivecomments # Commented commands begin with #
 . `brew --prefix`/etc/profile.d/z.sh
 
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source ~/git-completion.zsh
-
-# Custom prompt
-# (<machine>, <wdir>)
-# <user>:
-machinecolor=cyan
-wdircolor=yellow
-usercolor=green
-# export PS1=\
-# 	"(%{$fg[$machinecolor]%}%m%{$reset_color%})
-#   %{$fg[$usercolor]%}%n%{$reset_color%}:"
-#"(%{$fg[$machinecolor]%}%m%{$reset_color%}), %{$fg[$wdircolor]%}%~%{$reset_color%})
 
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
 eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"

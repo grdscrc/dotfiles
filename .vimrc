@@ -34,6 +34,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Plugin 'user/L9', {'name': 'newL9'}
 
 Plugin 'vim-airline/vim-airline'
+Plugin 'terryma/vim-multiple-cursors' 
 
 " Markdown plugin
 Plugin 'godlygeek/tabular'
