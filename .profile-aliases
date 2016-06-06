@@ -28,5 +28,6 @@ alias mvxsetup='(cd /Users/igor/work/syadem/mvx && ./script/setup)'
 alias mvxrestart='mvxstop || mvxstart'
 alias mvxguard='(cd /Users/igor/work/syadem/mvx && guard)'
 alias mvxtailf='(cd /Users/igor/work/syadem/mvx && tailf log/{test,development}.log)'
-alias stage_branch='cap staging deploy -S branch=`git current-branch`'
-alias stage_branch_on_pro='cap staging_professional deploy -S branch=`git current-branch`'
+alias stage_mvx_branch='cap staging deploy -S branch=`git current-branch`'
+alias stage_php_branch='./deploy.sh stage `git current-branch`'
+

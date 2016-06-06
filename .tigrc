@@ -1,9 +1,11 @@
-bind generic P !git push origin
+bind generic P !git push -u origin
 bind generic U !git pull
 
 bind status p !git add --patch %(file)
 bind status c !git commit -m "%(prompt Enter commit message : )"
 bind status a !git commit --amend
+
+bind stash a !git stash apply %(stash)
 
 # Show commit id in main view
 set main-view-id = yes

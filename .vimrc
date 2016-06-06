@@ -34,11 +34,14 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Plugin 'user/L9', {'name': 'newL9'}
 
 Plugin 'vim-airline/vim-airline'
-Plugin 'terryma/vim-multiple-cursors' 
 
 " Markdown plugin
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+Plugin 'kchmck/vim-coffee-script'
+
+Plugin 'airblade/vim-gitgutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -184,11 +187,11 @@ set rtp+=/usr/local/opt/fzf
 
 " Theme
 set background=dark
-colorscheme solarized
-let g:solarized_termcolors=256
 
 " Configure airline
 set t_Co=256
 set laststatus=2
 let g:airline_theme='simple'
+
+set clipboard=unnamed
 
