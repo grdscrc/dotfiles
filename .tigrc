@@ -5,9 +5,14 @@ bind status p !git add --patch %(file)
 bind status c !git commit -m "%(prompt Enter commit message : )"
 bind status a !git commit --amend
 
+bind stash s !git stash
 bind stash a !git stash apply %(stash)
+bind stash p !git stash pop
 
 # Show commit id in main view
 set main-view-id = yes
 set main-view-date = no
+set main-view-author-display = abbreviated
+
+bind status T !touch %(file)
 

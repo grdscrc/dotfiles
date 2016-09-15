@@ -195,3 +195,8 @@ let g:airline_theme='simple'
 
 set clipboard=unnamed
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPLastMode'
+let g:ctrlp_extensions = ['line', 'dir', 'buffertag', 'tag']
+

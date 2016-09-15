@@ -18,7 +18,7 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 	co = checkout
 	wip = commit -am 'WIP'
-	behead = reset HEAD^
+	pop = reset HEAD^
 	br = branch -vv
 	ci = commit
 	s = status

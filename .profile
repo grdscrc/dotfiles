@@ -45,6 +45,6 @@ source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 
-eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
-eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
+eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
+eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
 

@@ -104,9 +104,6 @@ setopt interactivecomments # Commented commands begin with #
 
 source ~/.oh-my-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
-eval "$(/Users/igor/work/syadem/mvx/script/bin/mvx init -)"
-
 # Fuzzy find
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -114,3 +111,9 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
   unsetopt xtrace
   exec 2>&3 3>&-
 fi
+
+unsetopt histverify # Do not confirm substitutions
+
+# Hackerman (Syadem utility)
+eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
+

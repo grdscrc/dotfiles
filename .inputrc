@@ -1,1 +1,2 @@
 #set editing-mode vi # When you're older son
+set blink-matching-paren on
