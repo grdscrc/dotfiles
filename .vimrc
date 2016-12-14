@@ -35,10 +35,6 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 Plugin 'vim-airline/vim-airline'
 
-" Markdown plugin
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-
 Plugin 'kchmck/vim-coffee-script'
 
 Plugin 'airblade/vim-gitgutter'
@@ -171,9 +167,6 @@ set tabstop=2 shiftwidth=2
 " Ruby plugin
 Bundle 'vim-ruby/vim-ruby'
 
-inoremap jk <Esc>  " Use jk to escape insert mode
-" set relativenumber " Use relative numbering for blocks
-
 let mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q<CR>
@@ -199,4 +192,8 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPLastMode'
 let g:ctrlp_extensions = ['line', 'dir', 'buffertag', 'tag']
+
+" Store tilde backups in ~/tmp and /tmp
+set backupdir-=.
+set backupdir^=~/tmp,/tmp
 

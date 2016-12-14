@@ -20,6 +20,8 @@
 	wip = commit -am 'WIP'
 	pop = reset HEAD^
 	br = branch -vv
+	bd = branch -d
+	bD = branch -D
 	ci = commit
 	s = status
 [color]

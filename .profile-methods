@@ -6,6 +6,42 @@ function httpless {
 function choose {
   # Simple lunch location decider. Separate possibilities with ','
   # From https://twitter.com/climagic
-  echo "$@" | tr ',' '\n' | gshuf | head -1
+  echo "$@" | tr ',' '\n' | gshuf | head -1;
+}
+
+function deploy {
+	if [ -z "$1" ] || [ -z "$2" ]; then # Less than 2 parameters
+		echo "Usage : deploy <rails|php> <staging|integration|production> [<branch>] [--migrate]"
+		return 0
+	fi
+
+	language=$1
+	env=$2
+	
+	if [ "$language" = "php" ] && [ "$env" = "staging" ]; then
+		env=stage
+	fi
+
+	if [ -z "$3" ]; then
+		branch="$(git rev-parse --abbrev-ref HEAD)"
+	else
+		branch=$3
+	fi
+
+	action=deploy
+	if [ "$4" = "--migrate" ]; then
+		action=$action\:migrations
+	fi
+
+	set -x
+
+	case "$language" in
+		rails)
+			cap $env $action -S branch=$branch
+			;;
+		php)
+			./deploy.sh $env $branch
+			;;
+	esac
 }
 
