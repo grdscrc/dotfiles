@@ -73,6 +73,9 @@ PATH="/usr/local/sbin:$PATH"
 PATH="/Applications/MAMP/bin:$PATH"
 PATH="/opt/X11/bin:$PATH"
 PATH="/usr/texbin:$PATH"
+PATH="/usr/local/opt/go/libexec/bin:$PATH"
+GOPATH="$HOME/go"
+PATH="$GOPATH/bin:$PATH"
 
 # Rbenv shims
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi 

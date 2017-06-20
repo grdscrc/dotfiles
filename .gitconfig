@@ -17,13 +17,14 @@
 	patch = add -p
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 	co = checkout
+	cb = checkout -b
 	wip = commit -am 'WIP'
 	pop = reset HEAD^
 	br = branch -vv
 	bd = branch -d
 	bD = branch -D
 	ci = commit
-	s = status
+	s = status --porcelain
 [color]
 	ui = auto
 [filter "media"]

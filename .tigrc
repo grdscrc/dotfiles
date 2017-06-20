@@ -1,20 +1,28 @@
-bind generic P !git push -u origin
-bind generic U !git pull
+bind main <Ctrl-r> !git rebase -i --autosquash "%(commit)"
+bind main <Ctrl-a> !git rebase --abort
+bind main <Ctrl-e> !git rebase --continue
+bind main <Ctrl-z> !git rebase --skip
 
 bind status p !git add --patch %(file)
 bind status c !git commit -m "%(prompt Enter commit message : )"
 bind status a !git commit --amend
+bind status w !git wip
 
-bind stash s !git stash
+bind stash <Ctrl-s> !git stash
 bind stash a !git stash apply %(stash)
 bind stash p !git stash pop
+
+bind refs B !git checkout -b "%(prompt Enter branch name : )"
+
+bind main <Ctrl-f> !git commit --fixup "%(commit)"
 
 # Show commit id in main view
 set main-view-id = yes
 set main-view-date = no
 set main-view-author-display = abbreviated
 
-set line-graphics = utf-8
-
 bind status T !touch %(file)
+
+# set main-view-commit-title-graph = no
+set main-view-author-display = no
 

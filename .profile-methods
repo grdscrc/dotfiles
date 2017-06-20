@@ -3,6 +3,10 @@ function httpless {
   http --pretty=all --print=hb "$@" | less -R;
 }
 
+function mkcd {
+  mkdir "$@" && cd "$@";
+}
+
 function choose {
   # Simple lunch location decider. Separate possibilities with ','
   # From https://twitter.com/climagic

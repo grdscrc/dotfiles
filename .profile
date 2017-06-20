@@ -1,8 +1,5 @@
 #!/bin/bash
 
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi # Rbenv shims
-export CC=/usr/bin/clang #Fixes bug in 'rbenv install'
-
 export PROFILE=$HOME/.profile 
 export EDITOR=/usr/bin/vim # Default editor
 
@@ -44,6 +41,7 @@ source $HOME/.secrets # For secret things such as api tokens
 source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.git-completion.sh
+source $HOME/.rbenv.sh
 
 eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
 eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
