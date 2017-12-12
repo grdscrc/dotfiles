@@ -7,6 +7,14 @@ nnoremap <Leader>x :bdelete<CR>
 nnoremap <Leader>p :bprevious<CR>
 nnoremap <Leader>n :bnext<CR>
 
+nnoremap <Leader>j <C-W><C-J>
+nnoremap <Leader>k <C-W><C-K>
+nnoremap <Leader>l <C-W><C-L>
+nnoremap <Leader>h <C-W><C-H>
+
+" Run current file
+nnoremap <leader>r :!%:p<CR>
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 

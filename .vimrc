@@ -11,11 +11,9 @@ if v:progname =~? "evim"
   finish
 endif
 
-source ~/dotfiles/vundle.vim
 source ~/dotfiles/settings.vim
 source ~/dotfiles/mappings.vim
-source ~/dotfiles/autocmd.vim
 source ~/dotfiles/theme.vim
-source ~/dotfiles/plugins.vim
-
-
+" source ~/dotfiles/vundle.vim
+" source ~/dotfiles/autocmd.vim
+" source ~/dotfiles/plugins.vim

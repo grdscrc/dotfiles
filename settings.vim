@@ -18,8 +18,6 @@ set incsearch		" do incremental searching
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
 
-set number          " Show line numbers
-
 set hidden          " Allow hidden buffers, don't limit to 1 file per window/split
 
 set tabstop=2 shiftwidth=2
