@@ -24,6 +24,8 @@ function start_agent {
 	chmod 600 "${SSH_ENV}"
 	. "${SSH_ENV}" > /dev/null
 	/usr/bin/ssh-add
+
+	/usr/bin/ssh-add ~/.ssh/mesvaccins-igor
 }
 
 if [ -f "${SSH_ENV}" ]; then
@@ -43,6 +45,4 @@ source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 source $HOME/.rbenv.sh
 
-eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
-eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
-
+source $HOME/.syadem-profile

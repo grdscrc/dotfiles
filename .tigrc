@@ -26,3 +26,4 @@ bind status T !touch %(file)
 # set main-view-commit-title-graph = no
 set main-view-author-display = no
 
+set status-show-untracked-dirs = yes  # Show files in untracked directories? (status)

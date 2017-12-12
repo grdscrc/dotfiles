@@ -117,6 +117,6 @@ fi
 
 unsetopt histverify # Do not confirm substitutions
 
-# Hackerman (Syadem utility)
-eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
-
+# setopt promptsubst
+# PS1=$'%U${(r:$COLUMNS:: :)}%u'$PS1
+export PATH="/usr/local/opt/ansible@2.0/bin:$PATH"

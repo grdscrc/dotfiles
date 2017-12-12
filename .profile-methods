@@ -10,7 +10,9 @@ function mkcd {
 function choose {
   # Simple lunch location decider. Separate possibilities with ','
   # From https://twitter.com/climagic
-  echo "$@" | tr ',' '\n' | gshuf | head -1;
+  randomized_choices=$(echo "$@" | tr ',' '\n' | gshuf)
+
+  head -1 $randomized_choices
 }
 
 function deploy {
@@ -49,15 +51,15 @@ function deploy {
 	esac
 }
 
-function swap {
+function swop {
   if [ -z "$1" ] || [ -z "$2" ]; then # Less than 2 parameters
-    echo "Usage : swap <to replace> <replacement>"
+    echo "Usage : swop <word to replace> <replacement>"
     return 0
   fi
 
   ack -l "$1" | xargs perl -pi -E "s/$1/$2/g";
 }
 
-function nowhine {
+function hush {
   $@ 2> /dev/null
 }
