@@ -20,6 +20,7 @@
 	cb = checkout -b
 	wip = commit -am 'WIP'
 	pop = reset HEAD^
+	rekt = checkout -- .
 	br = branch -vv
 	bd = branch -d
 	bD = branch -D
