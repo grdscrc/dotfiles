@@ -52,8 +52,8 @@ function deploy {
 }
 
 function swop {
-  if [ -z "$1" ] || [ -z "$2" ]; then # Less than 2 parameters
-    echo "Usage : swop <word to replace> <replacement>"
+  if [ $# -ne 2 ]; then # Less than 2 parameters
+    >&2 echo "Usage : swop <regex to replace> <replacement>"
     return 0
   fi
 
