@@ -1,3 +1,5 @@
+bind main H !@sh -c "git show -s --format=%H "%(commit)"|pbcopy" # Copy commit hash
+
 bind main <Ctrl-r> !git rebase -i --autosquash "%(commit)"
 bind main <Ctrl-a> !git rebase --abort
 bind main <Ctrl-e> !git rebase --continue
@@ -7,6 +9,9 @@ bind status p !git add --patch %(file)
 bind status c !git commit -m "%(prompt Enter commit message : )"
 bind status a !git commit --amend
 bind status w !git wip
+
+bind diff C stage-split-chunk
+bind stage C stage-split-chunk
 
 bind stash <Ctrl-s> !git stash
 bind stash a !git stash apply %(stash)
