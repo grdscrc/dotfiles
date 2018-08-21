@@ -13,7 +13,22 @@ alias shortcuts="cat $HOME/shortcuts"
 alias dups="shasum * | awk -F' ' '_[$1]++'"
 
 # Software
+# Git
 alias g='git'
+alias gs='git s'
+alias gci='git ci'
+alias gco='git co'
+alias gri='git rebase --interactive'
+alias grim='git rebase --interactive master'
+alias grec='git rebase --continue'
+alias grabort='git rebase --abort'
+alias gresk='git rebase --skip'
+
+alias ghostscript='/usr/local/bin/gs' # Since `gs` is aliased to `git s`
+
+# Vim
+alias v='vim'
+
 alias rg='ranger'
 alias ttytter='rlwrap ttytter'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc'
@@ -38,3 +53,8 @@ alias nokogiriplease='gem install nokogiri -v '1.6.8' -- --use-system-libraries 
 alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
 
 alias softup='softwareupdate'
+
+alias secondcolumn='awk '\''{print $2}'\'''
+
+alias doco='docker-compose'
+
