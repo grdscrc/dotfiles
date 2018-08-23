@@ -4,6 +4,7 @@ nnoremap <Leader>q :q<CR>
 nnoremap <Leader>o :CtrlP<CR>
 nnoremap <Leader>e :enew<CR>
 nnoremap <Leader>x :bdelete<CR>
+nnoremap <Leader>d :bdelete<CR>
 nnoremap <Leader>p :bprevious<CR>
 nnoremap <Leader>n :bnext<CR>
 
@@ -47,3 +48,10 @@ endif
 
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+nnoremap <silent> <C-c> :let @+ = expand("%")<CR>
+
+" Remap <enter> & <backspace> to git hunk
+nnoremap <silent> <cr> :GitGutterNextHunk<cr>
+nnoremap <silent> <backspace> :GitGutterPrevHunk<cr>
+

@@ -1,0 +1,1 @@
+camelcasemotion.vba: call delete('/Users/igor/.vim/autoload/camelcasemotion.vim')|call delete('/Users/igor/.vim/plugin/camelcasemotion.vim')|call delete('/Users/igor/.vim/doc/camelcasemotion.txt')

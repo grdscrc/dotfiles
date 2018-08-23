@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/igor/work/syadem/hackerman/libexec/curl_ids'
+let g:netrw_dirhist_2='/Users/igor/work/syadem/hackerman/libexec/curl_ids/authentication'
+let g:netrw_dirhist_3='/Users/igor/work/syadem/hackerman/libexec/curl_ids'
+let g:netrw_dirhist_4='/Users/igor/work/syadem/hackerman/libexec/curl_ids/shut_accesses'
+let g:netrw_dirhist_5='/Users/igor/work/syadem/development-environment/mysql/conf'
+let g:netrw_dirhist_6='/Users/igor/dotfiles'
