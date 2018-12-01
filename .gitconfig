@@ -1,17 +1,17 @@
 [core]
-	quotepath = false
-	excludesfile = /Users/igor/.gitignore_global
-	autocrlf = input
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  quotepath = false
+  excludesfile = /Users/igor/.gitignore_global
+  autocrlf = input
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
-	name = Igor Descayrac
-	email = igor.descayrac@gmail.com
+  name = Igor Descayrac
+  email = igor.descayrac@gmail.com
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
 [alias]
 	current-branch = rev-parse --abbrev-ref HEAD
 	publish = !git push -u origin `git current-branch`
@@ -35,7 +35,7 @@
 	history= log --full-diff -p
 	touched= ls-files --modified --other --exclude-standard
 [color]
-	ui = auto
+  ui = auto
 [color "diff-highlight"]
   oldNormal    = "red bold"
   oldHighlight = "red bold 52"
@@ -49,11 +49,11 @@
   new        = "green bold"
   whitespace = "red reverse"
 [filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
 [instaweb]
-	httpd = webrick
+  httpd = webrick
 [push]
-	default = current
+  default = current
 [pull]
-	rebase = true
+  rebase = true
