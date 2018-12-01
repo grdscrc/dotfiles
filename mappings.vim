@@ -52,6 +52,6 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 nnoremap <silent> <C-c> :let @+ = expand("%")<CR>
 
 " Remap <enter> & <backspace> to git hunk
-nnoremap <silent> <cr> :GitGutterNextHunk<cr>
-nnoremap <silent> <backspace> :GitGutterPrevHunk<cr>
+nnoremap <silent> <C-j> :GitGutterNextHunk<cr>
+nnoremap <silent> <C-k> :GitGutterPrevHunk<cr>
 

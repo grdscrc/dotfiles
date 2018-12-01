@@ -5,6 +5,8 @@ bind main <Ctrl-a> !git rebase --abort
 bind main <Ctrl-e> !git rebase --continue
 bind main <Ctrl-z> !git rebase --skip
 
+bind main N !git_cherry_nibble "%(commit)"
+
 bind status p !git add --patch %(file)
 bind status c !git commit -m "%(prompt Enter commit message : )"
 bind status a !git commit --amend

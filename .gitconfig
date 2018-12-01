@@ -13,27 +13,34 @@
   cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
   trustExitCode = true
 [alias]
-	current-branch = rev-parse --abbrev-ref HEAD
-	publish = !git push -u origin `git current-branch`
-	patch = add -p
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
-	co = checkout
-	com = checkout master
-	newb = checkout -b
-	wip = commit -am '--wip-- [skip ci]'
-	pop = reset HEAD^
-	rekt = checkout -- .
-	bruv = branch -vv
-	bd = branch -d
-	bD = branch -D
-	ci = commit
-	s = status --porcelain
-	rbim = rebase --interactive origin/master
-	watch = !watch -t -c git -c color.status=always status
-	shove = push --force-with-lease
-	diffnames= diff --name-only
-	history= log --full-diff -p
-	touched= ls-files --modified --other --exclude-standard
+  current-branch = rev-parse --abbrev-ref HEAD
+  publish = !git push -u origin `git current-branch`
+  patch = add -p
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
+  co = checkout
+  com = checkout master
+  n = checkout -b
+  newb = checkout -b
+  wip = commit -am '--wip-- [skip ci]'
+  pop = reset HEAD^
+  rekt = checkout -- .
+  br = branch
+  bra = branch -v
+  branch = branch -vv
+  bd = branch -d
+  bD = branch -D
+  ci = commit
+  s = status --porcelain
+  rbim = rebase --interactive origin/master
+  watch = !watch -t -c git -c color.status=always status
+  shove = push --force-with-lease
+  diffnames= diff --name-only
+  history= log --full-diff -p
+  touched= ls-files --modified --other --exclude-standard
+  mastermerged= branch --merged master
+  please = !echo "Run git push --force-with-lease ? [y/n]" && read choice && [[ $choice == 'y' ]] && git push --force-with-lease
+  dmh = diff --name-only master HEAD
+  dmhp= diff master HEAD
 [color]
   ui = auto
 [color "diff-highlight"]
