@@ -8,6 +8,7 @@ alias t="trash"
 alias tailf='tail -f'
 alias openports='lsof -Pan -i tcp -i udp'
 alias binds="bind -P | grep 'can be'"
+alias gerp="grep -v grep | grep"
 alias shortcuts="cat $HOME/shortcuts"
 # Find out if any duplicate file exist in the current directory (From https://twitter.com/climagic)
 alias dups="shasum * | awk -F' ' '_[$1]++'"

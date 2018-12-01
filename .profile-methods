@@ -1,60 +1,10 @@
-function httpless {
-  # `httpless example.org'
-  http --pretty=all --print=hb "$@" | less -R;
-}
-
 function mkcd {
   mkdir "$@" && cd "$@";
 }
 
-function choose {
-  # Simple lunch location decider. Separate possibilities with ','
-  # From https://twitter.com/climagic
-  randomized_choices=$(echo "$@" | tr ',' '\n' | gshuf)
-
-  head -1 $randomized_choices
-}
-
-function deploy {
-	if [ -z "$1" ] || [ -z "$2" ]; then # Less than 2 parameters
-		echo "Usage : deploy <rails|php> <staging|integration|production> [<branch>] [--migrate]"
-		return 0
-	fi
-
-	language=$1
-	env=$2
-	
-	if [ "$language" = "php" ] && [ "$env" = "staging" ]; then
-		env=stage
-	fi
-
-	if [ -z "$3" ]; then
-		branch="$(git rev-parse --abbrev-ref HEAD)"
-	else
-		branch=$3
-	fi
-
-	action=deploy
-	if [ "$4" = "--migrate" ]; then
-		action=$action\:migrations
-	fi
-
-	set -x
-
-	case "$language" in
-		rails)
-			cap $env $action -S branch=$branch
-			;;
-		php)
-			./deploy.sh $env $branch
-			;;
-	esac
-}
-
 function swop {
   if [ $# -ne 2 ]; then # Less than 2 parameters
-    >&2 echo "Usage : swop <regex to replace> <replacement>"
-    return 0
+    >&2 echo "Usage : swop <regex to replace> <replacement>" && return 0
   fi
 
   ack -l "$1" | xargs perl -pi -E "s/$1/$2/g";
@@ -62,4 +12,40 @@ function swop {
 
 function hush {
   $@ 2> /dev/null
+}
+
+function errcho {
+  (>&2 echo $@)
+}
+
+function git_cherry_nibble {
+  if [ $# -ne 1 ]; then # Other than 1 parameter
+    >&2 echo "Usage : git_cherry_nibble <commit hash>"
+    return 0
+  fi
+
+  git cherry-pick $1 && git reset --soft HEAD
+}
+
+function git_pop_branch {
+  branchtopop=$(git current-branch)
+  git checkout master
+  git branch --delete $branchtopop
+}
+
+function deploy_sisra_proxy {
+  echo $@
+  DIR=`pwd`
+  cd /Users/igor/work/syadem/sisra-ws-security-proxy
+  gradle build
+  ./deploy.sh $@
+  cd $DIR
+}
+
+function log_sisra_proxy {
+  if [[ $1 == "local" ]]; then
+    tail -f /Users/igor/work/syadem/sisra-ws-security-proxy/log/development.log
+  else
+    hm ssh $1 prv "tail -f /opt/sisra_ws_security_proxy/sisra_ws_security_proxy.log"
+  fi
 }
