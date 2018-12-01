@@ -12,6 +12,20 @@ export HISTSIZE=9001 # Reasonable HISTSIZE
 # erasedups - causes all previous lines matching the current line to be removed from the history list before that line is saved
 export HISTCONTROL=ignoreboth:erasedups
 
+if [[ -z $TMUX ]]; then # Outside tmux
+  tmux start-server
+
+  detached_sessions=$(tmux list-sessions | grep -v '(attached)')
+  if [[ -z $detached_sessions ]]; then
+    tmux new-session
+  else
+    first_detached_session=$(echo $detached_sessions | head -n1 | awk -F':' '{print $1}')
+    tmux attach-session -t $first_detached_session
+  fi
+
+  exit
+fi
+
 # Pasted from bitbucket
 export SSH_ENV=$HOME/.ssh/environment
 
@@ -45,4 +59,4 @@ source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 source $HOME/.rbenv.sh
 
-source $HOME/.syadem-profile
+source $HOME/.professional-profile
