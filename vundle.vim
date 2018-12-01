@@ -30,6 +30,12 @@ Plugin 'mattn/emmet-vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+Plugin 'mileszs/ack.vim'
+
+Plugin 'pearofducks/ansible-vim'
+
+Bundle 'bilalq/lite-dfm'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required

@@ -1,1 +1,5 @@
 .secrets
+.vim-tree
+vim/autoload/*
+vim/bundle/*
+vim/plugin/*
