@@ -6,9 +6,8 @@ if [[ "$PROFILE_STARTUP" == true ]]; then
   setopt xtrace prompt_subst
 fi
 
-
-source $HOME/.profile
 export SHELL=/bin/zsh
+export DOTFILES=~/.config
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -119,4 +118,13 @@ unsetopt histverify # Do not confirm substitutions
 
 # setopt promptsubst
 # PS1=$'%U${(r:$COLUMNS:: :)}%u'$PS1
-export PATH="/usr/local/opt/ansible@2.0/bin:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/igor/.sdkman"
+[[ -s "/Users/igor/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/igor/.sdkman/bin/sdkman-init.sh"
+
+DISABLE_AUTO_TITLE=true
+
+source $HOME/.profile
+
+source $HOME/.professional-profile
