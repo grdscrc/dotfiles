@@ -1,0 +1,21 @@
+
+stage_current_branch()
+{
+	if [ -z "$1" ] && [ -z "$2" ] # No parameters
+	then
+		echo "Two parameters should be supplied : <language> and <env>"
+		return 0
+	fi
+
+	current_branch=git current-branch
+
+	if [ "$1" == "rails" ]
+	then
+		echo "cap $2 deploy -S branch=$current_branch"
+	else if [ "$1" == "php" ]
+	then
+		echo "./deploy.sh $2 $current_branch"
+	fi
+	return 0
+}
+

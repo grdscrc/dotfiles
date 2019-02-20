@@ -1,6 +1,7 @@
 PROFILE_STARTUP=false
 if [[ "$PROFILE_STARTUP" == true ]]; then
   # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+  # %(1j.%j.)
   PS4=$'%D{%M%S%.} %N:%i> '
   exec 3>&2 2>$HOME/tmp/startlog.$$
   setopt xtrace prompt_subst
@@ -120,3 +121,5 @@ unsetopt histverify # Do not confirm substitutions
 # Hackerman (Syadem utility)
 eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
 
+# setopt promptsubst
+# PS1=$'%U${(r:$COLUMNS:: :)}%u'$PS1

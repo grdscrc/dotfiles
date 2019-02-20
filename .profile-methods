@@ -49,3 +49,11 @@ function deploy {
 	esac
 }
 
+function swap {
+  if [ -z "$1" ] || [ -z "$2" ]; then # Less than 2 parameters
+    echo "Usage : swap <to replace> <replacement>"
+    return 0
+  fi
+
+  ack -l "$1" | xargs perl -pi -E "s/$1/$2/g";
+}

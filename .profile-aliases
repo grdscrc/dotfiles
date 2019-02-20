@@ -36,3 +36,5 @@ alias colibrish='hm console local colibri'
 alias nokogiriplease='gem install nokogiri -v '1.6.8' -- --use-system-libraries --with-xml2-include=$(brew --prefix libxml2)/include/libxml2'
 
 alias canary='/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
+
+alias softup='softwareupdate'

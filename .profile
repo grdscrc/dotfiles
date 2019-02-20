@@ -37,12 +37,21 @@ fi
 
 . `brew --prefix`/etc/profile.d/z.sh
 
-source $HOME/.secrets # For secret things such as api tokens
-source $HOME/.profile-aliases
-source $HOME/.profile-methods
-source $HOME/.git-completion.sh
-source $HOME/.rbenv.sh
+. $HOME/.secrets # For secret things such as api tokens
+. $HOME/.profile-aliases
+. $HOME/.profile-methods
+. $HOME/.git-completion.sh
+. $HOME/.rbenv.sh
+
+. $HOME/.syadem-profile
 
 eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
 eval "$(/Users/igor/work/syadem/hackerman/bin/hm init -)"
 
+export GOOGLE_API_KEY="no"
+export GOOGLE_DEFAULT_CLIENT_ID="no"
+export GOOGLE_DEFAULT_CLIENT_SECRET="no"
+
+# ssh-add ~/.ssh/mesvaccins-igor
+
+MYSQL_CONTAINER=mv-development-database

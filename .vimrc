@@ -18,4 +18,3 @@ source ~/dotfiles/autocmd.vim
 source ~/dotfiles/theme.vim
 source ~/dotfiles/plugins.vim
 
-
