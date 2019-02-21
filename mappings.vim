@@ -13,6 +13,9 @@ nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>l <C-W><C-L>
 nnoremap <Leader>h <C-W><C-H>
 
+nnoremap <Leader>s :GitGutterStageHunk<CR>
+nnoremap <Leader>c :!git commit<CR>
+
 " Run current file
 nnoremap <leader>r :!%:p<CR>
 

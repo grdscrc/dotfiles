@@ -6,11 +6,12 @@ bind main <Ctrl-e> !git rebase --continue
 bind main <Ctrl-z> !git rebase --skip
 
 bind main N !git_cherry_nibble "%(commit)"
+bind main <Ctrl-f> !git commit --fixup "%(commit)"
 
 bind status p !git add --patch %(file)
 bind status c !git commit -m "%(prompt Enter commit message : )"
 bind status a !git commit --amend
-bind status w !git wip
+bind status w !gwip
 
 bind diff C stage-split-chunk
 bind stage C stage-split-chunk
@@ -20,8 +21,6 @@ bind stash a !git stash apply %(stash)
 bind stash p !git stash pop
 
 bind refs B !git checkout -b "%(prompt Enter branch name : )"
-
-bind main <Ctrl-f> !git commit --fixup "%(commit)"
 
 # Show commit id in main view
 set main-view-id = yes
