@@ -28,9 +28,9 @@ inoremap <C-U> <C-G>u<C-U>
 
 imap jk <Esc>
 
-" set backupdir=~/.vim/backup/
-" set directory=~/.vim/swap/
-" set undodir=~/.vim/undo/
+set backupdir=~/.vim/backup/
+set directory=~/.vim/swap/
+set undodir=~/.vim/undo/
 
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
