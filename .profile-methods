@@ -49,3 +49,22 @@ function log_sisra_proxy {
     hm ssh $1 prv "tail -f /opt/sisra_ws_security_proxy/sisra_ws_security_proxy.log"
   fi
 }
+
+function nokogiripleasewithversion {
+  version="$1"
+  libxml2_prefix=$(brew --prefix libxml2)
+  gem install nokogiri -v "$version" -- \
+    --use-system-libraries \
+    --with-xml2-include="$libxml2_prefix"/include/libxml2
+}
+
+function colp {
+  column_ref=$1
+  awk "{print \$$column_ref}"
+}
+
+function gchain {
+  for command in "$@"; do
+    echo $command | xargs git
+  done
+}

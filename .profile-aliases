@@ -1,6 +1,5 @@
 # Practices
-alias ls='ls -G'
-alias ll='ls -l'
+alias ls='ls -Ghl'
 alias la='ls -ahlT'
 alias rm='rm -i'
 alias mv='mv -i'
@@ -29,6 +28,7 @@ alias ghostscript='/usr/local/bin/gs' # Since `gs` is aliased to `git s`
 
 # Vim
 alias v='vim'
+alias vargs='xargs -o vim' # without -o, xargs sets stdin to /dev/null, which breaks vim and the terminal
 
 alias rg='ranger'
 alias ttytter='rlwrap ttytter'
@@ -59,3 +59,24 @@ alias secondcolumn='awk '\''{print $2}'\'''
 
 alias doco='docker-compose'
 
+alias touchwip='touch $(git ls-files -m)'
+alias vimwip='vim $(git ls-files --modified --other --exclude-standard)'
+
+alias tmvx="tmux new-window -n 'mvx server' \"hm attach mvx\""
+alias tcolibri="tmux new-window -n 'colibri server' \"hm attach colibri\""
+
+wsdlDir=/Users/igor/work/syadem/sisra-ws-security-proxy/src/main/resources/wsdl/
+alias wsdllinkproduction="(cd $wsdlDir/ && ln -fs wsdl_production.xml $wsdlDir/sisra.wsdl && ls -l sisra.wsdl)"
+alias wsdllinkrecette="(cd $wsdlDir/ && ln -fs wsdl_recette.xml $wsdlDir/sisra.wsdl && ls -l sisra.wsdl)"
+
+alias dphpunit='docker exec mv-development-php-app bash -c "CT_VERSION_TEST=ENV_TEST  ./vendor/bin/phpunit --bootstrap tests/autoload.php tests"'
+
+alias tstart="tmux a || tmux"
+
+alias trenum="tmux move-window -r"
+
+alias ncdu="ncdu --color dark"
+
+alias restart_all_mvn='hm ssh prod prv "sudo /etc/init.d/apache2 restart" && (cd ~/syadem/work/mvx && cap production deploy:restart sidekiq:restart) && (cd ~/syadem/work/colibri && cap production deploy:restart sidekiq:restart)'
+
+alias docker_ps_thin='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
