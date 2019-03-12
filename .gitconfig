@@ -38,7 +38,8 @@
   watch = !watch -t -c git -c color.status=always status
   shove = push --force-with-lease
   diffnames= diff --name-only
-  mhdiff= diff master HEAD
+  branchdiff= diff master HEAD
+  branchdiffnames= diff master HEAD --name-only
   history= log --full-diff -p
   touched= ls-files --modified --other --exclude-standard
   mastermerged= branch --merged master
