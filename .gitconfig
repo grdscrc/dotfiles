@@ -29,6 +29,7 @@
   rekt = checkout -- .
   br = branch
   branches = branch -vv
+  fossils = !git branch --merged|grep -v '*'
   head = rev-parse HEAD
   bd = branch -d
   bD = branch -D
