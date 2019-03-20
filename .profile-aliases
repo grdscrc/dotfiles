@@ -80,3 +80,8 @@ alias ncdu="ncdu --color dark"
 alias restart_all_mvn='hm ssh prod prv "sudo /etc/init.d/apache2 restart" && (cd ~/syadem/work/mvx && cap production deploy:restart sidekiq:restart) && (cd ~/syadem/work/colibri && cap production deploy:restart sidekiq:restart)'
 
 alias docker_ps_thin='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
+
+alias om='overmind'
+alias lg='ls-go -abn'
+
+alias watchlist="cat ~/Dropbox/hundred_movies.json|jq -c 'sort_by(.rank)|.[]|select(.seen|not)'"
