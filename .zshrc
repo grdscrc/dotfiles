@@ -16,7 +16,11 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="kolo"
+ZSH_THEME="spaceship"
+SPACESHIP_DOCKER_SHOW=false
+SPACESHIP_EXEC_TIME_SHOW=false
+SPACESHIP_EXIT_CODE_SHOW=true
+SPACESHIP_TIME_SHOW=true
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
