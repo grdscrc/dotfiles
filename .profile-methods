@@ -68,3 +68,15 @@ function gchain {
     echo $command | xargs git
   done
 }
+
+function rjq {
+  if [[ $# < 1 ]]; then
+    >&2 echo 'rjson $remote:$path $json_selector'
+    return 0
+  fi
+  rclone lsjson $1 | jq $2
+}
+
+function agv {
+  ag -l "$1" | xargs -o vim +/"$1"
+}
