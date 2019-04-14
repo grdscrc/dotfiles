@@ -58,3 +58,5 @@ source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 source $HOME/.rbenv.sh
+
+xcode-select --install 2>/dev/null

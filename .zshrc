@@ -17,10 +17,16 @@ export ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="spaceship"
+
 SPACESHIP_DOCKER_SHOW=false
 SPACESHIP_EXEC_TIME_SHOW=false
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
+
+if [[ ! -d "$ZSH_CUSTOM/themes/spaceship.zsh-theme" ]]; then
+  git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+  ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -131,4 +137,4 @@ DISABLE_AUTO_TITLE=true
 
 source $HOME/.profile
 
-source $HOME/.professional-profile
+test -f $HOME/.professional-profile && source $HOME/.professional-profile
