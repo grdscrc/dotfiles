@@ -1,5 +1,5 @@
 # Practices
-alias ls='ls -Ghl'
+alias ls='ls -Gh'
 alias la='ls -ahlT'
 alias rm='rm -i'
 alias mv='mv -i'
@@ -81,7 +81,17 @@ alias restart_all_mvn='hm ssh prod prv "sudo /etc/init.d/apache2 restart" && (cd
 
 alias docker_ps_thin='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Names}}"'
 
+alias brew_tally="brew outdated|tee ~/.brew_outdated_packages|wc -l|xargs echo 'Brew outdated packages:'"
+alias brew_upgrade="brew upgrade < ~/.brew_outdated_packages"
+
+alias diff='colordiff'
+
 alias om='overmind'
 alias lg='ls-go -abn'
 
 alias watchlist="cat ~/Dropbox/hundred_movies.json|jq -c 'sort_by(.rank)|.[]|select(.seen|not)'"
+
+alias piprun='pipenv run'
+alias pmol='piprun molecule'
+
+alias tig='tig status'
