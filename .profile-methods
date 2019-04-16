@@ -78,5 +78,45 @@ function rjq {
 }
 
 function agv {
-  ag -l "$1" | xargs -o vim +/"$1"
+  ag -l $@ | xargs -o vim +/\\c"$1"
+}
+
+function change_case {
+  snake_head_regex='s/^([A-Z])/\L\1/g'
+  snake_inner_regex='s/([a-z0-9])([A-Z])/\1_\L\2/g'
+
+  camel_head_regex='s/^([a-z])/\L\1/g'
+  camel_inner_regex='s/(^|([a-z0-9])_)([A-Z])/\1_\L\2/g'
+
+  kebab_head_regex='s/^([A-Z])/\L\1/g'
+
+  if [[ $1 == "--snake" ]]; then
+    head_regex=$snake_head_regex
+    inner_regex=$snake_inner_regex
+  elif [[ $1 == "--camel" ]]; then
+    head_regex=$camel_head_regex
+    inner_regex=$camel_inner_regex
+  elif [[ $1 == "--kebab" ]]; then
+    head_regex=$kebab_head_regex
+    inner_regex=$camel_inner_regex
+  else
+    errcho "Invalid option $1"
+    return 0
+  fi
+
+  echo $2 | \
+    sed -E $inner_regex | \
+    sed -E $head_regex
+}
+
+function docker_bash {
+  container="$1"
+
+  docker exec -i $container bash -i
+}
+
+function between {
+  mark1=$1
+  mark2=$2
+  awk "/$mark1/{flag=1;next}/$mark2/{flag=0}flag"
 }
