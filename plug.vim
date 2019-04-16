@@ -2456,3 +2456,11 @@ endif
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
+
+call plug#begin('~/.vim/plugged')
+
+" Distraction-free mode
+Plug 'junegunn/goyo.vim'
+
+" Initialize plugin system
+call plug#end()

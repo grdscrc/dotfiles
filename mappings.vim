@@ -13,8 +13,11 @@ nnoremap <Leader>k <C-W><C-K>
 nnoremap <Leader>l <C-W><C-L>
 nnoremap <Leader>h <C-W><C-H>
 
-nnoremap <Leader>s :GitGutterStageHunk<CR>
+nnoremap <Leader>hg :GitGutterAll<CR>
+
 nnoremap <Leader>c :!git commit<CR>
+
+nnoremap <Leader>g :Goyo<CR>
 
 " Run current file
 nnoremap <leader>r :!%:p<CR>
@@ -26,6 +29,7 @@ map Q gq
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
+imap jkl <Esc>:w<CR>
 imap jk <Esc>
 
 set backupdir=~/.vim/backup/
