@@ -59,4 +59,6 @@ source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 source $HOME/.rbenv.sh
 
+brew_check_updates
+
 xcode-select --install 2>/dev/null
