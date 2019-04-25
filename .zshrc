@@ -23,10 +23,10 @@ SPACESHIP_EXEC_TIME_SHOW=false
 SPACESHIP_EXIT_CODE_SHOW=true
 SPACESHIP_TIME_SHOW=true
 
-if [[ ! -d "$ZSH_CUSTOM/themes/spaceship.zsh-theme" ]]; then
+function installZshSpaceship {
   git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
   ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-fi
+}
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
