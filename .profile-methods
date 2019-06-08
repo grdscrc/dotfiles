@@ -123,7 +123,11 @@ function between {
 }
 
 function brew_tally {
-  brew outdated|tee ~/.brew_outdated_packages|wc -l|xargs echo 'Brew outdated packages:'
+  brew outdated | \
+    grep -v "$(brew list --pinned)" | \
+    tee ~/.brew_outdated_packages | \
+    wc -l| \
+    xargs echo 'Brew outdated packages:'
 }
 
 function brew_upgrade {
@@ -131,13 +135,16 @@ function brew_upgrade {
 }
 
 function brew_check_updates {
-  if [[ ! -e ~/.braw_outdated_packages ]]; then
-    return
-  fi
-  since_last_check=$(( $(date +%s) - $(date -r ~/.brew_outdated_packages +%s) ))
-  seconds_in_a_day=$(( 24 * 60 * 60 ))
+  if [[ -e ~/.brew_outdated_packages ]]; then
+    (( since_last_check = $(date +%s) - $(date -r ~/.brew_outdated_packages +%s) ))
+    (( seconds_in_a_day = 24 * 60 * 60 ))
 
-  if (( $since_last_check > $seconds_in_a_day )); then
+    if (( $since_last_check > $seconds_in_a_day )); then
+      echo Outdated ~/.brew_outdated_packages
+      brew_tally
+    fi
+  else
+    echo Did not find ~/.brew_outdated_packages
     brew_tally
   fi
 }
