@@ -86,7 +86,7 @@ function change_case {
   snake_inner_regex='s/([a-z0-9])([A-Z])/\1_\L\2/g'
 
   camel_head_regex='s/^([a-z])/\L\1/g'
-  camel_inner_regex='s/(^|([a-z0-9])_)([A-Z])/\1_\L\2/g'
+  camel_inner_regex='s/([a-z0-9]_?)([A-Z])/\1\U\2/g'
 
   kebab_head_regex='s/^([A-Z])/\L\1/g'
 
@@ -101,12 +101,13 @@ function change_case {
     inner_regex=$camel_inner_regex
   else
     errcho "Invalid option $1"
+    errcho "Available options : --snake, --camel, --kebab"
     return 0
   fi
 
   echo $2 | \
-    sed -E $inner_regex | \
-    sed -E $head_regex
+    gsed -E $inner_regex | \
+    gsed -E $head_regex
 }
 
 function docker_bash {
