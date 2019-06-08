@@ -34,6 +34,7 @@
   bd = branch -d
   bD = branch -D
   ci = commit
+  cm = commit -m
   s = status --porcelain
   rbim = rebase --interactive origin/master
   watch = !watch -t -c git -c color.status=always status
@@ -71,6 +72,6 @@
 [pull]
   rebase = true
 [commit]
-  template = /Users/igor/.stCommitMsg
+	template = /Users/igor/.stCommitMsg
 [rebase]
   instructionFormat = %s [%an]

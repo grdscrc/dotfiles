@@ -16,6 +16,7 @@ alias dups="shasum * | awk -F' ' '_[$1]++'"
 # Git
 alias g='git'
 alias gs='git s'
+alias gsn='git s|colp 2'
 alias gci='git ci'
 alias gco='git co'
 alias gri='git rebase --interactive'
@@ -92,3 +93,5 @@ alias piprun='pipenv run'
 alias pmol='piprun molecule'
 
 alias tig='tig status'
+
+alias trake='RAILS_ENV=test rake'
