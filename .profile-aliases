@@ -31,7 +31,7 @@ alias ghostscript='/usr/local/bin/gs' # Since `gs` is aliased to `git s`
 alias v='vim'
 alias vargs='xargs -o vim' # without -o, xargs sets stdin to /dev/null, which breaks vim and the terminal
 
-alias rg='ranger'
+alias r='ranger'
 alias ttytter='rlwrap ttytter'
 alias jsc='/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Resources/jsc'
 alias fuck='eval $(thefuck $(fc -ln -1)); history -r'
