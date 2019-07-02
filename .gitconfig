@@ -42,12 +42,12 @@
   diffnames= diff --name-only
   branchdiff= diff master HEAD
   branchdiffnames= diff master HEAD --name-only
+  headdiff= diff master HEAD
+  headdiffnames = diff --name-only master HEAD
   history= log --full-diff -p
   touched= ls-files --modified --other --exclude-standard
   mastermerged= branch --merged master
   please = !echo "Run git push --force-with-lease ? [y/n]" && read choice && [[ $choice == 'y' ]] && git push --force-with-lease
-  dmh = diff --name-only master HEAD
-  dmhp= diff master HEAD
 [color]
   ui = auto
 [color "diff-highlight"]
