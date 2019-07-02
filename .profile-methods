@@ -63,6 +63,17 @@ function colp {
   awk "{print \$$column_ref}"
 }
 
+function line {
+  lineno="$1"
+  awk "FNR==$lineno"
+}
+
+function lines {
+  start="$1"
+  endd="$2"
+  awk "FNR>=$start && FNR<=$endd"
+}
+
 function gchain {
   for command in "$@"; do
     echo $command | xargs git
