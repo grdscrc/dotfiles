@@ -122,9 +122,17 @@ function change_case {
 }
 
 function docker_bash {
-  container="$1"
+  container_name="$1" # Accepts substring of name
 
-  docker exec -i $container bash -i
+  docker_container_id=$(docker ps -aqf "name=$container_name")
+
+  if [[ `echo "$docker_container_id" | wc -l` -gt 1 ]] ; then
+    >&2 echo Ambiguous container name
+    >&2 docker ps -af "name=$container_name"
+    return 0
+  fi
+
+  docker exec -it "$docker_container_id" bash -i
 }
 
 function between {
