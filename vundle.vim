@@ -35,6 +35,8 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 Plugin 'pearofducks/ansible-vim'
 
+Plugin 'rizzatti/dash.vim'
+
 Bundle 'bilalq/lite-dfm'
 
 " All of your Plugins must be added before the following line
