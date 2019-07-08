@@ -140,3 +140,4 @@ source $HOME/.profile
 test -f $HOME/.professional-profile && source $HOME/.professional-profile
 
 bindkey -v # ZSHZLE vi-mode
+export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
