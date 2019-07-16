@@ -20,5 +20,7 @@ source ~/dotfiles/autocmd.vim
 source ~/dotfiles/plugins.vim
 source ~/dotfiles/mappings.vim
 source ~/dotfiles/plug.vim
+
 source ~/dotfiles/surround.vim
 source ~/dotfiles/visual-at.vim
+source ~/dotfiles/nerdtree.vim

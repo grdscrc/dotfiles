@@ -39,6 +39,10 @@ Plugin 'rizzatti/dash.vim'
 
 Bundle 'bilalq/lite-dfm'
 
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required

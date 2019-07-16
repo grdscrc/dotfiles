@@ -62,3 +62,6 @@ nnoremap <silent> <C-c> :let @+ = expand("%")<CR>
 nnoremap <silent> <C-j> :GitGutterNextHunk<cr>
 nnoremap <silent> <C-k> :GitGutterPrevHunk<cr>
 
+nmap <Leader>nt :NERDTreeToggle<CR>
+nmap <Leader>nf :NERDTreeFind<CR>
+nmap <Leader>tt :TagbarToggle<CR>
