@@ -59,6 +59,8 @@ source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 source $HOME/.rbenv.sh
 
-brew_check_updates
+brew outdated --json \
+  | jq '.[]|select(.pinned|not)|.name' \
+  | xargs echo Brew outdated : 
 
 xcode-select --install 2>/dev/null

@@ -1,11 +1,11 @@
 [core]
   quotepath = false
-	excludesfile = /Users/igor/.gitignore_global
+  excludesfile = /Users/igor/.gitignore_global
   autocrlf = input
   pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
-	name = Igor Descayrac
-	email = igor.descayrac@gmail.com
+  name = Igor Descayrac
+  email = igor.descayrac@gmail.com
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -45,6 +45,8 @@
   headdiff= diff master HEAD
   headdiffnames = diff --name-only master HEAD
   history= log --full-diff -p
+  modified= ls-files --modified --exclude-standard
+  out= ls-files --others --exclude-standard
   touched= ls-files --modified --other --exclude-standard
   mastermerged= branch --merged master
   please = !echo "Run git push --force-with-lease ? [y/n]" && read choice && [[ $choice == 'y' ]] && git push --force-with-lease
@@ -72,6 +74,6 @@
 [pull]
   rebase = true
 [commit]
-	template = /Users/igor/.stCommitMsg
+  template = /Users/igor/.stCommitMsg
 [rebase]
   instructionFormat = %s [%an]

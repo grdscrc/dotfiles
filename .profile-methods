@@ -3,11 +3,11 @@ function mkcd {
 }
 
 function swop {
-  if [ $# -ne 2 ]; then # Less than 2 parameters
-    >&2 echo "Usage : swop <regex to replace> <replacement>" && return 0
+  if [ $# -ne 2 ] && [ $# -ne 3 ]; then
+    >&2 echo "Usage : swop <regex to replace> <replacement> [directory or files to process]" && return 0
   fi
 
-  ack -l "$1" | xargs perl -pi -E "s/$1/$2/g";
+  ack -l "$1" "$3" | xargs perl -pi -E "s/$1/$2/g";
 }
 
 function hush {
@@ -174,4 +174,8 @@ function af {
   regex="$@"
 
   ag -l "$regex" && fd "$regex"
+}
+
+function tmig {
+  rake db:migrate:status|tail -$1
 }
