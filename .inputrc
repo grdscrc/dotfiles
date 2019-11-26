@@ -1,2 +1,4 @@
-#set editing-mode vi # When you're older son
+set editing-mode vi
+bindkey -v # Ensure vi-mode on zsh
+set keymap vi-command
 set blink-matching-paren on
