@@ -10,8 +10,15 @@
 "   source $DOTFILES/vim/vimrc
 " endif
 " 
+" # pathogen
+" mkdir -p ~/.vim/autoload ~/.vim/bundle && \
+" curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 execute pathogen#infect()
+
+" # Vundle
+" Ensure that :
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 source ~/dotfiles/settings.vim
 source ~/dotfiles/theme.vim
