@@ -1,6 +1,6 @@
 [core]
   quotepath = false
-  excludesfile = /Users/igor/.gitignore_global
+	excludesfile = /Users/igor/.gitignore_global
   autocrlf = input
   pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
@@ -10,7 +10,7 @@
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 [mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 [alias]
   current-branch = rev-parse --abbrev-ref HEAD
