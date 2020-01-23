@@ -4,8 +4,8 @@
   autocrlf = input
   pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
-  name = Igor Descayrac
-  email = igor.descayrac@gmail.com
+	name = Igor Descayrac
+	email = igor.descayrac@gmail.com
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
@@ -74,6 +74,6 @@
 [pull]
   rebase = true
 [commit]
-  template = /Users/igor/.stCommitMsg
+	template = /Users/igor/.stCommitMsg
 [rebase]
   instructionFormat = %s [%an]

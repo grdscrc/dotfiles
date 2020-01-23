@@ -25,6 +25,8 @@ alias grec='git rebase --continue'
 alias grabort='git rebase --abort'
 alias gresk='git rebase --skip'
 
+alias gremoteurl="git remote -v | grep fetch | awk '{print \$2}' | sed 's/git@/http:\/\//' | sed 's/com:/com\//'"
+
 alias ghostscript='/usr/local/bin/gs' # Since `gs` is aliased to `git s`
 
 # Vim
@@ -95,3 +97,5 @@ alias pmol='piprun molecule'
 alias tig='tig status'
 
 alias trake='RAILS_ENV=test rake'
+
+alias x='xargs'

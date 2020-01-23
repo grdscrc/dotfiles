@@ -12,7 +12,7 @@ export HISTSIZE=9001 # Reasonable HISTSIZE
 # erasedups - causes all previous lines matching the current line to be removed from the history list before that line is saved
 export HISTCONTROL=ignoreboth:erasedups
 
-if [[ -z $TMUX ]]; then # Outside tmux
+if [[ ! -z $ENABLE_TMUX && -z $TMUX ]]; then # Outside tmux
   tmux start-server
 
   detached_sessions=$(tmux list-sessions | grep -v '(attached)')
