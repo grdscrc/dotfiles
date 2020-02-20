@@ -24,6 +24,8 @@
   com = checkout master
   n = checkout -b
   newb = checkout -b
+  cob = checkout -b
+  chep = cherry-pick
   wip = commit -am '--wip-- [skip ci]'
   pop = reset HEAD^
   rekt = checkout -- .
@@ -37,6 +39,9 @@
   cm = commit -m
   s = status --porcelain
   rbim = rebase --interactive origin/master
+  continue = rebase --continue
+  abort = rebase --abort
+  skip = rebase --skip
   watch = !watch -t -c git -c color.status=always status
   shove = push --force-with-lease
   diffnames= diff --name-only
@@ -50,6 +55,8 @@
   touched= ls-files --modified --other --exclude-standard
   mastermerged= branch --merged master
   please = !echo "Run git push --force-with-lease ? [y/n]" && read choice && [[ $choice == 'y' ]] && git push --force-with-lease
+  pullo = !git checkout develop && git pull && git checkout -
+  pullm = !git checkout master && git pull && git checkout -
 [color]
   ui = auto
 [color "diff-highlight"]
@@ -74,6 +81,6 @@
 [pull]
   rebase = true
 [commit]
-	template = /Users/igor/.stCommitMsg
+  template = /Users/igor/.stCommitMsg
 [rebase]
   instructionFormat = %s [%an]
