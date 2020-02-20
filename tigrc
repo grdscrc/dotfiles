@@ -1,4 +1,4 @@
-bind main H !@sh -c "git show -s --format=%H "%(commit)"|pbcopy" # Copy commit hash
+bind main H +sh -c "git show -s --format=%H "%(commit)"|pbcopy && echo Copied commit hash $(pbpaste)"
 
 bind main <Ctrl-r> !git rebase -i --autosquash "%(commit)"
 bind main <Ctrl-a> !git rebase --abort
@@ -27,7 +27,7 @@ set main-view-id = yes
 set main-view-date = no
 set main-view-author-display = abbreviated
 
-bind status T !touch %(file)
+bind status T @touch %(file)
 
 # set main-view-commit-title-graph = no
 set main-view-author-display = no
