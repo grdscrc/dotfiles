@@ -49,16 +49,13 @@ else
   start_agent;
 fi
 
-. `brew --prefix`/etc/profile.d/z.sh
+ls `brew --prefix`/etc/profile.d/z.sh 2> /dev/null && . `brew --prefix`/etc/profile.d/z.sh
 
-source $HOME/.secrets # For secret things such as api tokens
+ls $HOME/.secrets 2> /dev/null && source $HOME/.secrets # For secret things such as api tokens
 source $HOME/.profile-aliases
 source $HOME/.profile-methods
 source $HOME/.git-completion.sh
 source $HOME/.rbenv.sh
 
-brew outdated --json \
-  | jq '.[]|select(.pinned|not)|.name' \
-  | xargs echo Brew outdated : 
 
 xcode-select --install 2>/dev/null
