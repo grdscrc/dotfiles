@@ -179,3 +179,36 @@ function af {
 function tmig {
   rake db:migrate:status|tail -$1
 }
+
+function testaing {
+  method=$1
+  shift
+
+  endpoint='http://localhost:3008/testaing'
+  header="Content-Type: application/json"
+  case $method in
+    start)
+      payload='{"action":"create", "type":"resources"}'
+
+      set -x && curl $endpoint -X POST -d $payload -H "$header"
+      ;;
+    random)
+      set -x && curl $endpoint -X POST -d '{"random": "true"}' -H "$header"
+      ;;
+    stop)
+      set -x && curl $endpoint/stop -H "$header"
+      ;;
+    ping)
+      set -x && curl $endpoint/ping -H "$header"
+      ;;
+    reset)
+      set -x && curl $endpoint/reset -H "$header"
+      ;;
+    cleanup)
+      set -x && curl $endpoint/clean-up -H "$header"
+      ;;
+    *)
+      >&2 echo "Usage : testaing [[start] [object] [amount]|'random'|'stop'|'ping'|'reset'|'cleanup']" && return 0
+      ;;
+  esac
+}
