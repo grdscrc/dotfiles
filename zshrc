@@ -239,3 +239,5 @@ if [ -z "$TMUX" ]; then ; echo 'type "mux start petal" to get started'; fi
 
 bindkey -M vicmd '^T' fzf-file-widget
 bindkey -M viins '^T' fzf-file-widget
+bindkey -M vicmd '^R' fzf-history-widget
+bindkey -M viins '^R' fzf-history-widget
