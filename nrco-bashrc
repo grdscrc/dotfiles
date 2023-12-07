@@ -8,6 +8,10 @@ case $- in
       *) return;;
 esac
 
+if [[ ! "$PROMPT_COMMAND" =~ "history" ]]; then
+	export PROMPT_COMMAND="history -a;"
+fi
+
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -16,8 +20,12 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+mkdir -p ~/.bash_histories
+# export HISTFILE="$HOME/.bash_histories/$(basename $(tty))_$(date '+%Y-%m-%d')"
+export HISTFILE="$HOME/.bash_histories/$(date '+%Y-%m')"
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -161,6 +169,7 @@ warn_azerty() {
 
 alias .b=". ~/.bashrc"
 alias v.b="vim ~/.bashrc"
+alias v.v="vim ~/.vimrc"
 alias ew="warn_azerty; ez"
 alias bat=batcat
 alias baj="bat --language json"
@@ -172,6 +181,7 @@ alias jz=jqfz
 alias fugitive='rename_terminal "fugitive"; vim +:Git +:"q 2"'
 alias fug=fugitive
 alias npz="jq -r '.scripts|keys[]' package.json |fzf --height=10 --preview='jq \'.scripts.\\\"{}\\\"' package.json\""
+alias ub=unbuffer
 
 # trash() { mkdir ~/.trash 2> /dev/null ; mv "$@" ~/.trash/ ; }
 
@@ -272,7 +282,9 @@ curl_text() {
 }
 
 rename_terminal() {
-	echo -ne "\033]0;"$1"\007"
+	dir=`pwd | cut -d "/" -f $(($(grep -o "/" <<< $(pwd) | wc -l) + 1))`
+	name=${1:-$dir}
+	echo -ne "\033]0;"$name"\007"
 }
 alias rt=rename_terminal
 
