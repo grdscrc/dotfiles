@@ -188,6 +188,7 @@ PATH="/usr/texbin:$PATH"
 PATH="/usr/local/opt/go/libexec/bin:$PATH"
 GOPATH="$HOME/go"
 PATH="$GOPATH/bin:$PATH"
+PATH="/opt/homebrew/bin:$PATH"
 
 # Rbenv shims
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi 
@@ -233,9 +234,9 @@ bindkey -v # ZSHZLE vi-mode
 export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
 
 # Use z to jump around
-. /usr/local/etc/profile.d/z.sh
+. /opt/homebrew/etc/profile.d/z.sh
 
-if [ -z "$TMUX" ]; then ; echo 'type "mux start petal" to get started'; fi
+if [ -z "$TMUX" ]; then ; echo 'WARNING: outside of tmux'; fi
 
 bindkey -M vicmd '^T' fzf-file-widget
 bindkey -M viins '^T' fzf-file-widget

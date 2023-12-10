@@ -88,3 +88,5 @@ alias tig='tig status'
 alias trake='RAILS_ENV=test rake'
 
 alias x='xargs'
+
+alias ez='eza --long'
