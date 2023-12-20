@@ -153,6 +153,7 @@ gco() {
 }
 
 alias ez="eza -l --git --git-repos --sort=time"
+alias et="ez --tree"
 warn_azerty() {
 	KILL_LEFT=\\033\[1K
 	KILL_RIGHT=\\033\[0K
@@ -178,7 +179,7 @@ alias jfz="jq -r 'paths(scalars) as \$p | [(\$p | join(\".\")), getpath(\$p)] | 
 alias pz="pbpaste | jfz"
 alias curly="curl -s -o /dev/null -w '%{http_code}\n'"
 alias jz=jqfz
-alias fugitive='rename_terminal "fugitive"; vim +:Git +:"q 2"'
+alias fugitive='vim +:Git +:"q 2"'
 alias fug=fugitive
 alias npz="jq -r '.scripts|keys[]' package.json |fzf --height=10 --preview='jq \'.scripts.\\\"{}\\\"' package.json\""
 alias ub=unbuffer
@@ -220,7 +221,7 @@ export PS1="\[\e[$GREEN\]\u\[\e[0m\]@"
 #PS1=$PS1"\[\e[$BLUE\]\h "
 PS1=$PS1"\[\e[$BLUE\]"
 PS1=$PS1"\[\e[22m\]\w \[\e[0m\]"
-PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\$ "
+PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n> "
 
 # Enable keybindings for fzf
 # source /usr/share/doc/fzf/examples/key-bindings.bash
@@ -289,3 +290,5 @@ rename_terminal() {
 alias rt=rename_terminal
 
 source ~/.secrets
+alias dctail="docc logs --follow"
+
