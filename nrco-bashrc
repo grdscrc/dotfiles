@@ -135,10 +135,14 @@ export NVM_DIR="$HOME/.nvm"
 alias fd='fdfind'
 alias g='git'
 alias docc=docker-compose
+alias dctail='docker-compose logs --follow'
 alias dps="docker ps --format=\"table {{.Names}}\t{{.Status}}\t{{.Image}}\""
 alias dcps="docker-compose ps --format=\"table {{.Name}}\t{{.Status}}\t{{.Image}}\""
 alias v="vim"
 
+epoch () {
+	date +"%s"
+}
 nanoseconds () {
 	PRECIS=$1
 	date +"%${PRECIS}N"
@@ -306,4 +310,20 @@ alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe"
 zrt() {
 	z $1 && rt $1
 }
+alias err='echo >&2'
 
+loop(){
+	while true; do
+		eval $*
+
+		echo -n 3.0
+		for i in {2..0}; do
+			for j in {9..0}; do
+				sleep 0.1
+				echo -ne "\r$i.$j"s
+			done
+		done
+		echo -ne "\033[2K\r"
+	done
+}
+alias lp=loop
