@@ -7,6 +7,7 @@
 	directory = /home/unix/dev/eidos-article-panel
 	directory = /home/unix/dev/nrco-sysdoc-recette
 	directory = /home/unix/dev/redway-digiteka-api
+	directory = /home/unix/dev/eidos-cross-panel
 
 [alias]
 	amend = commit --amend
@@ -22,6 +23,8 @@
 	publish = !git push -u origin HEAD
 	coz = !git branch |fzf --height=`git branch|wc -l|awk '{print $1+2}'`|xargs git checkout
 	actors = diff --name-only
+	forest = branch -vv
+	f = forest
 
 [format]
 	pretty = "%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset"

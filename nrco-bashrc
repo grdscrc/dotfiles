@@ -150,7 +150,7 @@ alias milliseconds="nanoseconds 3"
 gco() {
 	git branch |
 		grep -v "^\*" |
-		fzf --height=20% --reverse --info=inline |
+		fzf --query=$1 --height=20% --reverse --info=inline |
 		xargs git checkout
 }
 
@@ -215,7 +215,7 @@ git_in_prompt() {
 	fi
 }
 
-# export PS1='\[\e[38;5;46;3m\]\u\[\e[0m\]@\[\e[38;5;33;1m\]\h \[\e[22m\]\w \[\e[0m\]\[\e[38;5;204m\]$(parse_git_branch)\[\e[0m\]\$ '
+# SET PS1
 GREEN="38;5;46;3m"
 BLUE="38;5;33;1m"
 RED="38;5;204m"
@@ -223,7 +223,7 @@ export PS1="\[\e[$GREEN\]\u\[\e[0m\]@"
 #PS1=$PS1"\[\e[$BLUE\]\h "
 PS1=$PS1"\[\e[$BLUE\]"
 PS1=$PS1"\[\e[22m\]\w \[\e[0m\]"
-PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n> "
+PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n$ "
 
 # Enable keybindings for fzf
 # source /usr/share/doc/fzf/examples/key-bindings.bash
@@ -302,4 +302,8 @@ c() {
 	echo code $dir \&
 }
 
+alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe"
+zrt() {
+	z $1 && rt $1
+}
 
