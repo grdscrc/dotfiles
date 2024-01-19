@@ -24,9 +24,11 @@
 	upstream = !git rev-parse --abbrev-ref $(git head)@{upstream}
 	publish = !git push -u origin HEAD
 	coz = !git branch |fzf --height=`git branch|wc -l|awk '{print $1+2}'`|xargs git checkout
-	actors = diff --name-only
-	forest = branch -vv
-	f = forest
+	d = diff --name-only
+	branches = branch -vv
+	f = fetch
+	h = log --pretty=format:'%h'
+	H = log --pretty=format:'%H'
 
 [format]
 	pretty = "%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset"

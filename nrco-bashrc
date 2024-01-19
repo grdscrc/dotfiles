@@ -133,7 +133,6 @@ export NVM_DIR="$HOME/.nvm"
 # alias pbcopy='xclip -selection clipboard'
 # alias pbpaste='xclip -selection clipboard -o'
 alias fd='fdfind'
-alias g='git'
 alias docc=docker-compose
 alias dctail='docker-compose logs --follow'
 alias dps="docker ps --format=\"table {{.Names}}\t{{.Status}}\t{{.Image}}\""
@@ -313,17 +312,19 @@ zrt() {
 alias err='echo >&2'
 
 loop(){
+	count=0
 	while true; do
 		eval $*
+    ((count++))
 
 		echo -n 3.0
 		for i in {2..0}; do
 			for j in {9..0}; do
 				sleep 0.1
-				echo -ne "\r$i.$j"s
+				err -ne "\r$i.$j"s
 			done
 		done
-		echo -ne "\033[2K\r"
+		err -n "Run #$count..."
 	done
 }
 alias lp=loop

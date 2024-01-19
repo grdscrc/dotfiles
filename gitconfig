@@ -1,3 +1,5 @@
+# vim: set syntax=gitconfig :
+
 [core]
   quotepath = false
 	excludesfile = /Users/igor/.gitignore_global

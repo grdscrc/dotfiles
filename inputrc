@@ -4,12 +4,14 @@ set blink-matching-paren on
 
 # GRAY='\033[1;30m'
 # NC='\033[0m' # No Color
-set show-mode-in-prompt on                                                                          
+set show-mode-in-prompt on
 set vi-ins-mode-string "\1\033[1;30m\2|\1\033[0m\2ins "
 set vi-cmd-mode-string ":\1\033[1;30m\2cmd\1\033[0m\2 "
 set vi-cmd-mode-string ":\1\033[1;30m\2cmd\1\033[0m\2 "
-"jk": vi-movement-mode
+"jj": vi-movement-mode
+"j;": accept-line
 "\C-x\C-r": re-read-init-file
-"\C-l":clear-screen
-"\C-a":beginning-of-line
-"\C-e":end-of-line
+"\C-l": clear-screen
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-g": "git "
