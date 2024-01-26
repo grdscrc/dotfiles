@@ -324,7 +324,13 @@ loop(){
 				err -ne "\r$i.$j"s
 			done
 		done
-		err -n "Run #$count..."
+		err "Run #$count..."
 	done
 }
 alias lp=loop
+
+npm_scripts(){
+ run=`npm run`
+ scripts=`echo "$run" | egrep "^  " | sed 's/^[[:space:]][[:space:]]//' # | awk '{ORS=NR%2?" # ":"\n"; print}'`
+ echo "$scripts"
+}
