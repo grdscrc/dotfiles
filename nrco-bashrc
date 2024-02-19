@@ -184,7 +184,7 @@ alias jfz="jq -r 'paths(scalars) as \$p | [(\$p | join(\".\")), getpath(\$p)] | 
 alias pz="pbpaste | jfz"
 alias curly="curl -s -o /dev/null -w '%{http_code}\n'"
 alias jz=jqfz
-alias fugitive='vim +:Git +:"q 2"'
+alias fugitive='vim +:Git +:only'
 alias fug=fugitive
 alias npz="jq -r '.scripts|keys[]' package.json |fzf --height=10 --preview='jq \'.scripts.\\\"{}\\\"' package.json\""
 alias ub=unbuffer
@@ -334,3 +334,15 @@ npm_scripts(){
  scripts=`echo "$run" | egrep "^  " | sed 's/^[[:space:]][[:space:]]//' # | awk '{ORS=NR%2?" # ":"\n"; print}'`
  echo "$scripts"
 }
+
+# export SSH_AUTH_SOCK=$(/mnt/c/Windows/System32/wsl.exe -u $USER echo \$SSH_AUTH_SOCK)
+alias tm=tmux
+alias tmr=tmuxinator
+
+alias unbold='sed -e "s/1;/0;/g"'
+tight() {
+	width=${1:-80}
+	sed -E "s/^(.{$width}).*$/\1/"
+}
+
+alias codium=/mnt/c/Users/igor.descayrac/AppData/Local/Programs/VSCodium/bin/codium

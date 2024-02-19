@@ -10,6 +10,7 @@
 	directory = /home/unix/dev/nrco-sysdoc-recette
 	directory = /home/unix/dev/redway-digiteka-api
 	directory = /home/unix/dev/eidos-cross-panel
+	directory = /home/unix/dev/albedo
 
 [alias]
 	amend = commit --amend
@@ -29,6 +30,7 @@
 	f = fetch
 	h = log --pretty=format:'%h'
 	H = log --pretty=format:'%H'
+	staash = stash --all
 
 [format]
 	pretty = "%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset"
@@ -47,6 +49,8 @@
 
 [merge]
 	conflictstyle = diff3
+	commit = no
+	ff = no
 
 [diff]
 	colorMoved = default
