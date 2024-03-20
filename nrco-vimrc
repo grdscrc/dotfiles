@@ -1,0 +1,108 @@
+set list " Display hidden characters
+set showbreak=↪\ 
+set listchars=tab:→\·,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set tabstop=2
+set expandtab
+set nofixeol
+set number relativenumber
+
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+set cursorline
+set modeline
+set modelines=5
+set scrolloff=25
+
+" highlight CursorLine term=reverse ctermbg=darkgrey
+" autocmd InsertEnter * highlight CursorLine ctermbg=black
+" autocmd InsertLeave * highlight CursorLine term=reverse ctermbg=darkgrey
+highlight Folded guibg=darkgray guifg=white ctermbg=darkgray ctermfg=white
+highlight SpecialKey ctermfg=8 guifg=grey
+highlight NonText ctermfg=8 guifg=grey
+
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
+
+" Make sure you use single quotes
+
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'junegunn/vim-easy-align'
+
+" Any valid git URL is allowed
+Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+
+" Multiple Plug commands can be written in a single line using | separators
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
+" On-demand loading
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+" Using a non-default branch
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Unmanaged plugin (manually installed and updated)
+" Plug '~/my-prototype-plugin'
+
+" https://github.com/airblade/vim-gitgutter
+
+Plug 'https://github.com/airblade/vim-gitgutter.git'
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/frazrepo/vim-rainbow.git'
+Plug 'chrisbra/Colorizer'
+
+Plug 'yuezk/vim-js'
+Plug 'maxmellon/vim-jsx-pretty'
+
+Plug 'junegunn/goyo.vim'
+
+Plug 'preservim/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'metakirby5/codi.vim'
+
+" Initialize plugin system
+" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+call plug#end()
+" You can revert the settings after the call like so:
+"   filetype indent off   " Disable file-type-specific indentation
+"   syntax off            " Disable syntax highlighting
+
+inoremap jj <Esc>
+ 
+" buffers : kill a buffer with <Leader>x, list buffers with <Leader>b
+nnoremap <Leader>x :bd<CR>
+nnoremap <Leader>b :ls<CR>:b<Space>
+
+set splitbelow
+set splitright
+
+highlight clear SignColumn
+
+nnoremap gs :split<CR>
+nnoremap gv :vsplit<CR>
+nnoremap gh <C-W><C-H>
+nnoremap gj <C-W><C-J>
+nnoremap gk <C-W><C-K>
+nnoremap gl <C-W><C-L>
+nnoremap gl <C-W><C-L>
+
+" fzf.vim
+nnoremap gF :Files<CR>
+nnoremap gG :GFiles<CR>
+nnoremap gL :Files<CR>
+
