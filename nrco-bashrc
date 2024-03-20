@@ -149,11 +149,11 @@ nanoseconds () {
 alias microseconds="nanoseconds 6"
 alias milliseconds="nanoseconds 3"
 
-# alias gco="git branch | grep -v \"^\*\" | fzf --height=20% --reverse --info=inline | xargs git checkout"
+alias fzf_mini="fzf --height=20% --info=inline"
 gco() {
 	git branch |
 		grep -v "^\*" |
-		fzf --query=$1 --height=20% --reverse --info=inline |
+		fzf_mini --query=$1 --reverse |
 		xargs git checkout
 }
 
@@ -186,7 +186,7 @@ alias curly="curl -s -o /dev/null -w '%{http_code}\n'"
 alias jz=jqfz
 alias fugitive='vim +:Git +:only'
 alias fug=fugitive
-alias npz="jq -r '.scripts|keys[]' package.json |fzf --height=10 --preview='jq \'.scripts.\\\"{}\\\"' package.json\""
+alias npz="jq -r '.scripts|keys[]' package.json | fzf_mini --preview='jq \'.scripts.\\\"{}\\\"' package.json\""
 alias ub=unbuffer
 
 # trash() { mkdir ~/.trash 2> /dev/null ; mv "$@" ~/.trash/ ; }
@@ -346,3 +346,12 @@ tight() {
 }
 
 alias codium=/mnt/c/Users/igor.descayrac/AppData/Local/Programs/VSCodium/bin/codium
+alias t=tmux
+alias jump="sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@appmanager@nrcoadl-meth01.awseuw1.em-nrco.int@jump"
+jump_exp () { jump "cd mnt/express && $*"; }
+
+prompt () {
+	read -n 1 -r -p "$* : "
+	echo
+	[ "${REPLY,,}" == "y" ]
+}
