@@ -1,7 +1,9 @@
-set list " Display hidden characters
+set hidden " Edited buffers can exist hidden
+set list " Display non-print characters
 set showbreak=↪\ 
 set listchars=tab:→\·,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 set tabstop=2
+set shiftwidth=2
 set expandtab
 set nofixeol
 set number relativenumber
@@ -69,8 +71,6 @@ Plug 'chrisbra/Colorizer'
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 
-Plug 'junegunn/goyo.vim'
-
 Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'metakirby5/codi.vim'
@@ -82,6 +82,11 @@ call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
 
+nnoremap <space> :
+nnoremap <tab> <C-w>w
+nnoremap <s-tab> <C-w>W
+nnoremap <BS> :bn<CR>
+nnoremap <s-BS> :bp<CR>
 inoremap jj <Esc>
  
 " buffers : kill a buffer with <Leader>x, list buffers with <Leader>b
@@ -93,16 +98,25 @@ set splitright
 
 highlight clear SignColumn
 
-nnoremap gs :split<CR>
-nnoremap gv :vsplit<CR>
-nnoremap gh <C-W><C-H>
-nnoremap gj <C-W><C-J>
-nnoremap gk <C-W><C-K>
-nnoremap gl <C-W><C-L>
-nnoremap gl <C-W><C-L>
+nnoremap SS :split<CR>
+nnoremap VV :vsplit<CR>
+
+nnoremap gG :Git<bar>only<CR>
 
 " fzf.vim
-nnoremap gF :Files<CR>
-nnoremap gG :GFiles<CR>
-nnoremap gL :Files<CR>
+nnoremap FF :Files<CR>
+nnoremap FG :GFiles?<CR>
+nnoremap FB :Buffers<CR>
+nnoremap FR :History:<CR>
+nnoremap FA :Ag<CR>
 
+" windows
+nnoremap <C-w>, 20<C-w><
+nnoremap <C-w>. 20<C-w>>
+
+" Close current buffer, keep window
+nnoremap ZB :bnext<bar>split<bar>bprevious<bar>bdelete<CR>
+" Close current window, keep buffer
+nnoremap ZW <C-w>c
+" Close all
+nnoremap ZX :qa<CR>
