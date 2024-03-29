@@ -157,8 +157,9 @@ gco() {
 		xargs git checkout
 }
 
-alias ez="eza -l --git --git-repos --sort=time"
+alias ez="eza --all --long --git --git-repos --sort=time"
 alias et="ez --tree"
+
 warn_azerty() {
 	KILL_LEFT=\\033\[1K
 	KILL_RIGHT=\\033\[0K
@@ -354,4 +355,8 @@ prompt () {
 	read -n 1 -r -p "$* : "
 	echo
 	[ "${REPLY,,}" == "y" ]
+}
+
+vimcode() {
+	vim -c 'Git | wincmd H | vertical resize 50 | wincmd l | FZF'
 }
