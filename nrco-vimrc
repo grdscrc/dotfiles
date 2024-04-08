@@ -7,6 +7,17 @@ set shiftwidth=2
 set expandtab
 set nofixeol
 set number relativenumber
+set diffopt=filler,iwhite
+set hlsearch
+
+set foldmethod=syntax
+set foldlevel=10
+set foldclose=all
+set foldcolumn=4
+hi FoldColumn ctermfg=DarkGrey
+hi FoldColumn ctermbg=Black
+hi Folded ctermfg=Black
+hi Folded ctermbg=DarkGrey
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -62,9 +73,11 @@ Plug 'junegunn/fzf.vim'
 
 " https://github.com/airblade/vim-gitgutter
 
+Plug 'https://github.com/tpope/vim-fugitive.git'
+Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'https://github.com/vim-airline/vim-airline.git'
-Plug 'https://github.com/tpope/vim-fugitive.git'
+let g:airline#extensions#tabline#enabled = 1
 Plug 'https://github.com/frazrepo/vim-rainbow.git'
 Plug 'chrisbra/Colorizer'
 
@@ -75,6 +88,11 @@ Plug 'preservim/nerdtree'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'metakirby5/codi.vim'
 
+Plug 'joeytwiddle/sexy_scroller.vim'
+let g:SexyScroller_ScrollTime = 500
+let g:SexyScroller_CursorTime = 250
+let g:SexyScroller_EasingStyle = 3
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
@@ -82,16 +100,15 @@ call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
 
+inoremap jj <esc>
 nnoremap <space> :
-nnoremap <tab> <C-w>w
-nnoremap <s-tab> <C-w>W
-nnoremap <BS> :bn<CR>
-nnoremap <s-BS> :bp<CR>
-inoremap jj <Esc>
+" Close buffer without closing window
+nnoremap <space>x :sp<bar>bn<bar>bd#<bar>bp<CR>
+nnoremap <space>p :bp<CR>
+nnoremap <space>n :bn<CR>
+nnoremap <tab>n <C-w>w
+nnoremap <tab>p <C-w>W
  
-" buffers : kill a buffer with <Leader>x, list buffers with <Leader>b
-nnoremap <Leader>x :bd<CR>
-nnoremap <Leader>b :ls<CR>:b<Space>
 
 set splitbelow
 set splitright
@@ -109,6 +126,8 @@ nnoremap FG :GFiles?<CR>
 nnoremap FB :Buffers<CR>
 nnoremap FR :History:<CR>
 nnoremap FA :Ag<CR>
+" fuzzy find in lines containing word
+nnoremap K :Ag <C-R><C-W><CR>
 
 " windows
 nnoremap <C-w>, 20<C-w><
