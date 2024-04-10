@@ -57,3 +57,5 @@
 
 [delta]
 	side-by-side = true
+[pull]
+	rebase = true
