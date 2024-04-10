@@ -14,10 +14,6 @@ set foldmethod=syntax
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
-hi FoldColumn ctermfg=DarkGrey
-hi FoldColumn ctermbg=Black
-hi Folded ctermfg=Black
-hi Folded ctermbg=DarkGrey
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -32,9 +28,10 @@ set scrolloff=25
 " highlight CursorLine term=reverse ctermbg=darkgrey
 " autocmd InsertEnter * highlight CursorLine ctermbg=black
 " autocmd InsertLeave * highlight CursorLine term=reverse ctermbg=darkgrey
-highlight Folded guibg=darkgray guifg=white ctermbg=darkgray ctermfg=white
 highlight SpecialKey ctermfg=8 guifg=grey
 highlight NonText ctermfg=8 guifg=grey
+highlight Folded ctermbg=0 ctermfg=4
+highlight FoldColumn ctermfg=DarkGrey ctermbg=Black
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -76,6 +73,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
+nmap <space>hv <Plug>(GitGutterPreviewHunk)
+nmap <space>hs <Plug>(GitGutterStageHunk)
+nmap <space>hu <Plug>(GitGutterUndoHunk)
+nmap <space>hn <Plug>(GitGutterNextHunk)
+nmap <space>hp <Plug>(GitGutterPrevHunk)
+nmap <space>hx :bdelete gitgutter<CR>
+
 Plug 'https://github.com/vim-airline/vim-airline.git'
 let g:airline#extensions#tabline#enabled = 1
 Plug 'https://github.com/frazrepo/vim-rainbow.git'
@@ -89,8 +93,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'metakirby5/codi.vim'
 
 Plug 'joeytwiddle/sexy_scroller.vim'
-let g:SexyScroller_ScrollTime = 500
-let g:SexyScroller_CursorTime = 250
+let g:SexyScroller_MaxTime = 250
+let g:SexyScroller_ScrollTime = 150
+let g:SexyScroller_CursorTime = 50
 let g:SexyScroller_EasingStyle = 3
 
 " Initialize plugin system
@@ -103,12 +108,17 @@ call plug#end()
 inoremap jj <esc>
 nnoremap <space> :
 " Close buffer without closing window
-nnoremap <space>x :sp<bar>bn<bar>bd#<bar>bp<CR>
+nnoremap <space>x :sp<bar>bn<bar>bd#<CR>
+nnoremap <space>X :sp<bar>bp<bar>bd#<CR>
 nnoremap <space>p :bp<CR>
 nnoremap <space>n :bn<CR>
+nnoremap <space>P :5bp<CR>
+nnoremap <space>N :5bn<CR>
 nnoremap <tab>n <C-w>w
 nnoremap <tab>p <C-w>W
  
+nnoremap <space>g :Git<bar>wincmd H<bar>vertical resize 80<CR>
+nnoremap <space><C-G> :Gedit :<CR>
 
 set splitbelow
 set splitright
@@ -116,9 +126,7 @@ set splitright
 highlight clear SignColumn
 
 nnoremap SS :split<CR>
-nnoremap VV :vsplit<CR>
-
-nnoremap gG :Git<bar>only<CR>
+nnoremap SV :vsplit<CR>
 
 " fzf.vim
 nnoremap FF :Files<CR>
@@ -128,14 +136,15 @@ nnoremap FR :History:<CR>
 nnoremap FA :Ag<CR>
 " fuzzy find in lines containing word
 nnoremap K :Ag <C-R><C-W><CR>
+vnoremap K y:Ag <C-R>"<CR>
 
 " windows
 nnoremap <C-w>, 20<C-w><
 nnoremap <C-w>. 20<C-w>>
 
-" Close current buffer, keep window
+" Close current buffer, window on next buffer
 nnoremap ZB :bnext<bar>split<bar>bprevious<bar>bdelete<CR>
-" Close current window, keep buffer
-nnoremap ZW <C-w>c
+" Close current buffer, empty window
+nnoremap ZW :enew<bar>bdelete#<CR>
 " Close all
 nnoremap ZX :qa<CR>
