@@ -11,6 +11,7 @@
 	directory = /home/unix/dev/redway-digiteka-api
 	directory = /home/unix/dev/eidos-cross-panel
 	directory = /home/unix/dev/albedo
+	directory = /home/unix/dev/novactive-nr-clusterone-rubedo-738c5d43a97d
 
 [alias]
 	amend = commit --amend

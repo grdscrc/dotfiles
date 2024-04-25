@@ -1,3 +1,5 @@
+colorscheme koehler
+
 set hidden " Edited buffers can exist hidden
 set list " Display non-print characters
 set showbreak=↪\ 
@@ -32,6 +34,8 @@ highlight SpecialKey ctermfg=8 guifg=grey
 highlight NonText ctermfg=8 guifg=grey
 highlight Folded ctermbg=0 ctermfg=4
 highlight FoldColumn ctermfg=DarkGrey ctermbg=Black
+highlight VertSplit ctermfg=Black ctermbg=DarkGrey
+highlight MatchParen ctermbg=DarkGrey
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -54,7 +58,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using a non-default branch
@@ -71,14 +75,18 @@ Plug 'junegunn/fzf.vim'
 " https://github.com/airblade/vim-gitgutter
 
 Plug 'https://github.com/tpope/vim-fugitive.git'
+" keep fugitive when hidden
+autocmd User FugitiveObject setlocal bufhidden=
+
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
-nmap <space>hv <Plug>(GitGutterPreviewHunk)
-nmap <space>hs <Plug>(GitGutterStageHunk)
-nmap <space>hu <Plug>(GitGutterUndoHunk)
-nmap <space>hn <Plug>(GitGutterNextHunk)
-nmap <space>hp <Plug>(GitGutterPrevHunk)
-nmap <space>hx :bdelete gitgutter<CR>
+nmap <c-g>g :GitGutter<CR>
+nmap <c-g>v <Plug>(GitGutterPreviewHunk)
+nmap <c-g>V :bdelete gitgutter<CR>
+nmap <c-s> <Plug>(GitGutterStageHunk)
+nmap <c-x> <Plug>(GitGutterUndoHunk)
+nmap <c-n> <Plug>(GitGutterNextHunk)
+nmap <c-p> <Plug>(GitGutterPrevHunk)
 
 Plug 'https://github.com/vim-airline/vim-airline.git'
 let g:airline#extensions#tabline#enabled = 1
@@ -97,6 +105,16 @@ let g:SexyScroller_MaxTime = 250
 let g:SexyScroller_ScrollTime = 150
 let g:SexyScroller_CursorTime = 50
 let g:SexyScroller_EasingStyle = 3
+
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+let g:minimap_width = 80
+
+Plug 'dominikduda/vim_current_word'
+let g:vim_current_word#highlight_current_word = 0
+
+Plug 'voldikss/vim-floaterm'
+nmap <space>tt :FloatermNew<CR>
+nmap <space>tn :FloatermNew node<CR>
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
@@ -117,13 +135,14 @@ nnoremap <space>N :5bn<CR>
 nnoremap <tab>n <C-w>w
 nnoremap <tab>p <C-w>W
  
-nnoremap <space>g :Git<bar>wincmd H<bar>vertical resize 80<CR>
+" nnoremap <space>G :Git<bar>wincmd H<bar>vertical resize 80<CR>
 nnoremap <space><C-G> :Gedit :<CR>
 
 set splitbelow
 set splitright
 
 highlight clear SignColumn
+highlight SignColumn ctermbg=Black
 
 nnoremap SS :split<CR>
 nnoremap SV :vsplit<CR>
@@ -134,17 +153,26 @@ nnoremap FG :GFiles?<CR>
 nnoremap FB :Buffers<CR>
 nnoremap FR :History:<CR>
 nnoremap FA :Ag<CR>
+nnoremap F/ :BLines<CR>
 " fuzzy find in lines containing word
 nnoremap K :Ag <C-R><C-W><CR>
-vnoremap K y:Ag <C-R>"<CR>
 
 " windows
 nnoremap <C-w>, 20<C-w><
 nnoremap <C-w>. 20<C-w>>
 
 " Close current buffer, window on next buffer
-nnoremap ZB :bnext<bar>split<bar>bprevious<bar>bdelete<CR>
-" Close current buffer, empty window
-nnoremap ZW :enew<bar>bdelete#<CR>
-" Close all
-nnoremap ZX :qa<CR>
+nnoremap Zb :bnext<bar>split<bar>bprevious<bar>bdelete<CR>
+nnoremap ZB :enew<bar>bdelete#<CR>
+nnoremap ZZ :bdelete<CR>
+nnoremap ZF :bdelete<bar>FZF<CR>
+" Close all buffers
+nnoremap ZA :%bdelete<CR> "yay<C-c>
+
+" :Index shows index.txt (with all key-combinations) using fzf-vim
+command! Index silent execute ":help index.txt" | silent execute ":BLines!"
+nnoremap FI :Index<CR>
+
+highlight LineNr ctermfg=5
+highlight LineNrAbove ctermfg=DarkGrey ctermbg=Black
+highlight LineNrBelow ctermfg=DarkGrey ctermbg=Black

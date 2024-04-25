@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+EDITOR=vim
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -360,3 +362,7 @@ prompt () {
 vimcode() {
 	vim -c 'Git | wincmd H | vertical resize 50 | wincmd l | FZF'
 }
+
+. "$HOME/.cargo/env"
+
+source /home/unix/.config/broot/launcher/bash/br
