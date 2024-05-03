@@ -353,6 +353,8 @@ alias t=tmux
 alias jump="sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@appmanager@nrcoadl-meth01.awseuw1.em-nrco.int@jump"
 jump_exp () { jump "cd mnt/express && $*"; }
 
+alias functions="bind -P"
+
 prompt () {
 	read -n 1 -r -p "$* : "
 	echo

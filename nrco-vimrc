@@ -2,8 +2,8 @@ colorscheme koehler
 
 set hidden " Edited buffers can exist hidden
 set list " Display non-print characters
-set showbreak=↪\ 
-set listchars=tab:→\·,eol:↲,nbsp:␣,trail:•,extends:⟩,precedes:⟨
+set showbreak=↪\  " Prefix for wrapped lines
+set listchars=tab:→\·,eol:↲,nbsp:␣,space:-,trail:•,extends:⟩,precedes:⟨
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -11,7 +11,6 @@ set nofixeol
 set number relativenumber
 set diffopt=filler,iwhite
 set hlsearch
-
 set foldmethod=syntax
 set foldlevel=10
 set foldclose=all
@@ -27,15 +26,22 @@ set modeline
 set modelines=5
 set scrolloff=25
 
-" highlight CursorLine term=reverse ctermbg=darkgrey
-" autocmd InsertEnter * highlight CursorLine ctermbg=black
-" autocmd InsertLeave * highlight CursorLine term=reverse ctermbg=darkgrey
+highlight WhiteSpace guifg=DarkGray
 highlight SpecialKey ctermfg=8 guifg=grey
-highlight NonText ctermfg=8 guifg=grey
-highlight Folded ctermbg=0 ctermfg=4
-highlight FoldColumn ctermfg=DarkGrey ctermbg=Black
-highlight VertSplit ctermfg=Black ctermbg=DarkGrey
-highlight MatchParen ctermbg=DarkGrey
+highlight NonText ctermfg=darkgray
+highlight Folded ctermbg=0 ctermfg=8
+highlight FoldColumn ctermfg=DarkGray ctermbg=Black
+highlight VertSplit ctermfg=Black ctermbg=DarkGray
+highlight MatchParen ctermbg=DarkGray
+highlight Search ctermfg=white ctermbg=DarkGray
+
+highlight LineNr ctermfg=5
+highlight LineNrAbove ctermfg=DarkGray ctermbg=Black
+highlight LineNrBelow ctermfg=DarkGray ctermbg=Black
+highlight SignColumn ctermfg=DarkGray ctermbg=Black
+highlight GitGutterAdd    ctermfg=2 ctermbg=0
+highlight GitGutterChange ctermfg=3 ctermbg=0
+highlight GitGutterDelete ctermfg=1 ctermbg=0
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -83,21 +89,26 @@ Plug 'https://github.com/airblade/vim-gitgutter.git'
 nmap <c-g>g :GitGutter<CR>
 nmap <c-g>v <Plug>(GitGutterPreviewHunk)
 nmap <c-g>V :bdelete gitgutter<CR>
-nmap <c-s> <Plug>(GitGutterStageHunk)
-nmap <c-x> <Plug>(GitGutterUndoHunk)
-nmap <c-n> <Plug>(GitGutterNextHunk)
-nmap <c-p> <Plug>(GitGutterPrevHunk)
+nmap <c-g>s <Plug>(GitGutterStageHunk)
+nmap <c-g>x <Plug>(GitGutterUndoHunk)
+nmap <c-g>n <Plug>(GitGutterNextHunk)
+nmap <c-g>p <Plug>(GitGutterPrevHunk)
 
 Plug 'https://github.com/vim-airline/vim-airline.git'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_section_c = '' " no filename, already in tabline
+let g:airline_section_z = '' " reorder ending
+let g:airline_section_z = g:airline_section_z.'%{g:airline_symbols.colnr}%v'
+let g:airline_section_z = g:airline_section_z.'%{g:airline_symbols.linenr}%l'
+let g:airline_section_z = g:airline_section_z.'/%L%{g:airline_symbols.maxlinenr} '
+let g:airline_section_z = g:airline_section_z.'%p%%'
+
 Plug 'https://github.com/frazrepo/vim-rainbow.git'
 Plug 'chrisbra/Colorizer'
 
 Plug 'yuezk/vim-js'
 Plug 'maxmellon/vim-jsx-pretty'
 
-Plug 'preservim/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'metakirby5/codi.vim'
 
 Plug 'joeytwiddle/sexy_scroller.vim'
@@ -116,6 +127,8 @@ Plug 'voldikss/vim-floaterm'
 nmap <space>tt :FloatermNew<CR>
 nmap <space>tn :FloatermNew node<CR>
 
+Plug 'tpope/vim-rsi'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
@@ -123,6 +136,7 @@ call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
 
+inoremap jk <esc>
 inoremap jj <esc>
 nnoremap <space> :
 " Close buffer without closing window
@@ -134,45 +148,57 @@ nnoremap <space>P :5bp<CR>
 nnoremap <space>N :5bn<CR>
 nnoremap <tab>n <C-w>w
 nnoremap <tab>p <C-w>W
- 
+
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+
+inoremap () ()<Left>
+inoremap [] []<Left>
+inoremap {} {}<Left>
+inoremap '' ''<Left>
+inoremap "" ""<Left>
+
+nmap <c-n> *
+nmap <c-p> #
+
+nnoremap g/ /\<\><Left><Left>
+
+" goto tag and set as search
+nnoremap gt *N<C-]>n
+
 " nnoremap <space>G :Git<bar>wincmd H<bar>vertical resize 80<CR>
 nnoremap <space><C-G> :Gedit :<CR>
 
 set splitbelow
 set splitright
 
-highlight clear SignColumn
-highlight SignColumn ctermbg=Black
-
 nnoremap SS :split<CR>
 nnoremap SV :vsplit<CR>
 
 " fzf.vim
-nnoremap FF :Files<CR>
-nnoremap FG :GFiles?<CR>
-nnoremap FB :Buffers<CR>
-nnoremap FR :History:<CR>
-nnoremap FA :Ag<CR>
-nnoremap F/ :BLines<CR>
-" fuzzy find in lines containing word
-nnoremap K :Ag <C-R><C-W><CR>
+nnoremap f<C-F> :Files<CR>
+nnoremap f<C-G> :GFiles?<CR>
+nnoremap f<C-B> :Buffers<CR>
+nnoremap f<C-R> :History:<CR>
+nnoremap f<C-A> :Ag<CR>
+nnoremap f<C-L> :BLines<CR>
+nnoremap f<C-T> :Tags<CR>
 
 " windows
 nnoremap <C-w>, 20<C-w><
 nnoremap <C-w>. 20<C-w>>
 
-" Close current buffer, window on next buffer
-nnoremap Zb :bnext<bar>split<bar>bprevious<bar>bdelete<CR>
-nnoremap ZB :enew<bar>bdelete#<CR>
+" Remove current buffer
 nnoremap ZZ :bdelete<CR>
+" Close window
+nnoremap ZX :hide<CR>
+" Replace current buffer with fzf
 nnoremap ZF :bdelete<bar>FZF<CR>
-" Close all buffers
-nnoremap ZA :%bdelete<CR> "yay<C-c>
+" Remove all buffers
+nnoremap ZA :%bdelete<CR>
 
 " :Index shows index.txt (with all key-combinations) using fzf-vim
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
 nnoremap FI :Index<CR>
-
-highlight LineNr ctermfg=5
-highlight LineNrAbove ctermfg=DarkGrey ctermbg=Black
-highlight LineNrBelow ctermfg=DarkGrey ctermbg=Black
