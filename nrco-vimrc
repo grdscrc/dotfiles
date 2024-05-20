@@ -11,6 +11,7 @@ set nofixeol
 set number relativenumber
 set diffopt=filler,iwhite
 set hlsearch
+set incsearch
 set foldmethod=syntax
 set foldlevel=10
 set foldclose=all
@@ -21,19 +22,26 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-set cursorline
+" set cursorline
+" set cursorcolumn
+au InsertEnter * set cursorline cursorcolumn nohlsearch
+au InsertLeave * set nocursorline nocursorcolumn hlsearch
 set modeline
 set modelines=5
 set scrolloff=25
 
-highlight WhiteSpace guifg=DarkGray
-highlight SpecialKey ctermfg=8 guifg=grey
+highlight clear Search
+highlight Search ctermfg=blue ctermbg=black
+highlight clear CursorColumn CursorLine
+highlight CursorColumn cterm=underline
+highlight CursorLine cterm=underline
+highlight WhiteSpace ctermfg=DarkGray
+highlight SpecialKey ctermfg=grey
 highlight NonText ctermfg=darkgray
 highlight Folded ctermbg=0 ctermfg=8
 highlight FoldColumn ctermfg=DarkGray ctermbg=Black
 highlight VertSplit ctermfg=Black ctermbg=DarkGray
 highlight MatchParen ctermbg=DarkGray
-highlight Search ctermfg=white ctermbg=DarkGray
 
 highlight LineNr ctermfg=5
 highlight LineNrAbove ctermfg=DarkGray ctermbg=Black
@@ -136,9 +144,15 @@ call plug#end()
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
 
-inoremap jk <esc>
-inoremap jj <esc>
 nnoremap <space> :
+inoremap jk <esc>
+vnoremap jk <esc>
+inoremap j; <esc>g_
+inoremap jj <esc>^
+inoremap jw <esc>:write<CR>
+inoremap ju <esc>:undo<CR>
+inoremap jZ <esc>:write<bar>quit<CR>
+
 " Close buffer without closing window
 nnoremap <space>x :sp<bar>bn<bar>bd#<CR>
 nnoremap <space>X :sp<bar>bp<bar>bd#<CR>
@@ -160,13 +174,16 @@ inoremap {} {}<Left>
 inoremap '' ''<Left>
 inoremap "" ""<Left>
 
-nmap <c-n> *
-nmap <c-p> #
+nmap <C-n> *
+nmap <C-p> #
+
+vmap <C-n> y/<C-r>"<CR>
+vmap <C-p> y?<C-r>"<CR>
 
 nnoremap g/ /\<\><Left><Left>
 
 " goto tag and set as search
-nnoremap gt *N<C-]>n
+nnoremap K *N<C-]>n
 
 " nnoremap <space>G :Git<bar>wincmd H<bar>vertical resize 80<CR>
 nnoremap <space><C-G> :Gedit :<CR>
@@ -178,13 +195,15 @@ nnoremap SS :split<CR>
 nnoremap SV :vsplit<CR>
 
 " fzf.vim
-nnoremap f<C-F> :Files<CR>
-nnoremap f<C-G> :GFiles?<CR>
-nnoremap f<C-B> :Buffers<CR>
-nnoremap f<C-R> :History:<CR>
-nnoremap f<C-A> :Ag<CR>
-nnoremap f<C-L> :BLines<CR>
-nnoremap f<C-T> :Tags<CR>
+nnoremap fzf :Files<CR>
+nnoremap fzg :GFiles?<CR>
+nnoremap fzb :Buffers<CR>
+nnoremap fza :Ag<CR>
+nnoremap fzr :Rg<CR>
+nnoremap fz/ :BLines<CR>
+nnoremap fz: :History:<CR>
+nnoremap fzt :Tags<CR>
+let g:fzf_preview_window = ['up:10']
 
 " windows
 nnoremap <C-w>, 20<C-w><
@@ -202,3 +221,8 @@ nnoremap ZA :%bdelete<CR>
 " :Index shows index.txt (with all key-combinations) using fzf-vim
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
 nnoremap FI :Index<CR>
+
+" autocmd TextYankPost * redraw | registers " 0 1 2
+
+" echo last sourcefile update
+" redraw | echo '--- .vimrc sourced --- ' . strftime("%c", getftime(expand('%'))) . ' ---' | redraw
