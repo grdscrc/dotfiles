@@ -1,5 +1,3 @@
-colorscheme gruvbox
-
 let mapleader = "\<CR>"
 
 set hidden " Edited buffers can exist hidden
@@ -169,6 +167,9 @@ call plug#end()
 " You can revert the settings after the call like so:
 "   filetype indent off   " Disable file-type-specific indentation
 "   syntax off            " Disable syntax highlighting
+
+colorscheme gruvbox
+set background=dark
 
 nnoremap <space> :
 inoremap jk <esc>
