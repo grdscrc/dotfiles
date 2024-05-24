@@ -1,4 +1,5 @@
 # Practices
+alias e=$EDITOR
 alias ls='ls -Gh'
 alias la='ls -ahlT'
 alias rm='rm -i'
@@ -90,3 +91,8 @@ alias trake='RAILS_ENV=test rake'
 alias x='xargs'
 
 alias ez='eza --long'
+
+alias bat=batcat
+alias fd=fdfind
+alias a='eza -l'
+alias aa='a -a'

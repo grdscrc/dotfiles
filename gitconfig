@@ -2,18 +2,12 @@
 
 [core]
   quotepath = false
-	excludesfile = /Users/igor/.gitignore_global
+  excludesfile = /Users/igor/.gitignore_global
   autocrlf = input
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = less -F
 [user]
-	name = Igor Descayrac
-	email = igor.descayrac@gmail.com
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  name = Igor Descayrac
+  email = igor.descayrac@gmail.com
 [alias]
   current-branch = rev-parse --abbrev-ref HEAD
   publish = !git push -u origin `git current-branch`
@@ -82,7 +76,5 @@
   default = current
 [pull]
   rebase = true
-[commit]
-  template = /Users/igor/.stCommitMsg
 [rebase]
   instructionFormat = %s [%an]
