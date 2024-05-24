@@ -12,6 +12,7 @@
 	directory = /home/unix/dev/eidos-cross-panel
 	directory = /home/unix/dev/albedo
 	directory = /home/unix/dev/novactive-nr-clusterone-rubedo-738c5d43a97d
+	directory = /home/unix/dev/Eidos
 
 [alias]
 	amend = commit --amend

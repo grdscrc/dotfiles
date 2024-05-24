@@ -350,8 +350,30 @@ tight() {
 
 alias codium=/mnt/c/Users/igor.descayrac/AppData/Local/Programs/VSCodium/bin/codium
 alias t=tmux
-alias jump="sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@appmanager@nrcoadl-meth01.awseuw1.em-nrco.int@jump"
-jump_exp () { jump "cd mnt/express && $*"; }
+
+jump() {
+  case "$1" in
+    "")
+      echo >&2 Jump to appmanager
+      sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@appmanager@nrcoadl-meth01.awseuw1.em-nrco.int@jump
+      ;;
+    methcb|appmanager|methdig|methed)
+      host=$1
+      echo >&2 Jump to "$host"
+
+      sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@$host@nrcoadl-meth01.awseuw1.em-nrco.int@jump
+      ;;
+    *)
+      echo "Unknown host : pick (methcb|appmanager|methdig|methed)" >&2 && exit 1
+      ;;
+  esac
+}
+
+jump_exp() {
+  host=${1:-appmanager}
+  shift
+  jump "$host" "cd mnt/express && $*";
+}
 
 alias functions="bind -P"
 
@@ -361,9 +383,8 @@ prompt () {
 	[ "${REPLY,,}" == "y" ]
 }
 
-vimcode() {
-	vim -c 'Git | wincmd H | vertical resize 50 | wincmd l | FZF'
-}
+alias shgpt="sgpt --shell"
+alias codegpt="sgpt --code"
 
 . "$HOME/.cargo/env"
 
