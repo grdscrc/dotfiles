@@ -127,15 +127,12 @@ let g:SexyScroller_ScrollTime = 150
 let g:SexyScroller_CursorTime = 50
 let g:SexyScroller_EasingStyle = 3
 
-Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
-let g:minimap_width = 80
-
 Plug 'dominikduda/vim_current_word'
 let g:vim_current_word#highlight_current_word = 0
 
 Plug 'voldikss/vim-floaterm'
-nmap <space>tt :FloatermNew<CR>
-nmap <space>tn :FloatermNew node<CR>
+nmap <Leader>t :FloatermNew<CR>
+nmap <Leader>Tn :FloatermNew node<CR>
 
 Plug 'tpope/vim-rsi'
 
@@ -171,7 +168,7 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 
-nnoremap <space> :
+nnoremap <Space> :
 inoremap jk <esc>
 inoremap JK <esc>:undo<CR>
 inoremap jW <esc>:write<CR>
@@ -180,10 +177,13 @@ nnoremap <Leader>w :write<CR>
 nnoremap <Leader>W :write<bar>bd<CR>
 
 " Close buffer without closing window
-nnoremap <space>x :sp<bar>bn<bar>bd#<CR>
-nnoremap <space>X :sp<bar>bp<bar>bd#<CR>
-nnoremap <space>p :bp<CR>
-nnoremap <space>n :bn<CR>
+nnoremap <Leader>x :sp<bar>bn<bar>bd#<CR>
+nnoremap <Leader>X :sp<bar>bp<bar>bd#<CR>
+nnoremap <Leader>q :quit<CR>
+
+nnoremap <Space>p :bp<CR>
+nnoremap <Space>n :bn<CR>
+nnoremap <tab><tab> <C-w><C-w>
 nnoremap <tab>n <C-w>w
 nnoremap <tab>p <C-w>W
 
@@ -198,8 +198,8 @@ nnoremap g/ /\<\><Left><Left>
 " goto tag and set as search
 nnoremap K *N<C-]>n
 
-" nnoremap <space>G :Git<bar>wincmd H<bar>vertical resize 80<CR>
-nnoremap <Leader><C-G> :Gedit :<CR>
+nnoremap <Space>g :Git<bar>wincmd H<bar>vertical resize 80<CR>
+nnoremap <Space>G :Gedit :<CR>
 
 set splitbelow
 set splitright
@@ -209,15 +209,18 @@ nnoremap SV :vsplit<CR>
 
 " fzf.vim
 nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>g :GFiles?<CR>
+nnoremap <Leader>s :GFiles?<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>a :Ag<CR>
 nnoremap <Leader>r :Rg<CR>
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>: :History:<CR>
 nnoremap <Leader>? :History/<CR>
-nnoremap <Leader>t :Tags<CR>
+" nnoremap <Leader>t :Tags<CR>
 nnoremap <Leader>h :Helptags<CR>
+" :Index shows index.txt (with all key-combinations) using fzf-vim
+command! Index silent execute ":help index.txt" | silent execute ":BLines!"
+nnoremap <Leader>i :Index<CR>
 let g:fzf_preview_window = ['up:10']
 
 " windows
@@ -232,10 +235,6 @@ nnoremap ZX :hide<CR>
 nnoremap ZF :bdelete<bar>FZF<CR>
 " Remove all buffers
 nnoremap ZA :%bdelete<CR>
-
-" :Index shows index.txt (with all key-combinations) using fzf-vim
-command! Index silent execute ":help index.txt" | silent execute ":BLines!"
-nnoremap FI :Index<CR>
 
 " autocmd TextYankPost * redraw | registers " 0 1 2
 
