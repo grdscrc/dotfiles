@@ -1,4 +1,4 @@
-colorscheme koehler
+colorscheme gruvbox
 
 let mapleader = "\<CR>"
 
@@ -30,7 +30,7 @@ au InsertEnter * set cursorline cursorcolumn nohlsearch
 au InsertLeave * set nocursorline nocursorcolumn hlsearch
 set modeline
 set modelines=5
-set scrolloff=25
+set scrolloff=5
 
 highlight clear Search
 highlight Search ctermfg=blue ctermbg=black
@@ -52,6 +52,8 @@ highlight SignColumn ctermfg=DarkGray ctermbg=Black
 highlight GitGutterAdd    ctermfg=2 ctermbg=0
 highlight GitGutterChange ctermfg=3 ctermbg=0
 highlight GitGutterDelete ctermfg=1 ctermbg=0
+
+set shellcmdflag=-ic " interactive shell
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -138,6 +140,28 @@ nmap <space>tt :FloatermNew<CR>
 nmap <space>tn :FloatermNew node<CR>
 
 Plug 'tpope/vim-rsi'
+
+Plug 'dense-analysis/ale'
+
+Plug 'bkad/CamelCaseMotion'
+map <silent> W <Plug>CamelCaseMotion_w
+map <silent> B <Plug>CamelCaseMotion_b
+map <silent> E <Plug>CamelCaseMotion_e
+map <silent> gE <Plug>CamelCaseMotion_ge
+sunmap W
+sunmap B
+sunmap E
+sunmap gE
+
+" Better color scheme
+Plug 'morhetz/gruvbox'
+
+Plug 'tpope/vim-commentary'
+
+Plug 'tmhedberg/SimpylFold'
+let g:SimpylFold_docstring_preview = 1
+
+Plug 'tpope/vim-sleuth'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
