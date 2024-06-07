@@ -1,5 +1,7 @@
-let mapleader = "\<CR>"
+let mapleader = "\<Space>"
 
+set confirm
+set wildmenu
 set hidden " Edited buffers can exist hidden
 set list " Display non-print characters
 set showbreak=↪\  " Prefix for wrapped lines
@@ -51,8 +53,6 @@ highlight GitGutterAdd    ctermfg=2 ctermbg=0
 highlight GitGutterChange ctermfg=3 ctermbg=0
 highlight GitGutterDelete ctermfg=1 ctermbg=0
 
-set shellcmdflag=-ic " interactive shell
-
 call plug#begin()
 " The default plugin directory will be as follows:
 "   - Vim (Linux/macOS): '~/.vim/plugged'
@@ -101,8 +101,9 @@ nmap <c-g>v <Plug>(GitGutterPreviewHunk)
 nmap <c-g>V :bdelete gitgutter<CR>
 nmap <c-g>s <Plug>(GitGutterStageHunk)
 nmap <c-g>x <Plug>(GitGutterUndoHunk)
-nmap <c-g>n <Plug>(GitGutterNextHunk)
-nmap <c-g>p <Plug>(GitGutterPrevHunk)
+nmap <c-g>j <Plug>(GitGutterNextHunk)
+nmap <c-g>k <Plug>(GitGutterPrevHunk)
+autocmd BufWritePost * GitGutter
 
 Plug 'https://github.com/vim-airline/vim-airline.git'
 let g:airline#extensions#tabline#enabled = 1
@@ -127,12 +128,16 @@ let g:SexyScroller_ScrollTime = 150
 let g:SexyScroller_CursorTime = 50
 let g:SexyScroller_EasingStyle = 3
 
+Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
+let g:minimap_width = 80
+
 Plug 'dominikduda/vim_current_word'
 let g:vim_current_word#highlight_current_word = 0
 
+nmap <Leader>TT :terminal<CR>
 Plug 'voldikss/vim-floaterm'
-nmap <Leader>t :FloatermNew<CR>
-nmap <Leader>Tn :FloatermNew node<CR>
+nmap <Leader>TF :FloatermNew<CR>
+nmap <Leader>TN :FloatermNew node<CR>
 
 Plug 'tpope/vim-rsi'
 
@@ -168,24 +173,25 @@ call plug#end()
 colorscheme gruvbox
 set background=dark
 
-nnoremap <Space> :
+nnoremap <Leader><Leader> :
 inoremap jk <esc>
 inoremap JK <esc>:undo<CR>
 inoremap jW <esc>:write<CR>
-inoremap jZ <esc>:write<bar>quit<CR>
+inoremap jZ <esc>:write<bar>bdelete<CR>
+inoremap jQ <esc>:write<bar>quit<CR>
+
 nnoremap <Leader>w :write<CR>
-nnoremap <Leader>W :write<bar>bd<CR>
+nnoremap <Leader>W :write<bar>bdelete<CR>
+
+nnoremap <Leader>s :split<CR>
+nnoremap <Leader>v :vsplit<CR>
 
 " Close buffer without closing window
 nnoremap <Leader>x :sp<bar>bn<bar>bd#<CR>
 nnoremap <Leader>X :sp<bar>bp<bar>bd#<CR>
-nnoremap <Leader>q :quit<CR>
-
-nnoremap <Space>p :bp<CR>
-nnoremap <Space>n :bn<CR>
-nnoremap <tab><tab> <C-w><C-w>
-nnoremap <tab>n <C-w>w
-nnoremap <tab>p <C-w>W
+nnoremap <Leader>p :bp<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <tab> <C-w>
 
 nmap <C-n> *
 nmap <C-p> #
@@ -194,33 +200,25 @@ vmap <C-n> y/<C-r>"<CR>
 vmap <C-p> y?<C-r>"<CR>
 
 nnoremap g/ /\<\><Left><Left>
+" Jump to definition
+nnoremap <Leader><C-d> yiw/<Bslash>v<C-r>0.*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
 
-" goto tag and set as search
-nnoremap K *N<C-]>n
-
-nnoremap <Space>g :Git<bar>wincmd H<bar>vertical resize 80<CR>
-nnoremap <Space>G :Gedit :<CR>
+" nnoremap <Leader>G :Git<bar>wincmd H<bar>vertical resize 80<CR>
+nnoremap <Leader><C-G> :Gedit :<CR>
 
 set splitbelow
 set splitright
 
-nnoremap SS :split<CR>
-nnoremap SV :vsplit<CR>
-
 " fzf.vim
-nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>e :GFiles<CR>
 nnoremap <Leader>s :GFiles?<CR>
-nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>o :Files<CR>
+nnoremap <Leader>O :Files ~<CR>
+nnoremap <Leader>f :BLines<CR>
 nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>r :Rg<CR>
-nnoremap <Leader>/ :BLines<CR>
-nnoremap <Leader>: :History:<CR>
-nnoremap <Leader>? :History/<CR>
-" nnoremap <Leader>t :Tags<CR>
+nnoremap <Leader>; :History:<CR>
+nnoremap <Leader>/ :History/<CR>
 nnoremap <Leader>h :Helptags<CR>
-" :Index shows index.txt (with all key-combinations) using fzf-vim
-command! Index silent execute ":help index.txt" | silent execute ":BLines!"
-nnoremap <Leader>i :Index<CR>
 let g:fzf_preview_window = ['up:10']
 
 " windows
@@ -229,6 +227,8 @@ nnoremap <C-w>. 20<C-w>>
 
 " Remove current buffer
 nnoremap ZZ :bdelete<CR>
+nnoremap Z1 :2,$bd<CR>
+nnoremap Z\ :1, $-1bd<CR>
 " Close window
 nnoremap ZX :hide<CR>
 " Replace current buffer with fzf
@@ -236,7 +236,40 @@ nnoremap ZF :bdelete<bar>FZF<CR>
 " Remove all buffers
 nnoremap ZA :%bdelete<CR>
 
+" :Index shows index.txt (with all key-combinations) using fzf-vim
+command! Index silent execute ":help index.txt" | silent execute ":BLines!"
+nnoremap FI :Index<CR>
+
 " autocmd TextYankPost * redraw | registers " 0 1 2
+
+function! s:CaptureCommand( command )
+  redir => l:commandOutput
+  silent! execute a:command
+  redir END
+  redraw  " This is necessary because of the :redir done earlier.
+  return split(l:commandOutput, "\n")
+endfunction
+
+":[N]Head {cmd}     Show only the first 10 / [N] lines of {cmd}'s output.
+function! s:Head( count, command )
+  let l:lines = s:CaptureCommand(a:command)
+  for l:line in l:lines[0:(a:count ? a:count : 10)]
+    echo l:line
+  endfor
+endfunction
+
+":[N]Tail {cmd}     Show only the last 10 / [N] lines of {cmd}'s output.
+function! s:Tail( count, command )
+  let l:lines = s:CaptureCommand(a:command)
+  for l:line in l:lines[-1 * min([(a:count ? a:count : 10), len(l:lines)]):-1]
+    echo l:line
+  endfor
+endfunction
+command! -range=0 -nargs=+ Head call <SID>Head(<count>, <q-args>)
+command! -range=0 -nargs=+ Tail call <SID>Tail(<count>, <q-args>)
+
+nnoremap <Leader>k <C-O>:Tail jumps<CR>
+nnoremap <Leader>j <C-I>:Tail jumps<CR>
 
 " echo last sourcefile update
 " redraw | echo '--- .vimrc sourced --- ' . strftime("%c", getftime(expand('%'))) . ' ---' | redraw

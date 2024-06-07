@@ -6,12 +6,12 @@ EDITOR=vim
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return;;
 esac
 
 if [[ ! "$PROMPT_COMMAND" =~ "history" ]]; then
-	export PROMPT_COMMAND="history -a;"
+  export PROMPT_COMMAND="history -a;"
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -57,12 +57,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
     else
-	color_prompt=
+  color_prompt=
     fi
 fi
 
@@ -114,7 +114,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -141,39 +141,39 @@ alias dps="docker ps --format=\"table {{.Names}}\t{{.Status}}\t{{.Image}}\""
 alias dcps="docker-compose ps --format=\"table {{.Name}}\t{{.Status}}\t{{.Image}}\""
 alias v="vim"
 
-epoch () {
-	date +"%s"
+epoch() {
+  date +"%s"
 }
-nanoseconds () {
-	PRECIS=$1
-	date +"%${PRECIS}N"
+nanoseconds() {
+  PRECIS=$1
+  date +"%${PRECIS}N"
 }
 alias microseconds="nanoseconds 6"
 alias milliseconds="nanoseconds 3"
 
 alias fzf_mini="fzf --height=20% --info=inline"
 gco() {
-	git branch |
-		grep -v "^\*" |
-		fzf_mini --query=$1 --reverse |
-		xargs git checkout
+  git branch |
+  grep -v "^\*" |
+  fzf_mini --query=$1 --reverse |
+  xargs git checkout
 }
 
 alias ez="eza --all --long --git --git-repos --sort=time"
 alias et="ez --tree"
 
 warn_azerty() {
-	KILL_LEFT=\\033\[1K
-	KILL_RIGHT=\\033\[0K
-	CARRIAGE_RETURN=\\r
-	# ANSI Escape Sequences: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#erase-functions
-	echo -n heads up handsome
-	sleep 1
-	echo -ne ${CARRIAGE_RETURN}check your keyboard cause it might be in azerty
-	sleep 2
-	echo -ne ${CARRIAGE_RETURN}byeee$KILL_RIGHT
-	sleep .2
-	echo -ne $KILL_LEFT$CARRIAGE_RETURN
+  KILL_LEFT=\\033\[1K
+  KILL_RIGHT=\\033\[0K
+  CARRIAGE_RETURN=\\r
+  # ANSI Escape Sequences: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797#erase-functions
+  echo -n heads up handsome
+  sleep 1
+  echo -ne ${CARRIAGE_RETURN}check your keyboard cause it might be in azerty
+  sleep 2
+  echo -ne ${CARRIAGE_RETURN}byeee$KILL_RIGHT
+  sleep .2
+  echo -ne $KILL_LEFT$CARRIAGE_RETURN
 }
 
 alias .b=". ~/.bashrc"
@@ -186,7 +186,7 @@ alias jpaths="jq 'paths(scalars) | join(\".\")'"
 alias jfz="jq -r 'paths(scalars) as \$p | [(\$p | join(\".\")), getpath(\$p)] | join(\" : \")' |fzf"
 alias pz="pbpaste | jfz"
 alias curly="curl -s -o /dev/null -w '%{http_code}\n'"
-alias jz=jqfz
+alias jz=jazz
 alias fugitive='vim +:Git +:only'
 alias fug=fugitive
 alias npz="jq -r '.scripts|keys[]' package.json | fzf_mini --preview='jq \'.scripts.\\\"{}\\\"' package.json\""
@@ -195,7 +195,7 @@ alias ub=unbuffer
 # trash() { mkdir ~/.trash 2> /dev/null ; mv "$@" ~/.trash/ ; }
 
 gordon() {
-	unbuffer $@ | bat
+  unbuffer $@ | bat
 }
 
 /usr/bin/keychain --nogui ~/.ssh/id_ed25519
@@ -204,21 +204,21 @@ source $HOME/.keychain/NR00S17DSI19XRX-sh
 PATH=$PATH":/mnt/c/Program Files/Microsoft VS Code/bin"
 
 parse_git_branch() {
-	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 # export PS1="\u@\h \[\033[34m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 git_short_status() {
-	git status -s 2>/dev/null |awk '{print $1}'|sort -ur|tr "\n" '_'
+  git status -s 2>/dev/null |awk '{print $1}'|sort -ur|tr "\n" '_'
 }
 
 git_in_prompt() {
-	if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
-		BRANCH=$(parse_git_branch)
-		if echo $BRANCH | grep -qe "FEATURES/M-[0-9]\+"; then
-			BRANCH=`[[ $BRANCH =~ [0-9]+ ]] && echo ${BASH_REMATCH[0]} || echo $BRANCH`
-		fi
-		echo "($BRANCH)" # $(git_short_status))"
-	fi
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    BRANCH=$(parse_git_branch)
+    if echo $BRANCH | grep -qe "FEATURES/M-[0-9]\+"; then
+      BRANCH=`[[ $BRANCH =~ [0-9]+ ]] && echo ${BASH_REMATCH[0]} || echo $BRANCH`
+    fi
+    echo "($BRANCH)" # $(git_short_status))"
+  fi
 }
 
 # SET PS1
@@ -244,8 +244,8 @@ export PATH="/home/unix/git-fuzzy/bin:$PATH"
 [ "${PATH#*/usr/local/go/bin:}" == "$PATH" ] && export PATH="/usr/local/go/bin:$PATH"
 export PATH="/home/unix/.cargo/bin:$PATH"
 
-lines () {
-    tr "${1:-:}" '\n'
+lines() {
+  tr "${1:-:}" '\n'
 }
 
 # echo inputrc start
@@ -259,84 +259,84 @@ lines () {
 # bind 'set show-mode-in-prompt on'
 # bind '"jk":vi-movement-mode'
 
-spin_boy () {
-	NO_CU=\\033\[?25l
-	YE_CU=\\033\[?25h
-	CARRIAGE_RETURN=\\r
-	expr -- "$1" + 0 > /dev/null 2>&1 || return # check if arg is number
-	END=$((SECONDS + $1))
-	# echo END $END
-	echo -ne $NO_CU
-	while [ $SECONDS -lt $END ]; do
-		echo -ne "$CARRIAGE_RETURN/"
-		sleep .1
-		echo -ne "$CARRIAGE_RETURN-"
-		sleep .1
-		echo -ne "$CARRIAGE_RETURN\\"
-		sleep .1
-		echo -ne "$CARRIAGE_RETURN|"
-		sleep .1
-		echo -ne "$CARRIAGE_RETURN-"
-		sleep .1
-	done
-	echo -ne "$CARRIAGE_RETURN$YE_CU"
+spin_boy() {
+  NO_CU=\\033\[?25l
+  YE_CU=\\033\[?25h
+  CARRIAGE_RETURN=\\r
+  expr -- "${1:-10}" + 0 > /dev/null 2>&1 || return # check if arg is number
+  END=$((SECONDS + $1))
+  # echo END $END
+  echo -ne $NO_CU
+  while [ $SECONDS -lt $END ]; do
+    echo -ne "$CARRIAGE_RETURN/"
+    sleep .1
+    echo -ne "$CARRIAGE_RETURN-"
+    sleep .1
+    echo -ne "$CARRIAGE_RETURN\\"
+    sleep .1
+    echo -ne "$CARRIAGE_RETURN|"
+    sleep .1
+    echo -ne "$CARRIAGE_RETURN-"
+    sleep .1
+  done
+  echo -ne "$CARRIAGE_RETURN$YE_CU"
 }
 
 curl_text() {
-	url=$1
-	selector=${2:-body}
-	curl -s "$1" | \
-		htmlq "$2"| \
-		sed -e 's/<[^>]*>//g' #| \ awk '{$1=$1;print}'
-}
+  url=$1
+  selector=${2:-body}
+  curl -s "$1" | \
+    htmlq "$2"| \
+    sed -e 's/<[^>]*>//g' #| \ awk '{$1=$1;print}'
+  }
 
-rename_terminal() {
-	dir=`pwd | cut -d "/" -f $(($(grep -o "/" <<< $(pwd) | wc -l) + 1))`
-	name=${1:-$dir}
-	echo -ne "\033]0;"$name"\007"
-}
-alias rt=rename_terminal
+  rename_terminal() {
+    dir=`pwd | cut -d "/" -f $(($(grep -o "/" <<< $(pwd) | wc -l) + 1))`
+    name=${1:-$dir}
+    echo -ne "\033]0;"$name"\007"
+  }
+  alias rt=rename_terminal
 
-source ~/.secrets
-alias dctail="docc logs --follow"
-c() {
-	if [[ $1 == "" ]]; then
-		dir=.
-	else
-		dir=`fasd -R $1|head -1`
-	fi
-	echo code $dir \&
-}
+  source ~/.secrets
+  alias dctail="docc logs --follow"
+  c() {
+    if [[ $1 == "" ]]; then
+      dir=.
+    else
+      dir=`fasd -R $1|head -1`
+    fi
+    echo code $dir \&
+  }
 
-alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe"
-zrt() {
-	z $1 && rt $1
-}
-alias err='echo >&2'
+  alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe"
+  zrt() {
+    z $1 && rt $1
+  }
+  alias err='echo >&2'
 
-loop(){
-	count=0
-	while true; do
-		eval $*
-    ((count++))
+  loop(){
+    count=0
+    while true; do
+      eval $*
+      ((count++))
 
-		echo -n 3.0
-		for i in {2..0}; do
-			for j in {9..0}; do
-				sleep 0.1
-				err -ne "\r$i.$j"s
-			done
-		done
-		err "Run #$count..."
-	done
-}
-alias lp=loop
+      echo -n 3.0
+      for i in {2..0}; do
+        for j in {9..0}; do
+          sleep 0.1
+          err -ne "\r$i.$j"s
+        done
+      done
+      err "Run #$count..."
+    done
+  }
+  alias lp=loop
 
-npm_scripts(){
- run=`npm run`
- scripts=`echo "$run" | egrep "^  " | sed 's/^[[:space:]][[:space:]]//' # | awk '{ORS=NR%2?" # ":"\n"; print}'`
- echo "$scripts"
-}
+  npm_scripts(){
+    run=`npm run`
+    scripts=`echo "$run" | egrep "^  " | sed 's/^[[:space:]][[:space:]]//' # | awk '{ORS=NR%2?" # ":"\n"; print}'`
+    echo "$scripts"
+  }
 
 # export SSH_AUTH_SOCK=$(/mnt/c/Windows/System32/wsl.exe -u $USER echo \$SSH_AUTH_SOCK)
 alias tm=tmux
@@ -344,47 +344,206 @@ alias tmr=tmuxinator
 
 alias unbold='sed -e "s/1;/0;/g"'
 tight() {
-	width=${1:-80}
-	sed -E "s/^(.{$width}).*$/\1/"
+  width=${1:-80}
+  sed -E "s/^(.{$width}).*$/\1/"
 }
 
 alias codium=/mnt/c/Users/igor.descayrac/AppData/Local/Programs/VSCodium/bin/codium
-alias t=tmux
 
 jump() {
-  case "$1" in
-    "")
-      echo >&2 Jump to appmanager
-      sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@appmanager@nrcoadl-meth01.awseuw1.em-nrco.int@jump
-      ;;
-    methcb|appmanager|methdig|methed)
-      host=$1
-      echo >&2 Jump to "$host"
+  AWS_HOST="awseuw1.em-nrco.int"
+  DEV_JMP="nrcoadl-meth01.$AWS_HOST"
 
-      sshpass -f ~/passwords/.nrco_jump_dev ssh igor.descayrac@$host@nrcoadl-meth01.awseuw1.em-nrco.int@jump
+  ENV="${1^^}"
+  shift
+  SERVER="${1,,}"
+  shift
+  # CMD="$1"
+  # shift
+  echo ENV $ENV
+  echo SERVER $SERVER
+  # echo CMD $CMD
+  return
+
+  case $ENV in
+    DEV)
+      case $SERVER in
+        cobalt)
+          user=igor.descayrac
+          host=methcb@$DEV_JMP
+          ;;
+        controller)
+          user=igor.descayrac
+          host=appmanager@$DEV_JMP
+          ;;
+        methdig)
+          user=igor.descayrac
+          host=methdig@$DEV_JMP
+          ;;
+        methed)
+          user=igor.descayrac
+          host=methed@$DEV_JMP
+          ;;
+        elasticsearch_x_archive)
+          user=cust-nrco
+          host=es_arc@$DEV_JMP
+          ;;
+        elasticsearch_x_cobalt)
+          user=cust-nrco
+          host=es_cb@$DEV_JMP
+          ;;
+        methed)
+          user=igor.descayrac
+          host=methed@$DEV_JMP
+          ;;
+        postgresql)
+          user=cust-nrco
+          host=methpsql@$DEV_JMP
+          ;;
+        ptrack)
+          user=cust-nrco
+          host=methptr@$DEV_JMP
+          ;;
+        sso)
+          user=cust-nrco
+          host=methsso@$DEV_JMP
+          ;;
+        swing_x_cobalt)
+          user=cust-nrco
+          host=methcbdg@$DEV_JMP
+          ;;
+        swing_x_prime)
+          user=cust-nrco
+          host=methprdg@$DEV_JMP
+          ;;
+        vside)
+          user=cust-nrco
+          host=methvsd@$DEV_JMP
+          ;;
+      esac
+      ;;
+    QA)
+      case "$2" in
+        cobalt:nrcoaql-methed01)
+          user=cust-nrco
+          host=methcb@nrcoaql-methed01.$AWS_HOST
+          ;;
+        cobalt:nrcocql-cobcore-baseimage)
+          user=cust-nrco
+          host=methcb@nrcocql-cobcore-baseimage.$AWS_HOST
+          ;;
+        cobalt:nrcocql-cobfe-baseimage)
+          user=cust-nrco
+          host=methcb@nrcocql-cobfe-baseimage.$AWS_HOST
+          ;;
+        controller)
+          user=igor.descayrac
+          host=appmanager@nrcoaql-controller01.$AWS_HOST
+          ;;
+        elasticsearch_x_archive)
+          user=cust-nrco
+          host=elastic@nrcoaql-metharc01search.$AWS_HOST
+          ;;
+        elasticsearch_x_cobalt:cobelastic01)
+          user=cust-nrco
+          host=es_cb@nrcoaql-cobelastic01.$AWS_HOST
+          ;;
+        elasticsearch_x_cobalt:cobelastic02)
+          user=cust-nrco
+          host=es_cb@nrcobql-cobelastic02.$AWS_HOST
+          ;;
+        elasticsearch_x_cobalt:cobelastic03)
+          user=cust-nrco
+          host=es_cb@nrcocql-cobelastic03.$AWS_HOST
+          ;;
+        elasticsearch_x_editorial)
+          user=cust-nrco
+          host=elastic@nrcoaql-methed01search.$AWS_HOST
+          ;;
+        metharc)
+          user=igor.descayrac
+          host=metharc@nrcoaql-metharc01.$AWS_HOST
+          ;;
+        methdig)
+          user=igor.descayrac
+          host=methdig@nrcocql-methdig01-baseimage.$AWS_HOST
+          ;;
+        methdig:2)
+          user=igor.descayrac
+          host=methdig@nrcocpl-methdig01-baseimage.$AWS_HOST
+          ;;
+        methed)
+          user=igor.descayrac
+          host=methed@nrcoaql-methed01.$AWS_HOST
+          ;;
+        ptrack:be)
+          user=cust-nrco
+          host=methptr@nrcocql-ptr01-baseimage.$AWS_HOST
+          ;;
+        ptrack:fe)
+          user=
+          host=ust-nrco@methptr@nrcoaql-methed01.$AWS_HOST
+          ;;
+        sso1)
+          user=igor.descayrac
+          host=methsso@nrcoaql-sso01.$AWS_HOST
+          ;;
+        sso2)
+          user=cust-nrco
+          host=methsso@nrcobql-sso02.$AWS_HOST
+          ;;
+        swing_x_cobalt)
+          user=cust-nrco
+          host=methcbdg@$DEV_JMP
+          ;;
+        swing_x_prime)
+          user=cust-nrco
+          host=methpridg@nrcocql-prime01-baseimage.$AWS_HOST
+          ;;
+        vside)
+          user=cust-nrco
+          host=methvsd@nrcoaql-methed01.$AWS_HOST
+          ;;
+      esac
+      ;;
+    methcb|appmanager|methdig|methed|"")
+      user=igor.descayrac
+      host=${ENV:-appmanager}@$DEV_JMP
       ;;
     *)
-      echo "Unknown host : pick (methcb|appmanager|methdig|methed)" >&2 && exit 1
+      echo "Unknown host : pick (methcb|appmanager|methdig|methed)" >&2
+      return 1
       ;;
   esac
+
+  export SSH=$user@$host@jump
+  if [[ $1 == "--echo" ]]; then
+    echo $user@$host@jump
+    return
+  fi
+
+  PASSWORD=~/passwords/.nrco_jump_dev
+  echo >&2 Jump to "$host"
+  sshpass -f $PASSWORD ssh $SSH "$CMD"
 }
 
 jump_exp() {
   host=${1:-appmanager}
   shift
-  jump "$host" "cd mnt/express && $*";
+  jump "$host" "$*";
 }
 
 alias functions="bind -P"
 
 prompt () {
-	read -n 1 -r -p "$* : "
-	echo
-	[ "${REPLY,,}" == "y" ]
+  read -n 1 -r -p "$* : "
+  echo
+  [ "${REPLY,,}" == "y" ]
 }
 
 alias shgpt="sgpt --shell"
 alias codegpt="sgpt --code"
+alias x=xargs
 
 . "$HOME/.cargo/env"
 
