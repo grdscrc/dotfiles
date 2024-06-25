@@ -5,6 +5,8 @@ set wildmenu
 set hidden " Edited buffers can exist hidden
 set list " Display non-print characters
 set showbreak=↪\  " Prefix for wrapped lines
+set showcmd
+set showmatch
 set listchars=tab:→\·,eol:↲,nbsp:␣,space:-,trail:•,extends:⟩,precedes:⟨
 set tabstop=2
 set shiftwidth=2
@@ -101,8 +103,8 @@ nmap <c-g>v <Plug>(GitGutterPreviewHunk)
 nmap <c-g>V :bdelete gitgutter<CR>
 nmap <c-g>s <Plug>(GitGutterStageHunk)
 nmap <c-g>x <Plug>(GitGutterUndoHunk)
-nmap <c-g>j <Plug>(GitGutterNextHunk)
-nmap <c-g>k <Plug>(GitGutterPrevHunk)
+nmap <Leader>J <Plug>(GitGutterNextHunk)
+nmap <Leader>K <Plug>(GitGutterPrevHunk)
 autocmd BufWritePost * GitGutter
 
 Plug 'https://github.com/vim-airline/vim-airline.git'
@@ -142,19 +144,17 @@ nmap <Leader>TN :FloatermNew node<CR>
 Plug 'tpope/vim-rsi'
 
 Plug 'dense-analysis/ale'
+" Remap usual
+nnoremap gd :ALEGoToDefinition<CR>
+nnoremap gr :ALEFindReferences<CR>
+nnoremap gh :ALEHover<CR>
+nnoremap gR :ALERename<CR>
 
 Plug 'bkad/CamelCaseMotion'
-map <silent> W <Plug>CamelCaseMotion_w
-map <silent> B <Plug>CamelCaseMotion_b
-map <silent> E <Plug>CamelCaseMotion_e
-map <silent> gE <Plug>CamelCaseMotion_ge
-sunmap W
-sunmap B
-sunmap E
-sunmap gE
-
-" Better color scheme
-Plug 'morhetz/gruvbox'
+map <Leader>w <Plug>CamelCaseMotion_w
+map <Leader>b <Plug>CamelCaseMotion_b
+map <Leader>E <Plug>CamelCaseMotion_e
+map <Leader>gE <Plug>CamelCaseMotion_ge
 
 Plug 'tpope/vim-commentary'
 
@@ -176,23 +176,19 @@ set background=dark
 nnoremap <Leader><Leader> :
 inoremap jk <esc>
 inoremap JK <esc>:undo<CR>
-inoremap jW <esc>:write<CR>
-inoremap jZ <esc>:write<bar>bdelete<CR>
-inoremap jQ <esc>:write<bar>quit<CR>
-
-nnoremap <Leader>w :write<CR>
-nnoremap <Leader>W :write<bar>bdelete<CR>
+inoremap jw <esc>:write<CR>
 
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
 
-" Close buffer without closing window
-nnoremap <Leader>x :sp<bar>bn<bar>bd#<CR>
-nnoremap <Leader>X :sp<bar>bp<bar>bd#<CR>
+" Buffer mappings
 nnoremap <Leader>p :bp<CR>
 nnoremap <Leader>n :bn<CR>
-nnoremap <tab> <C-w>
+nnoremap <Leader>N :ene<CR>
+nnoremap <Leader>d :bd<CR>
 
+nnoremap <Leader>j <C-f>M
+nnoremap <Leader>k <C-b>M
 nmap <C-n> *
 nmap <C-p> #
 
@@ -204,7 +200,7 @@ nnoremap g/ /\<\><Left><Left>
 nnoremap <Leader><C-d> yiw/<Bslash>v<C-r>0.*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
 
 " nnoremap <Leader>G :Git<bar>wincmd H<bar>vertical resize 80<CR>
-nnoremap <Leader><C-G> :Gedit :<CR>
+nnoremap <Leader>g :Gedit :<CR>
 
 set splitbelow
 set splitright
@@ -219,6 +215,7 @@ nnoremap <Leader>a :Ag<CR>
 nnoremap <Leader>; :History:<CR>
 nnoremap <Leader>/ :History/<CR>
 nnoremap <Leader>h :Helptags<CR>
+nnoremap <Leader>c :Colors<CR>
 let g:fzf_preview_window = ['up:10']
 
 " windows
@@ -268,8 +265,6 @@ endfunction
 command! -range=0 -nargs=+ Head call <SID>Head(<count>, <q-args>)
 command! -range=0 -nargs=+ Tail call <SID>Tail(<count>, <q-args>)
 
-nnoremap <Leader>k <C-O>:Tail jumps<CR>
-nnoremap <Leader>j <C-I>:Tail jumps<CR>
 
 " echo last sourcefile update
 " redraw | echo '--- .vimrc sourced --- ' . strftime("%c", getftime(expand('%'))) . ' ---' | redraw
