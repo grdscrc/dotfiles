@@ -358,12 +358,8 @@ jump() {
   shift
   SERVER="${1,,}"
   shift
-  # CMD="$1"
-  # shift
-  echo ENV $ENV
-  echo SERVER $SERVER
-  # echo CMD $CMD
-  return
+  CMD="$1"
+  shift
 
   case $ENV in
     DEV)
@@ -517,7 +513,7 @@ jump() {
   esac
 
   export SSH=$user@$host@jump
-  if [[ $1 == "--echo" ]]; then
+  if [[ $CMD == "--echo" ]]; then
     echo $user@$host@jump
     return
   fi
