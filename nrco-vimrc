@@ -3,11 +3,13 @@ let mapleader = "\<Space>"
 set confirm
 set wildmenu
 set hidden " Edited buffers can exist hidden
-set list " Display non-print characters
+
+" set list " Display non-print characters
+set listchars=tab:→\·,eol:↲,nbsp:␣,space:-,trail:•,extends:⟩,precedes:⟨
 set showbreak=↪\  " Prefix for wrapped lines
+
 set showcmd
 set showmatch
-set listchars=tab:→\·,eol:↲,nbsp:␣,space:-,trail:•,extends:⟩,precedes:⟨
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -20,6 +22,8 @@ set foldmethod=syntax
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
+set display+=lastline
+" set statusline+=%F
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -28,11 +32,12 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 " set cursorline
 " set cursorcolumn
-au InsertEnter * set cursorline cursorcolumn nohlsearch
-au InsertLeave * set nocursorline nocursorcolumn hlsearch
+au InsertEnter * set cursorline cursorcolumn nohlsearch list
+au InsertLeave * set nocursorline nocursorcolumn hlsearch nolist
+inoremap <c-c> <esc>:undo<cr>
 set modeline
 set modelines=5
-set scrolloff=5
+" set scrolloff=5
 
 highlight clear Search
 highlight Search ctermfg=blue ctermbg=black
@@ -98,13 +103,14 @@ autocmd User FugitiveObject setlocal bufhidden=
 
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
+nnoremap <c-g><c-g> <c-g>
 nmap <c-g>g :GitGutter<CR>
 nmap <c-g>v <Plug>(GitGutterPreviewHunk)
 nmap <c-g>V :bdelete gitgutter<CR>
 nmap <c-g>s <Plug>(GitGutterStageHunk)
 nmap <c-g>x <Plug>(GitGutterUndoHunk)
-nmap <Leader>J <Plug>(GitGutterNextHunk)
-nmap <Leader>K <Plug>(GitGutterPrevHunk)
+nmap <c-g>n <Plug>(GitGutterNextHunk)
+nmap <c-g>p <Plug>(GitGutterPrevHunk)
 autocmd BufWritePost * GitGutter
 
 Plug 'https://github.com/vim-airline/vim-airline.git'
@@ -136,10 +142,11 @@ let g:minimap_width = 80
 Plug 'dominikduda/vim_current_word'
 let g:vim_current_word#highlight_current_word = 0
 
-nmap <Leader>TT :terminal<CR>
+nmap <c-t><c-t> :terminal<CR>
+nmap <c-t>v :vertical terminal<CR>
 Plug 'voldikss/vim-floaterm'
-nmap <Leader>TF :FloatermNew<CR>
-nmap <Leader>TN :FloatermNew node<CR>
+nmap <c-t>f :FloatermNew<CR>
+nmap <c-t>n :FloatermNew node<CR>
 
 Plug 'tpope/vim-rsi'
 
@@ -149,12 +156,16 @@ nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gr :ALEFindReferences<CR>
 nnoremap gh :ALEHover<CR>
 nnoremap gR :ALERename<CR>
+let g:ale_fixers = { 'python': 'ruff' }
 
-Plug 'bkad/CamelCaseMotion'
-map <Leader>w <Plug>CamelCaseMotion_w
-map <Leader>b <Plug>CamelCaseMotion_b
-map <Leader>E <Plug>CamelCaseMotion_e
-map <Leader>gE <Plug>CamelCaseMotion_ge
+" Plug 'bkad/CamelCaseMotion'
+" map <Leader>w <Plug>CamelCaseMotion_w
+" map <Leader>b <Plug>CamelCaseMotion_b
+" map <Leader>E <Plug>CamelCaseMotion_e
+" map <Leader>gE <Plug>CamelCaseMotion_ge
+
+" Better color schemes
+Plug 'rafi/awesome-vim-colorschemes'
 
 Plug 'tpope/vim-commentary'
 
@@ -162,6 +173,8 @@ Plug 'tmhedberg/SimpylFold'
 let g:SimpylFold_docstring_preview = 1
 
 Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
@@ -174,21 +187,24 @@ colorscheme gruvbox
 set background=dark
 
 nnoremap <Leader><Leader> :
-inoremap jk <esc>
-inoremap JK <esc>:undo<CR>
-inoremap jw <esc>:write<CR>
+" inoremap jk <esc><Right>
+" inoremap JK <esc>:undo<CR>
+" inoremap jw <esc>:write<CR>
 
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
 
-" Buffer mappings
-nnoremap <Leader>p :bp<CR>
-nnoremap <Leader>n :bn<CR>
+" Buffer & tabs
+nnoremap <Leader>k :bp<CR>
+nnoremap <Leader>j :bn<CR>
+nnoremap <Leader>b :buffers<CR>
+nnoremap <Leader>p :tabprev<CR>
+nnoremap <Leader>n :tabnext<CR>
 nnoremap <Leader>N :ene<CR>
 nnoremap <Leader>d :bd<CR>
 
-nnoremap <Leader>j <C-f>M
-nnoremap <Leader>k <C-b>M
+" nnoremap <Leader>j <C-d>M
+" nnoremap <Leader>k <C-u>M
 nmap <C-n> *
 nmap <C-p> #
 
@@ -237,7 +253,8 @@ nnoremap ZA :%bdelete<CR>
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
 nnoremap FI :Index<CR>
 
-" autocmd TextYankPost * redraw | registers " 0 1 2
+autocmd CursorHold * echo
+autocmd TextYankPost * echo len(getreg(v:register))"chars,"len(split(getreg(v:register), '\n'))"lines, <yank>"substitute(getreg(v:register), '\n', ' // ', 'g')[0:50]"</yank>"
 
 function! s:CaptureCommand( command )
   redir => l:commandOutput
@@ -265,6 +282,13 @@ endfunction
 command! -range=0 -nargs=+ Head call <SID>Head(<count>, <q-args>)
 command! -range=0 -nargs=+ Tail call <SID>Tail(<count>, <q-args>)
 
+" https://vim.fandom.com/wiki/Comfortable_handling_of_registers : cycle registers
+nnoremap <Leader>r :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| register " 0 a b<CR>
+nnoremap <Leader>R :let @"=@0 \| let @0=@1 \| let @1=@2 \| let @2=@3 \| register " 0 1 2<CR>
+
+" nnoremap <Leader>k <C-O>:Tail jumps<CR>
+" nnoremap <Leader>j <C-I>:Tail jumps<CR>
+" nnoremap <Leader>j :copen<Bar>Tail jumps<C-w>O<CR>
 
 " echo last sourcefile update
 " redraw | echo '--- .vimrc sourced --- ' . strftime("%c", getftime(expand('%'))) . ' ---' | redraw
