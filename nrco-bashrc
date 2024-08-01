@@ -523,23 +523,32 @@ jump() {
   export SSH=$user@$host@jump
   if [[ $CMD == "--echo" ]]; then
     echo -n $user@$host@jump
-  else
-    PASSWORD=~/passwords/.nrco_jump_dev
-    echo >&2 ">>>ssh "$user"@"$host"<<<"
-    sshpass -f $PASSWORD ssh $SSH "$CMD"
+    return
   fi
+
+  if [[ $CMD == "--find" ]]; then
+    localpath=$1
+    shift
+    twodirpath=`echo $localpath | sed 's|.*/\([^/]\+/[^/]\+\)/\([^/]\+\)$|\1/\2|'`
+    CMD="find -path '*/$twodirpath'"
+  fi
+  echo >&2 ">>>ssh "$user"@"$host"@jump<<<"
+  echo >&2 ">>>:$CMD<<<"
+  PASSWORD=~/passwords/.nrco_jump_dev
+  sshpass -f $PASSWORD ssh $SSH "$CMD"
 }
 
 jump_help() {
+  t="        " # indentation
   case $1 in
     DEV)
-      type jump|sed -n '/        DEV)/,/^        ;;/p'|grep ")"|bat --file-name "jump --help"
+      type jump|sed -n "/${t}DEV)/,/^${t};;/p"|grep ")"|bat --number
       ;;
     QA)
-      type jump|sed -n '/        QA)/,/^        ;;/p'|grep ")"|bat --file-name "jump --help"
+      type jump|sed -n "/${t}QA)/,/^${t};;/p"|grep ")"|bat --number
       ;;
     *|"")
-      type jump|bat --file-name "jump --help" --language bash
+      type jump|bat --number --language bash
       ;;
   esac
 }
