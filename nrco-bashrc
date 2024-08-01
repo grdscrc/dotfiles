@@ -195,7 +195,7 @@ alias ub=unbuffer
 # trash() { mkdir ~/.trash 2> /dev/null ; mv "$@" ~/.trash/ ; }
 
 gordon() {
-  unbuffer $@ | bat
+  unbuffer $@ | bat --force-colorization
 }
 
 /usr/bin/keychain --nogui ~/.ssh/id_ed25519
@@ -354,9 +354,9 @@ jump() {
   AWS_HOST="awseuw1.em-nrco.int"
   DEV_JMP="nrcoadl-meth01.$AWS_HOST"
 
-  ENV="${1^^}"
+  ENV="${1^^}" # UPPERCASE
   shift
-  SERVER="${1,,}"
+  SERVER="${1,,}" # lowercase
   shift
   CMD="$1"
   shift
@@ -416,10 +416,14 @@ jump() {
           user=cust-nrco
           host=methvsd@$DEV_JMP
           ;;
+        *)
+          echo "Unknown DEV host : check `jump_help DEV`" >&2
+          return 1
+          ;;
       esac
       ;;
     QA)
-      case "$2" in
+      case $SERVER in
         cobalt:nrcoaql-methed01)
           user=cust-nrco
           host=methcb@nrcoaql-methed01.$AWS_HOST
@@ -500,27 +504,44 @@ jump() {
           user=cust-nrco
           host=methvsd@nrcoaql-methed01.$AWS_HOST
           ;;
+        *)
+          echo "Unknown QA host : check `jump_help QA`" >&2
+          return 1
+          ;;
       esac
       ;;
-    methcb|appmanager|methdig|methed|"")
+    appmanager|"")
       user=igor.descayrac
       host=${ENV:-appmanager}@$DEV_JMP
       ;;
     *)
-      echo "Unknown host : pick (methcb|appmanager|methdig|methed)" >&2
+      echo "Unknown env : check `jump_help`" >&2
       return 1
       ;;
   esac
 
   export SSH=$user@$host@jump
   if [[ $CMD == "--echo" ]]; then
-    echo $user@$host@jump
-    return
+    echo -n $user@$host@jump
+  else
+    PASSWORD=~/passwords/.nrco_jump_dev
+    echo >&2 ">>>ssh "$user"@"$host"<<<"
+    sshpass -f $PASSWORD ssh $SSH "$CMD"
   fi
+}
 
-  PASSWORD=~/passwords/.nrco_jump_dev
-  echo >&2 Jump to "$host"
-  sshpass -f $PASSWORD ssh $SSH "$CMD"
+jump_help() {
+  case $1 in
+    DEV)
+      type jump|sed -n '/        DEV)/,/^        ;;/p'|grep ")"|bat --file-name "jump --help"
+      ;;
+    QA)
+      type jump|sed -n '/        QA)/,/^        ;;/p'|grep ")"|bat --file-name "jump --help"
+      ;;
+    *|"")
+      type jump|bat --file-name "jump --help" --language bash
+      ;;
+  esac
 }
 
 jump_exp() {
