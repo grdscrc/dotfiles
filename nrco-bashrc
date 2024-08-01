@@ -229,7 +229,7 @@ export PS1="\[\e[$GREEN\]\u\[\e[0m\]@"
 #PS1=$PS1"\[\e[$BLUE\]\h "
 PS1=$PS1"\[\e[$BLUE\]"
 PS1=$PS1"\[\e[22m\]\w \[\e[0m\]"
-PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n$ "
+PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n"
 
 # Enable keybindings for fzf
 # source /usr/share/doc/fzf/examples/key-bindings.bash
