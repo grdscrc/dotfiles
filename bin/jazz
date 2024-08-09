@@ -4,13 +4,14 @@
 # Call with `jazz <big_file_with_many_paths>.json` or `<command producing a valid json> | jazz`
 # End command with `... | pbcopy` or `... > output.json` to save selection
 
-input=$1
-
-TMP_DIR=$(mktemp -d /tmp/jazz_XXX)
-chmod 700 "$TMP_DIR"
-if [[ -z $1 ]] || [[ $1 == "-" ]]; then
-                input="$TMP_DIR/input"
-                cat /dev/stdin > "$TMP_DIR/input"
+if [ -p /dev/stdin ]; then
+  # Store stdin as tmp file, simplify calls to jq
+  tmp_input=$(mktemp /tmp/jazz_stdin_XXX)
+  chmod 700 "$tmp_input"
+  cat /dev/stdin > "$tmp_input"
+  input=$tmp_input
+else
+  input=$1
 fi
 
 err(){
@@ -20,15 +21,12 @@ erase_err(){
   echo >&2 -ne "\r\033[K"
 }
 
-trap 'rm -rf "$TMP_DIR"' EXIT
-echo "[]" > "$TMP_DIR/root"
+trap 'test -f "$tmp_input" && rm -f "$tmp_input"' EXIT
 err "Generating iterable paths..."
 iterables=`jq -c "paths(iterables)" "$input"`
-echo $iterables > "$TMP_DIR"/iterables
 erase_err
 err "Generating scalar paths..."
 scalars=`jq -c "paths(scalars)" "$input"`
-echo "$scalars" > "$TMP_DIR"/scalars
 erase_err
 
 # Inspired by this snippet from @dakusui for jq-front https://github.com/jqlang/jq/issues/1949#issuecomment-569278958
@@ -43,9 +41,9 @@ PATH_CMD="printf {} | jq -cr '$PATH_CONVERTER'"
 
 PREVIEW_CMD="cat {+f}" # print content of selected line to escape quotes
 PREVIEW_CMD="$PREVIEW_CMD | awk '{print \"getpath(\"\$1\")\"}'" # interpolate quoted path in `getpath()`
-PREVIEW_CMD="$PREVIEW_CMD | xargs -0 -I path jq --color-output path $input" # -0 to escape quotes
+PREVIEW_CMD="$PREVIEW_CMD | xargs -0 -I PATH jq --color-output PATH $input" # -0 to escape quotes
 
-echo "[]\n$iterables\n$scalars" | fzf \
+(echo [] ; echo "$iterables" ; echo "$scalars") | fzf \
                 --height='50%' \
                 --preview-window='right:50%' \
                 --preview "$PATH_CMD ; $PREVIEW_CMD" \
@@ -54,4 +52,4 @@ echo "[]\n$iterables\n$scalars" | fzf \
                 --bind "enter:become($PREVIEW_CMD)" \
                 --bind "ctrl-l:become($PATH_CMD)"
 
-rm -rf "$TMP_DIR"
+test -f "$tmp_input" && rm -f "$tmp_input"
