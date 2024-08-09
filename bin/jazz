@@ -13,14 +13,23 @@ if [[ -z $1 ]] || [[ $1 == "-" ]]; then
                 cat /dev/stdin > "$TMP_DIR/input"
 fi
 
+err(){
+  echo >&2 -n "$1"
+}
+erase_err(){
+  echo >&2 -ne "\r\033[K"
+}
+
 trap 'rm -rf "$TMP_DIR"' EXIT
 echo "[]" > "$TMP_DIR/root"
-echo >&2 -n "Generating iterable paths..."
-jq -c "paths(iterables)" "$input" > "$TMP_DIR"/iterables
-echo >&2 -ne "\r\033[K" # Erase STDERR line
-echo >&2 -n "Generating scalar paths..."
-jq -c "paths(scalars)" "$input" > "$TMP_DIR"/scalars
-echo >&2 -ne "\r\033[K"
+err "Generating iterable paths..."
+iterables=`jq -c "paths(iterables)" "$input"`
+echo $iterables > "$TMP_DIR"/iterables
+erase_err
+err "Generating scalar paths..."
+scalars=`jq -c "paths(scalars)" "$input"`
+echo "$scalars" > "$TMP_DIR"/scalars
+erase_err
 
 # Inspired by this snippet from @dakusui for jq-front https://github.com/jqlang/jq/issues/1949#issuecomment-569278958
 PATH_CONVERTER='if length == 0 then "."
@@ -36,7 +45,7 @@ PREVIEW_CMD="cat {+f}" # print content of selected line to escape quotes
 PREVIEW_CMD="$PREVIEW_CMD | awk '{print \"getpath(\"\$1\")\"}'" # interpolate quoted path in `getpath()`
 PREVIEW_CMD="$PREVIEW_CMD | xargs -0 -I path jq --color-output path $input" # -0 to escape quotes
 
-cat "$TMP_DIR"/{root,iterables,scalars} | fzf \
+echo "[]\n$iterables\n$scalars" | fzf \
                 --height='50%' \
                 --preview-window='right:50%' \
                 --preview "$PATH_CMD ; $PREVIEW_CMD" \
