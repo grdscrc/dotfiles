@@ -530,10 +530,12 @@ jump() {
     localpath=$1
     shift
     twodirpath=`echo $localpath | sed 's|.*/\([^/]\+/[^/]\+\)/\([^/]\+\)$|\1/\2|'`
-    CMD="find -path '*/$twodirpath'"
+    CMD="find -path '*/$twodirpath'|xargs realpath"
   fi
   echo >&2 ">>>ssh "$user"@"$host"@jump<<<"
-  echo >&2 ">>>:$CMD<<<"
+  if [[ $CMD != "" ]]; then
+    echo >&2 ">>>:$CMD<<<"
+  fi
   PASSWORD=~/passwords/.nrco_jump_dev
   sshpass -f $PASSWORD ssh $SSH "$CMD"
 }
