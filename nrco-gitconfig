@@ -33,6 +33,7 @@
 	h = log --pretty=format:'%h'
 	H = log --pretty=format:'%H'
 	staash = stash --all
+	names = diff --name-only
 
 [format]
 	pretty = "%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset"
