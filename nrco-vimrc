@@ -3,6 +3,7 @@ let mapleader = "\<Space>"
 set confirm
 set wildmenu
 set hidden " Edited buffers can exist hidden
+set noswapfile
 
 " set list " Display non-print characters
 set listchars=tab:→\·,eol:↲,nbsp:␣,space:-,trail:•,extends:⟩,precedes:⟨
@@ -175,6 +176,7 @@ let g:SimpylFold_docstring_preview = 1
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-repeat'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
