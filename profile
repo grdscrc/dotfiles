@@ -1,9 +1,5 @@
 #!/bin/bash
 
-ls .profile.base >/dev/null && . .profile.base
-
-export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
-
 export PROFILE=$HOME/.profile 
 export EDITOR=/usr/bin/vim # Default editor
 
@@ -53,13 +49,13 @@ else
   start_agent;
 fi
 
-which brew && ls `brew --prefix`/etc/profile.d/z.sh 2> /dev/null && . `brew --prefix`/etc/profile.d/z.sh
+ls `brew --prefix`/etc/profile.d/z.sh 2> /dev/null && . `brew --prefix`/etc/profile.d/z.sh
 
 ls $HOME/.secrets 2> /dev/null && source $HOME/.secrets # For secret things such as api tokens
-source $HOME/dotfiles/profile-aliases
-source $HOME/dotfiles/profile-methods
-source $HOME/dotfiles/git-completion.sh
-source $HOME/dotfiles/rbenv.sh
+source $HOME/.profile-aliases
+source $HOME/.profile-methods
+source $HOME/.git-completion.sh
+source $HOME/.rbenv.sh
 
 
 which xcode-select && xcode-select --install 2>/dev/null
