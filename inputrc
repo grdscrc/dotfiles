@@ -15,5 +15,6 @@ set vi-cmd-mode-string ": "
 "\C-gg": "git "
 "\C-gp": "git pull"
 "\C-gs": "git status"
+"\C-gz": "git z"
 "\C-p": previous-history
 "\C-n": next-history

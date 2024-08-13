@@ -152,11 +152,24 @@ alias microseconds="nanoseconds 6"
 alias milliseconds="nanoseconds 3"
 
 alias fzf_mini="fzf --height=20% --info=inline"
-gco() {
+git_z() {
   git branch |
   grep -v "^\*" |
   fzf_mini --query=$1 --reverse |
   xargs git checkout
+}
+
+git_feat () {
+  BRANCH=`git branch|grep -m 1 $1`
+  if [[ $BRANCH != "" ]]; then
+    git checkout $BRANCH
+  elif [[ $BRANCH != "" ]]; then
+    git checkout $BRANCH
+  else
+    read -p Description:
+    DESC=`echo $REPLY | sed -e 's/ /_/g' -e 's/.*/\L&/'`
+    git checkout -b FEATURES/M-$MANTIS-$DESC
+  fi
 }
 
 alias ez="eza --all --long --git --git-repos --sort=time"
