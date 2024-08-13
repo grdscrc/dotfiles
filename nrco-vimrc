@@ -19,7 +19,7 @@ set number relativenumber
 set diffopt=filler,iwhite
 set hlsearch
 set incsearch
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
@@ -114,15 +114,6 @@ nmap <c-g>n <Plug>(GitGutterNextHunk)
 nmap <c-g>p <Plug>(GitGutterPrevHunk)
 autocmd BufWritePost * GitGutter
 
-Plug 'https://github.com/vim-airline/vim-airline.git'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_section_c = '' " no filename, already in tabline
-let g:airline_section_z = '' " reorder ending
-let g:airline_section_z = g:airline_section_z.'%{g:airline_symbols.colnr}%v'
-let g:airline_section_z = g:airline_section_z.'%{g:airline_symbols.linenr}%l'
-let g:airline_section_z = g:airline_section_z.'/%L%{g:airline_symbols.maxlinenr} '
-let g:airline_section_z = g:airline_section_z.'%p%%'
-
 Plug 'https://github.com/frazrepo/vim-rainbow.git'
 Plug 'chrisbra/Colorizer'
 
@@ -177,6 +168,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
+
+Plug 'ap/vim-buftabline'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
