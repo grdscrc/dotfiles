@@ -23,6 +23,10 @@ set foldmethod=indent
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
+" folding improvements : display foldlevel on inc/dec,
+" allow repeat with `z;`/undo with `zu`,
+" fold  5x with  `zmm`/`zrr`
+" fold 10x with `zmmm`/`zrrr`
 let folddirection=0
 nnoremap zm :let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :let folddirection=-1<CR>zr:set foldlevel?<CR>
