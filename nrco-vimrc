@@ -121,6 +121,7 @@ nmap <c-g>s <Plug>(GitGutterStageHunk)
 nmap <c-g>x <Plug>(GitGutterUndoHunk)
 nmap <c-g>n <Plug>(GitGutterNextHunk)
 nmap <c-g>p <Plug>(GitGutterPrevHunk)
+nmap <c-g>/ /[<bar><>=]\{7}<CR>
 autocmd BufWritePost * GitGutter
 
 Plug 'https://github.com/frazrepo/vim-rainbow.git'
