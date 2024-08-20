@@ -23,6 +23,15 @@ set foldmethod=indent
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
+let folddirection=0
+nnoremap zm :let folddirection=+1<CR>zm:set foldlevel?<CR>
+nnoremap zr :let folddirection=-1<CR>zr:set foldlevel?<CR>
+nnoremap <expr> z; folddirection>0 ? 'zm:set foldlevel?<CR>' : 'zr:set foldlevel?<CR>'
+nnoremap <expr> zu folddirection>0 ? 'zr:set foldlevel?<CR>' : 'zm:set foldlevel?<CR>'
+nnoremap zmm :let folddirection=+1<CR>5zm:set foldlevel?<CR>
+nnoremap zrr :let folddirection=-1<CR>5zr:set foldlevel?<CR>
+nnoremap zmmm :let folddirection=+1<CR>10zm:set foldlevel?<CR>
+nnoremap zrrr :let folddirection=-1<CR>10zr:set foldlevel?<CR>
 set display+=lastline
 " set statusline+=%F
 
