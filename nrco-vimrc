@@ -1,11 +1,12 @@
 let mapleader = "\<Space>"
 
+set ttymouse=xterm2
+set mouse=a
 set confirm
 set wildmenu
 set hidden " Edited buffers can exist hidden
 set noswapfile
 
-" set list " Display non-print characters
 set listchars=tab:→\·,eol:↲,nbsp:␣,space:-,trail:•,extends:⟩,precedes:⟨
 set showbreak=↪\  " Prefix for wrapped lines
 
@@ -18,24 +19,22 @@ set nofixeol
 set number relativenumber
 set diffopt=filler,iwhite
 set hlsearch
+nnoremap <C-H> :set hlsearch!<CR>
 set incsearch
 set foldmethod=indent
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
-" folding improvements : display foldlevel on inc/dec,
-" allow repeat with `z;`/undo with `zu`,
-" fold  5x with  `zmm`/`zrr`
-" fold 10x with `zmmm`/`zrrr`
+" folding improvements
+" display foldlevel on `zm`/`zr`
+" allow repeat with `z;`/undo with `zu`
+" repeat fold with  `C-S` (single key for easy repeat)
 let folddirection=0
 nnoremap zm :let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :let folddirection=-1<CR>zr:set foldlevel?<CR>
 nnoremap <expr> z; folddirection>0 ? 'zm:set foldlevel?<CR>' : 'zr:set foldlevel?<CR>'
 nnoremap <expr> zu folddirection>0 ? 'zr:set foldlevel?<CR>' : 'zm:set foldlevel?<CR>'
-nnoremap zmm :let folddirection=+1<CR>5zm:set foldlevel?<CR>
-nnoremap zrr :let folddirection=-1<CR>5zr:set foldlevel?<CR>
-nnoremap zmmm :let folddirection=+1<CR>10zm:set foldlevel?<CR>
-nnoremap zrrr :let folddirection=-1<CR>10zr:set foldlevel?<CR>
+nmap <C-S> z;
 set display+=lastline
 " set statusline+=%F
 
@@ -44,14 +43,11 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-" set cursorline
-" set cursorcolumn
-au InsertEnter * set cursorline cursorcolumn nohlsearch list
-au InsertLeave * set nocursorline nocursorcolumn hlsearch nolist
+autocmd InsertEnter * set cursorline cursorcolumn nohlsearch list
+autocmd InsertLeave * set nocursorline nocursorcolumn hlsearch nolist
 inoremap <c-c> <esc>:undo<cr>
 set modeline
 set modelines=5
-" set scrolloff=5
 
 highlight clear Search
 highlight Search ctermfg=blue ctermbg=black
@@ -164,12 +160,6 @@ nnoremap gh :ALEHover<CR>
 nnoremap gR :ALERename<CR>
 let g:ale_fixers = { 'python': 'ruff' }
 
-" Plug 'bkad/CamelCaseMotion'
-" map <Leader>w <Plug>CamelCaseMotion_w
-" map <Leader>b <Plug>CamelCaseMotion_b
-" map <Leader>E <Plug>CamelCaseMotion_e
-" map <Leader>gE <Plug>CamelCaseMotion_ge
-
 " Better color schemes
 Plug 'rafi/awesome-vim-colorschemes'
 
@@ -203,14 +193,21 @@ nnoremap <Leader><Leader> :
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
 
-" Buffer & tabs
-nnoremap <Leader>k :bp<CR>
-nnoremap <Leader>j :bn<CR>
+" Buffers
+nnoremap <Leader>j :bnext<CR>
+nnoremap <Leader>k :bprevious<CR>
 nnoremap <Leader>b :buffers<CR>
-nnoremap <Leader>p :tabprev<CR>
-nnoremap <Leader>n :tabnext<CR>
 nnoremap <Leader>N :ene<CR>
 nnoremap <Leader>d :bd<CR>
+" Tabs
+nnoremap <Leader>J :tabnext<CR>
+nnoremap <Leader>K :tabprev<CR>
+nnoremap <Leader>t :tabnew<CR>
+nnoremap <Leader>T :tabnew<bar>GFiles<CR>
+nnoremap <Leader>D :tabclose<CR>
+" Windows/splits
+nnoremap <Leader>n <C-w>w
+nnoremap <Leader>p <C-w>p
 
 " nnoremap <Leader>j <C-d>M
 " nnoremap <Leader>k <C-u>M
