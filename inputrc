@@ -18,3 +18,5 @@ set vi-cmd-mode-string ": "
 "\C-gz": "git z"
 "\C-p": previous-history
 "\C-n": next-history
+"\C-f": forward-char
+"\C-b": backward-char
