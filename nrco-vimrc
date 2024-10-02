@@ -12,8 +12,10 @@ set showbreak=↪\  " Prefix for wrapped lines
 
 set showcmd
 set showmatch
-set tabstop=2
-set shiftwidth=2
+set tabstop=2 " Use 2 spaces to display tab
+set softtabstop=2
+set shiftwidth=2 " Number of spaces to use for auto indent
+set autoindent
 set expandtab
 set nofixeol
 set number relativenumber
@@ -25,6 +27,7 @@ set foldmethod=indent
 set foldlevel=10
 set foldclose=all
 set foldcolumn=4
+
 " folding improvements
 " display foldlevel on `zm`/`zr`
 " allow repeat with `z;`/undo with `zu`
@@ -62,10 +65,6 @@ highlight FoldColumn ctermfg=DarkGray ctermbg=Black
 highlight VertSplit ctermfg=Black ctermbg=DarkGray
 highlight MatchParen ctermbg=DarkGray
 
-highlight LineNr ctermfg=5
-highlight LineNrAbove ctermfg=DarkGray ctermbg=Black
-highlight LineNrBelow ctermfg=DarkGray ctermbg=Black
-highlight SignColumn ctermfg=DarkGray ctermbg=Black
 highlight GitGutterAdd    ctermfg=2 ctermbg=0
 highlight GitGutterChange ctermfg=3 ctermbg=0
 highlight GitGutterDelete ctermfg=1 ctermbg=0
@@ -110,6 +109,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/tpope/vim-fugitive.git'
 " keep fugitive when hidden
 autocmd User FugitiveObject setlocal bufhidden=
+augroup fugitive_pager_mappings
+  autocmd!
+  " <C-F> works better than <C-A> as it would always catch the branch
+  " name, even if the cursor is over current branch markers (*/+)
+  " autocmd User FugitivePager nnoremap <buffer> X :G branch -D <C-R><C-F>
+  autocmd User FugitivePager nnoremap PP &@:<C-U>Git push<CR>
+augroup END
 
 Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/airblade/vim-gitgutter.git'
@@ -174,6 +180,9 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
 
 Plug 'ap/vim-buftabline'
+let g:buftabline_indicators=1 " Display if unsaved buffer
+
+Plug 'wellle/context.vim'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
@@ -190,12 +199,9 @@ nnoremap <Leader><Leader> :
 " inoremap JK <esc>:undo<CR>
 " inoremap jw <esc>:write<CR>
 
-nnoremap <Leader>s :split<CR>
-nnoremap <Leader>v :vsplit<CR>
-
 " Buffers
-nnoremap <Leader>j :bnext<CR>
-nnoremap <Leader>k :bprevious<CR>
+nnoremap <Leader>n :bnext<CR>
+nnoremap <Leader>p :bprevious<CR>
 nnoremap <Leader>b :buffers<CR>
 nnoremap <Leader>N :ene<CR>
 nnoremap <Leader>d :bd<CR>
@@ -206,11 +212,18 @@ nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>T :tabnew<bar>GFiles<CR>
 nnoremap <Leader>D :tabclose<CR>
 " Windows/splits
-nnoremap <Leader>n <C-w>w
-nnoremap <Leader>p <C-w>p
+nnoremap <Leader>w <C-w>w
+nnoremap <Leader>W <C-w>p
+nnoremap <Leader>s :split<CR>
+nnoremap <Leader>v :vsplit<CR>
 
-" nnoremap <Leader>j <C-d>M
-" nnoremap <Leader>k <C-u>M
+nnoremap <Leader>q :copen<CR>
+nnoremap <Leader>l :lopen<CR>
+nnoremap <Leader>Q :cclose<CR>
+nnoremap <Leader>L :lclose<CR>
+
+nnoremap <Leader>j )
+nnoremap <Leader>k (
 nmap <C-n> *
 nmap <C-p> #
 
@@ -218,6 +231,7 @@ vmap <C-n> y/<C-r>"<CR>
 vmap <C-p> y?<C-r>"<CR>
 
 nnoremap g/ /\<\><Left><Left>
+nnoremap gS :%s///g<Left><Left><Left>
 " Jump to definition
 nnoremap <Leader><C-d> yiw/<Bslash>v<C-r>0.*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
 
@@ -229,7 +243,10 @@ set splitright
 
 " fzf.vim
 nnoremap <Leader>e :GFiles<CR>
-nnoremap <Leader>s :GFiles?<CR>
+nnoremap <Leader>E :GFiles?<CR>
+nnoremap <Leader>S :split<bar>GFiles<CR>
+nnoremap <Leader>V :vsplit<bar>GFiles?<CR>
+nnoremap <Leader>x :close<CR>
 nnoremap <Leader>o :Files<CR>
 nnoremap <Leader>O :Files ~<CR>
 nnoremap <Leader>f :BLines<CR>
@@ -238,6 +255,10 @@ nnoremap <Leader>; :History:<CR>
 nnoremap <Leader>/ :History/<CR>
 nnoremap <Leader>h :Helptags<CR>
 nnoremap <Leader>c :Colors<CR>
+" :Index shows index.txt (with all key-combinations) using fzf-vim
+command! Index silent execute ":help index.txt" | silent execute ":BLines!"
+nnoremap <Leader>i :Index<CR>
+
 let g:fzf_preview_window = ['up:10']
 
 " windows
@@ -254,10 +275,6 @@ nnoremap ZX :hide<CR>
 nnoremap ZF :bdelete<bar>FZF<CR>
 " Remove all buffers
 nnoremap ZA :%bdelete<CR>
-
-" :Index shows index.txt (with all key-combinations) using fzf-vim
-command! Index silent execute ":help index.txt" | silent execute ":BLines!"
-nnoremap FI :Index<CR>
 
 autocmd CursorHold * echo
 autocmd TextYankPost * echo len(getreg(v:register))"chars,"len(split(getreg(v:register), '\n'))"lines, <yank>"substitute(getreg(v:register), '\n', ' // ', 'g')[0:50]"</yank>"
@@ -298,3 +315,16 @@ nnoremap <Leader>R :let @"=@0 \| let @0=@1 \| let @1=@2 \| let @2=@3 \| register
 
 " echo last sourcefile update
 " redraw | echo '--- .vimrc sourced --- ' . strftime("%c", getftime(expand('%'))) . ' ---' | redraw
+
+" :redir @" | silent map | redir END | new | put!
+function! s:ExecuteAndPaste(command)
+  redir @R
+  silent execute a:command
+  redir END
+  new
+  put! R
+endfunction
+
+highlight LineNr ctermfg=Gray ctermbg=DarkGray
+highlight LineNrAbove ctermfg=Black ctermbg=DarkGray
+highlight LineNrBelow ctermfg=Black ctermbg=DarkGray
