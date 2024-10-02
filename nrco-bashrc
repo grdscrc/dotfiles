@@ -321,7 +321,7 @@ curl_text() {
     echo code $dir \&
   }
 
-  alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe"
+  alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe ; while ! pgrep docker; do echo waiting 2s...; sleep 2; done"
   zrt() {
     z $1 && rt $1
   }
@@ -400,10 +400,6 @@ jump() {
         elasticsearch_x_cobalt)
           user=cust-nrco
           host=es_cb@$DEV_JMP
-          ;;
-        methed)
-          user=igor.descayrac
-          host=methed@$DEV_JMP
           ;;
         postgresql)
           user=cust-nrco
@@ -523,6 +519,18 @@ jump() {
           ;;
       esac
       ;;
+    PROD)
+      case $SERVER in
+        methed)
+          user=igor.descayrac
+          host=methed@nrcoapl-methed01.$AWS_HOST
+          ;;
+        *)
+          echo "Unknown PROD host : check `jump_help PROD`" >&2
+          return 1
+          ;;
+      esac
+      ;;
     appmanager|"")
       user=igor.descayrac
       host=${ENV:-appmanager}@$DEV_JMP
@@ -545,7 +553,7 @@ jump() {
     twodirpath=`echo $localpath | sed 's|.*/\([^/]\+/[^/]\+\)/\([^/]\+\)$|\1/\2|'`
     CMD="find -path '*/$twodirpath'|xargs realpath"
   fi
-  echo >&2 ">>>ssh "$user"@"$host"@jump<<<"
+  echo >&2 ">>>ssh "$SSH"<<<"
   if [[ $CMD != "" ]]; then
     echo >&2 ">>>:$CMD<<<"
   fi
@@ -554,7 +562,7 @@ jump() {
 }
 
 jump_help() {
-  t="        " # indentation
+  t="        " # indentation for boundary
   case $1 in
     DEV)
       type jump|sed -n "/${t}DEV)/,/^${t};;/p"|grep ")"|bat --number
@@ -563,7 +571,7 @@ jump_help() {
       type jump|sed -n "/${t}QA)/,/^${t};;/p"|grep ")"|bat --number
       ;;
     *|"")
-      type jump|bat --number --language bash
+      type jump|grep -v "="|bat --number --language bash
       ;;
   esac
 }
@@ -577,14 +585,56 @@ jump_exp() {
 alias functions="bind -P"
 
 prompt () {
-  read -n 1 -r -p "$* : "
+  read -n 1 -r -p "${*:-"Run next command"} [y/n] : "
   echo
   [ "${REPLY,,}" == "y" ]
 }
 
 alias shgpt="sgpt --shell"
 alias codegpt="sgpt --code"
+alias replgpt="sgpt --list-chats|cut --delimiter=/ --fields=4|fzf_mini|xargs -I {} sgpt --repl {}"
 alias x=xargs
+alias ripgrep=rg
+# alias med_mss_dry="prompt 'MED dry-run' && (cd /home/unix/dev/Eidos/agile && npm run med -- mss igor.descayrac ~/passwords/.nrco_jump_dev --dry-run)"
+alias med_mss="prompt 'MED' && (cd /home/unix/dev/Eidos/agile && npm run med -- mss igor.descayrac ~/passwords/.nrco_jump_dev)"
+# alias med_mss="med_mss_dry && med_mss_live"
+med_service() {
+  opts=$*
+  if [ -n "$*" ]; then
+    echo === $opts ===
+  fi
+  MEDJSON=/home/unix/dev/Eidos/agile/med.json
+  SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
+  SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
+  if [ -z "$SERVICE" ]; then
+    return 1
+  fi
+  echo "=== MED deploy $SERVICE ==="
+  (cd /home/unix/dev/Eidos/agile && npm run med -- $SERVICE igor.descayrac ~/passwords/.nrco_jump_dev $opts)
+  echo "=== MED deployed $SERVICE ==="
+}
+
+med_delta() {
+  files=$*
+  MEDJSON=/home/unix/dev/Eidos/agile/med.json
+  SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
+  SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
+  if [ -z "$SERVICE" ]; then
+    return 1
+  fi
+  echo "=== MED delta $SERVICE ==="
+  for file in "$@"; do
+    echo "Argument: $file"
+    if [ -e "methed/server-config/worker/methode-servlets/scripts/mss/$file" ]; then
+      jump dev methed "cat /methode/methed/methode-servlets/scripts/mss/$file" 2>/dev/null | \
+        delta methed/server-config/worker/methode-servlets/scripts/mss/$file -
+    fi
+    if [ -e "methed/server-config/worker/methode-servlets/conf/mss/$file" ]; then
+      jump dev methed "cat /methode/methed/methode-servlets/conf/mss/$file" 2>/dev/null | \
+        delta methed/server-config/worker/methode-servlets/conf/mss/$file -
+    fi
+  done
+}
 
 . "$HOME/.cargo/env"
 
