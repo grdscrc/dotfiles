@@ -13,6 +13,7 @@
 	directory = /home/unix/dev/albedo
 	directory = /home/unix/dev/novactive-nr-clusterone-rubedo-738c5d43a97d
 	directory = /home/unix/dev/Eidos
+	directory = /home/unix/dev/eidos-export
 
 [alias]
 	amend = commit --amend
@@ -26,7 +27,6 @@
 	head = symbolic-ref --short HEAD
 	upstream = !git rev-parse --abbrev-ref $(git head)@{upstream}
 	publish = !git push -u origin HEAD
-	coz = !git branch |fzf --height=`git branch|wc -l|awk '{print $1+2}'`|xargs git checkout
 	d = diff --name-only
 	branches = branch -vv
 	f = fetch
