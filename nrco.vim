@@ -184,6 +184,13 @@ let g:buftabline_indicators=1 " Display if unsaved buffer
 
 Plug 'wellle/context.vim'
 
+Plug 'preservim/vimux'
+Plug 'vim-test/vim-test'
+let test#strategy = "vimux"
+let g:test#javascript#runner = 'jest'
+" let g:test#strategy = 'jest'
+" let g:test#javascript#jest#executable = 'jest'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()

@@ -488,7 +488,9 @@ eigile() {
 alias jump_tail_dev_mss_archive="jump DEV methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"
 jump_tail(){
   ENV=dev
-    servlet=mss
-    sub=Archive
-    jump $ENV methed "tail -f ./logfiles/methode-servlets/$servlet/subscriptions/$sub-subscription.log" | ccze
+  servlet=mss
+  sub=Archive
+  jump $ENV methed "tail -f ./logfiles/methode-servlets/$servlet/subscriptions/$sub-subscription.log"
 }
+
+alias op="~/windows.c/Users/igor.descayrac/AppData/Local/Microsoft/WinGet/Links/op.exe" # C:\Users\igor.descayrac\AppData\Local\Microsoft\WinGet\Links\op.exe
