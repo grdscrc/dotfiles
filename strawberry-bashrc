@@ -1,0 +1,7 @@
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+# bashPATH
+export PATH="$PATH:/Users/igor/.rvm/gems/ruby-3.2.2/bin:/Users/igor/.rvm/gems/ruby-3.2.2@global/bin:/Users/igor/.rvm/rubies/ruby-3.2.2/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Apple/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/igor/.rvm/bin"
+# zshPATH
+export PATH="$PATH:/usr/local/opt/mysql@5.5/bin:/Users/igor/.rvm/gems/ruby-3.2.2/bin:/Users/igor/.rvm/gems/ruby-3.2.2@global/bin:/Users/igor/.rvm/rubies/ruby-3.2.2/bin:/Users/igor/.rbenv/shims:/Users/igor/.rbenv/shims:/opt/homebrew/bin:/Users/igor/go/bin:/usr/local/opt/go/libexec/bin:/usr/texbin:/opt/X11/bin:/Applications/MAMP/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/homebrew/opt/fzf/bin:/Users/igor/.rvm/bin"
