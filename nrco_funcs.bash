@@ -110,13 +110,14 @@ path_lines() {
 }
 
 spin_boy() {
-  NO_CU=\\033\[?25l
-  YE_CU=\\033\[?25h
+  local INVISIBLE_CURSOR VISIBLE_CURSOR CARRIAGE_RETURN
+  INVISIBLE_CURSOR=\\033\[?25l
+  VISIBLE_CURSOR=\\033\[?25h
   CARRIAGE_RETURN=\\r
   expr -- "${1:-10}" + 0 > /dev/null 2>&1 || return # check if arg is number
   END=$((SECONDS + $1))
   # echo END $END
-  echo -ne $NO_CU
+  echo -ne $INVISIBLE_CURSOR
   while [ $SECONDS -lt $END ]; do
     echo -ne "$CARRIAGE_RETURN/"
     sleep .1
@@ -129,7 +130,7 @@ spin_boy() {
     echo -ne "$CARRIAGE_RETURN-"
     sleep .1
   done
-  echo -ne "$CARRIAGE_RETURN$YE_CU"
+  echo -ne "$CARRIAGE_RETURN$VISIBLE_CURSOR"
 }
 
 curl_text() {
@@ -157,7 +158,19 @@ c() {
   echo code $dir \&
 }
 
-alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe ; while ! pgrep docker; do echo waiting 2s...; sleep 2; done"
+# alias wdocker="/mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe ; while ! pgrep docker; do echo waiting 2s...; sleep 2; done"
+wdocker() {
+  /mnt/c/Program\ Files/Docker/Docker/Docker\ Desktop.exe
+  i=2
+  local CARRIAGE_RETURN
+  CARRIAGE_RETURN=\\r
+  echo
+  while ! pgrep docker; do
+    echo -ne ${CARRIAGE_RETURN}Waited for ${i}s...
+    sleep 2
+    ((i+=2))
+  done
+}
 zrt() {
   z $1 && rt $1
 }
@@ -217,7 +230,7 @@ jump() {
           user=igor.descayrac
           host=methcb@$DEV_JMP
           ;;
-        controller)
+        controller|appmanager)
           user=igor.descayrac
           host=appmanager@$DEV_JMP
           ;;
@@ -443,42 +456,88 @@ alias ripgrep=rg
 # alias med_mss_dry="prompt 'MED dry-run' && (cd /home/unix/dev/Eidos/agile && npm run med -- mss igor.descayrac ~/passwords/.nrco_jump_dev --dry-run)"
 alias med_mss="prompt 'MED' && (cd /home/unix/dev/Eidos/agile && npm run med -- mss igor.descayrac ~/passwords/.nrco_jump_dev)"
 # alias med_mss="med_mss_dry && med_mss_live"
+
 med_service() {
-  opts=$*
-    if [ -n "$*" ]; then
-      echo === $opts ===
-        fi
-        MEDJSON=/home/unix/dev/Eidos/agile/med.json
-        SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
-        SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
-        if [ -z "$SERVICE" ]; then
-          return 1
-            fi
-            echo "=== MED deploy $SERVICE ==="
-            (cd /home/unix/dev/Eidos/agile && npm run med -- $SERVICE igor.descayrac ~/passwords/.nrco_jump_dev $opts)
-            echo "=== MED deployed $SERVICE ==="
+  mee_service dev $*
+}
+meq_service() {
+  mee_service qa $*
 }
 
-med_delta() {
-  files=$*
+mee_service() {
+  EENV=$1 # ENV Eidos
+  shift
+  SERVICE=$1
+  shift
+  opts=$*
+  if [ -n "$*" ]; then
+    echo === ENV:${EENV^^} $opts ===
+  fi
+  if [ -z $SERVICE ] || [ "$SERVICE" == "-" ]; then
     MEDJSON=/home/unix/dev/Eidos/agile/med.json
     SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
     SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
     if [ -z "$SERVICE" ]; then
       return 1
-        fi
-        echo "=== MED delta $SERVICE ==="
-        for file in "$@"; do
-          echo "Argument: $file"
-            if [ -e "methed/server-config/worker/methode-servlets/scripts/mss/$file" ]; then
-              jump dev methed "cat /methode/methed/methode-servlets/scripts/mss/$file" 2>/dev/null | \
-                delta methed/server-config/worker/methode-servlets/scripts/mss/$file -
-                fi
-                if [ -e "methed/server-config/worker/methode-servlets/conf/mss/$file" ]; then
-                  jump dev methed "cat /methode/methed/methode-servlets/conf/mss/$file" 2>/dev/null | \
-                    delta methed/server-config/worker/methode-servlets/conf/mss/$file -
-                    fi
-                    done
+    fi
+  fi
+  echo "=== SERVICE:$SERVICE ==="
+  if [ $EENV == "dev" ]; then
+    task=med
+  elif [ $EENV == "qa" ]; then
+    task=meq
+  else
+    return 1
+  fi
+  (cd /home/unix/dev/Eidos/agile &&
+    npm run $task -- $SERVICE igor.descayrac ~/passwords/.nrco_jump_dev $opts)
+  if [ $? -eq 0 ]; then
+    echo "=== $SERVICE a ete Mise En $EENV ==="
+  else
+    echo "!!! $SERVICE n'a pas ete Mise En $EENV !!!"
+  fi
+}
+
+med_delta() {
+  mee_delta dev "$@"
+}
+meq_delta() {
+  mee_delta qa "$@"
+}
+mee_delta() {
+  EENV=$1 # ENV Eidos
+  shift
+  SERVICE=$1
+  shift
+  files=$@
+  MEDJSON=/home/unix/dev/Eidos/agile/med.json
+  if [ -z $SERVICE ] || [ "$SERVICE" == "-" ]; then
+    SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
+    SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
+    if [ -z "$SERVICE" ]; then
+      return 1
+    fi
+  fi
+  echo "=== MED delta $SERVICE ==="
+  CHEMINS_LOCAUX=$(jq -r ".$SERVICE.chemins[][0]")
+  CHEMINS_SERVRS=$(jq -r ".$SERVICE.chemins[][1]")
+  for file in "$files"; do
+    for index in "${!CHEMINS_LOCAUX[@]}"; do
+      CHEMIN_LOCAL=${CHEMINS_LOCAUX[$index]}
+      CHEMIN_SERVR=${CHEMINS_SERVRS[$index]}
+      if [ -f "$CHEMIN_LOCAL/$file" ]; then
+        echo "Local : $CHEMIN_LOCAL/$file"
+        echo "Remote: $CHEMIN_SERVR/$file"
+        jump $EENV methed "cat $CHEMIN_SERVR/$file" 2>/dev/null | \
+          delta $CHEMIN_LOCAL/$file -
+      elif [ -f "$CHEMIN_LOCAL" ]; then
+        echo "Local : $CHEMIN_LOCAL"
+        echo "Remote: $CHEMIN_SERVR"
+        jump $EENV methed "cat $CHEMIN_SERVR" 2>/dev/null | \
+          delta $CHEMIN_LOCAL -
+      fi
+    done
+  done
 }
 
 eigile() {
