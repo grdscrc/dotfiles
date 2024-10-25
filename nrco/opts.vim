@@ -18,7 +18,7 @@ set nofixeol
 set number relativenumber
 set diffopt=filler,iwhite
 set hlsearch
-set incsearch
+set noincsearch
 set foldmethod=indent
 set foldlevel=10
 set foldclose=all
