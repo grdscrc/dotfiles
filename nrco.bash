@@ -150,7 +150,8 @@ PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n"
 # Enable keybindings for fzf
 # source /usr/share/doc/fzf/examples/key-bindings.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export FZF_DEFAULT_COMMAND='/usr/bin/fdfind --hidden 2> /dev/null || find .'
+export FZF_DEFAULT_COMMAND='/usr/bin/fdfind --ignore-vcs 2> /dev/null || find .'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 source /usr/share/bash-completion/completions/git
 
@@ -177,4 +178,4 @@ source "$HOME/.cargo/env"
 
 source /home/unix/.config/broot/launcher/bash/br
 
-source ~/.bash_funcs
+source ~/dotfiles/nrco_funcs.bash
