@@ -1,0 +1,140 @@
+{
+    "AWS_HOST": "awseuw1.em-nrco.int",
+    "DEV_JMP": "nrcoadl-meth01.awseuw1.em-nrco.int",
+    "DEV": {
+        "cobalt": {
+            "user": "igor.descayrac",
+            "host": "methcb@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "controller": {
+            "user": "igor.descayrac",
+            "host": "appmanager@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "methdig": {
+            "user": "igor.descayrac",
+            "host": "methdig@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "methed": {
+            "user": "igor.descayrac",
+            "host": "methed@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_archive": {
+            "user": "cust-nrco",
+            "host": "es_arc@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_cobalt": {
+            "user": "cust-nrco",
+            "host": "es_cb@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "methed": {
+            "user": "igor.descayrac",
+            "host": "methed@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "postgresql": {
+            "user": "cust-nrco",
+            "host": "methpsql@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "ptrack": {
+            "user": "cust-nrco",
+            "host": "methptr@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "sso": {
+            "user": "cust-nrco",
+            "host": "methsso@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "swing_x_cobalt": {
+            "user": "cust-nrco",
+            "host": "methcbdg@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "swing_x_prime": {
+            "user": "cust-nrco",
+            "host": "methprdg@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "vside": {
+            "user": "cust-nrco",
+            "host": "methvsd@nrcoadl-meth01.awseuw1.em-nrco.int"
+        }
+    },
+    "QA": {
+        "cobalt:nrcoaql-methed01": {
+            "user": "cust-nrco",
+            "host": "methcb@nrcoaql-methed01.awseuw1.em-nrco.int"
+        },
+        "cobalt:nrcocql-cobcore-baseimage": {
+            "user": "cust-nrco",
+            "host": "methcb@nrcocql-cobcore-baseimage.awseuw1.em-nrco.int"
+        },
+        "cobalt:nrcocql-cobfe-baseimage": {
+            "user": "cust-nrco",
+            "host": "methcb@nrcocql-cobfe-baseimage.awseuw1.em-nrco.int"
+        },
+        "controller": {
+            "user": "igor.descayrac",
+            "host": "appmanager@nrcoaql-controller01.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_archive": {
+            "user": "cust-nrco",
+            "host": "elastic@nrcoaql-metharc01search.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_cobalt:cobelastic01": {
+            "user": "cust-nrco",
+            "host": "es_cb@nrcoaql-cobelastic01.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_cobalt:cobelastic02": {
+            "user": "cust-nrco",
+            "host": "es_cb@nrcobql-cobelastic02.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_cobalt:cobelastic03": {
+            "user": "cust-nrco",
+            "host": "es_cb@nrcocql-cobelastic03.awseuw1.em-nrco.int"
+        },
+        "elasticsearch_x_editorial": {
+            "user": "cust-nrco",
+            "host": "elastic@nrcoaql-methed01search.awseuw1.em-nrco.int"
+        },
+        "metharc": {
+            "user": "igor.descayrac",
+            "host": "metharc@nrcoaql-metharc01.awseuw1.em-nrco.int"
+        },
+        "methdig": {
+            "user": "igor.descayrac",
+            "host": "methdig@nrcocql-methdig01-baseimage.awseuw1.em-nrco.int"
+        },
+        "methdig:2": {
+            "user": "igor.descayrac",
+            "host": "methdig@nrcocpl-methdig01-baseimage.awseuw1.em-nrco.int"
+        },
+        "methed": {
+            "user": "igor.descayrac",
+            "host": "methed@nrcoaql-methed01.awseuw1.em-nrco.int"
+        },
+        "ptrack:be": {
+            "user": "cust-nrco",
+            "host": "methptr@nrcocql-ptr01-baseimage.awseuw1.em-nrco.int"
+        },
+        "ptrack:fe": {
+            "user": "",
+            "host": "ust-nrco@methptr@nrcoaql-methed01.awseuw1.em-nrco.int"
+        },
+        "sso1": {
+            "user": "igor.descayrac",
+            "host": "methsso@nrcoaql-sso01.awseuw1.em-nrco.int"
+        },
+        "sso2": {
+            "user": "cust-nrco",
+            "host": "methsso@nrcobql-sso02.awseuw1.em-nrco.int"
+        },
+        "swing_x_cobalt": {
+            "user": "cust-nrco",
+            "host": "methcbdg@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "swing_x_prime": {
+            "user": "cust-nrco",
+            "host": "methpridg@nrcocql-prime01-baseimage.awseuw1.em-nrco.int"
+        },
+        "vside": {
+            "user": "cust-nrco",
+            "host": "methvsd@nrcoaql-methed01.awseuw1.em-nrco.int"
+        }
+    }
+}
