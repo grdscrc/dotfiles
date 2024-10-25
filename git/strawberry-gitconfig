@@ -1,0 +1,53 @@
+# vim: set syntax=gitconfig :
+
+[user]
+	email = igor.descayrac@gmail.com
+	name = Igor Descayrac
+
+[alias]
+	amend = commit --amend
+	s = status --short
+	ci = commit
+	co = checkout
+	pop = reset HEAD^
+	wip = commit -a -m 'WIP'
+	graph = log --color --graph --abbrev-commit
+	g = graph
+	head = symbolic-ref --short HEAD
+	upstream = !git rev-parse --abbrev-ref $(git head)@{upstream}
+	publish = !git push -u origin HEAD
+	d = diff --name-only
+	branches = branch -vv
+	f = fetch
+	h = log --pretty=format:'%h'
+	H = log --pretty=format:'%H'
+	staash = stash --all
+	names = diff --name-only
+
+[format]
+	pretty = "%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset"
+
+[core]
+	pager = delta
+	editor = vim
+	excludesfile = /home/unix/.gitignore_global
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true    # use n and N to move between diff sections
+	light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[merge]
+	conflictstyle = diff3
+	commit = no
+	ff = no
+
+[diff]
+	colorMoved = default
+
+[delta]
+	side-by-side = true
+[pull]
+	rebase = true
