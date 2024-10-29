@@ -107,6 +107,10 @@ let g:test#javascript#runner = 'jest'
 " let g:test#strategy = 'jest'
 " let g:test#javascript#jest#executable = 'jest'
 
+Plug 'sedm0784/vim-rainbow-trails'
+
+Plug 'rhysd/conflict-marker.vim'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
