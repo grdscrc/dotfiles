@@ -97,7 +97,7 @@ git_short_status() {
 git_in_prompt() {
   if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     BRANCH=$(parse_git_branch)
-    if echo $BRANCH | grep -qe "FEATURES/M-[0-9]\+"; then
+    if [[ $GIT_PRMPT_CMPCT == true ]] && echo $BRANCH | grep -qe "FEATURES/M-[0-9]\+"; then
       BRANCH=`[[ $BRANCH =~ [0-9]+ ]] && echo ${BASH_REMATCH[0]} || echo $BRANCH`
     fi
     echo "($BRANCH)" # $(git_short_status))"
@@ -167,7 +167,7 @@ wdocker() {
   local CARRIAGE_RETURN
   CARRIAGE_RETURN=\\r
   echo
-  while ! pgrep docker; do
+  while ! pgrep -l docker; do
     echo -ne ${CARRIAGE_RETURN}Waited for ${i}s...
     sleep 2
     ((i+=2))
