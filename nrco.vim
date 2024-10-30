@@ -1,9 +1,9 @@
 let mapleader = "\<Space>"
 
 source ~/dotfiles/nrco/opts.vim
+source ~/dotfiles/nrco/plugs.vim  " Before mappings so they can call <Plug>
 source ~/dotfiles/nrco/mappings.vim
 source ~/dotfiles/nrco/highlight.vim
-source ~/dotfiles/nrco/plugs.vim
 source ~/dotfiles/nrco/functions.vim
 
 " folding improvements
