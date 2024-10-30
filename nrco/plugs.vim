@@ -111,6 +111,8 @@ Plug 'sedm0784/vim-rainbow-trails'
 
 Plug 'rhysd/conflict-marker.vim'
 
+Plug 'vim-scripts/AnsiEsc.vim'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
