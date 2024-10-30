@@ -41,8 +41,10 @@ nnoremap <Leader>o :Files<CR>
 nnoremap <Leader>p :bprevious<CR>
 nnoremap <Leader>q :copen<CR>
 nnoremap <Leader>rR :let @"=@0 \| let @0=@1 \| let @1=@2 \| let @2=@3 \| register " 0 1 2<CR>
+nnoremap <Leader>rr :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| register " 0 a b<CR>
 nnoremap <Leader>rf :let @f=@%<CR>
 nnoremap <Leader>rp :r !pbpaste<CR>
+nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>v :vsplit<CR>
@@ -52,12 +54,17 @@ nnoremap <Leader>x :close<CR>
 nnoremap <c-g>/ /[<bar><>=]\{7}<CR>
 nnoremap <c-g><c-g> <c-g>
 nnoremap <c-g>V :bdelete gitgutter<CR>
+nnoremap <c-g>C :bdelete gitgutter<CR>
 nnoremap <c-g>g :GitGutter<CR>
-nnoremap <c-g>n <Plug>(GitGutterNextHunk)
-nnoremap <c-g>p <Plug>(GitGutterPrevHunk)
-nnoremap <c-g>s <Plug>(GitGutterStageHunk)
-nnoremap <c-g>v <Plug>(GitGutterPreviewHunk)
-nnoremap <c-g>x <Plug>(GitGutterUndoHunk)
+nnoremap <c-g>n :GitGutterNextHunk<CR>
+nnoremap <c-g>p :GitGutterPrevHunk<CR>
+nnoremap <c-g>s :GitGutterStageHunk<CR>
+nnoremap <c-g>v :GitGutterPreviewHunk<CR>
+nnoremap <c-g>c :GitGutterPreviewHunk<CR>
+nnoremap <c-g>x :GitGutterUndoHunk<CR>
+
+nnoremap <c-n> *
+nnoremap <c-p> #
 
 nnoremap <expr> z; folddirection>0 ? 'zm:set foldlevel?<CR>' : 'zr:set foldlevel?<CR>'
 nnoremap <expr> zu folddirection>0 ? 'zr:set foldlevel?<CR>' : 'zm:set foldlevel?<CR>'
@@ -77,8 +84,5 @@ nnoremap gr :ALEFindReferences<CR>
 nnoremap zm :let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :let folddirection=-1<CR>zr:set foldlevel?<CR>
 
-noremap <Leader>rr :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| register " 0 a b<CR>
 vmap <C-n> y/<C-r>"<CR>
 vmap <C-p> y?<C-r>"<CR>
-xnoremap <silent> <Leader>ry :w !pbcopy<CR>
-xnoremap <silent> <Leader>ry :w !pbcopy<CR>
