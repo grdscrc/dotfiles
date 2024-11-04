@@ -99,6 +99,7 @@ Plug 'ap/vim-buftabline'
 let g:buftabline_indicators=1 " Display if unsaved buffer
 
 Plug 'wellle/context.vim'
+autocmd VimEnter * if &diff | ContextDisable | endif " Disable on vimdiff
 
 Plug 'preservim/vimux'
 Plug 'vim-test/vim-test'
