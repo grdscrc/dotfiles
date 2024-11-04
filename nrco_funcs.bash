@@ -70,6 +70,7 @@ alias v.v="vim ~/.vimrc"
 alias ew="warn_azerty; ez"
 alias bat=batcat
 alias baj="bat --language json"
+alias batman="bat --language man"
 alias jpaths="jq 'paths(scalars) | join(\".\")'"
 alias jfz="jq -r 'paths(scalars) as \$p | [(\$p | join(\".\")), getpath(\$p)] | join(\" : \")' |fzf"
 alias pz="pbpaste | jfz"
@@ -334,10 +335,13 @@ eigile() {
 }
 
 alias jump_tail_dev_mss_archive="jump DEV methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"
+alias jump_tail_qa_mss_archive="jump QA methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"
+alias jump_tail_dev_mss="jump DEV methed 'ls -lah ./logfiles/methode-servlets/mss/subscriptions/*.log'"
+alias jump_tail_dev="jump DEV methed 'ls -lahd ./logfiles/methode-servlets/*/'"
 jump_tail(){
-  ENV=dev
-  servlet=mss
-  sub=Archive
+  ENV=${1:-DEV}
+  servlet=${2:-mss}
+  sub=${3:-Archive}
   jump $ENV methed "tail -f ./logfiles/methode-servlets/$servlet/subscriptions/$sub-subscription.log"
 }
 

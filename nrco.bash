@@ -23,7 +23,6 @@ shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 mkdir -p ~/.bash_histories
-# export HISTFILE="$HOME/.bash_histories/$(basename $(tty))_$(date '+%Y-%m-%d')"
 export HISTFILE="$HOME/.bash_histories/$(date '+%Y-%m')"
 export HISTSIZE=1000
 export HISTFILESIZE=2000
