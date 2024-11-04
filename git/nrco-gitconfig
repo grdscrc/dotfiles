@@ -24,6 +24,9 @@
 	pop = reset HEAD^
 	wip = commit -a -m 'WIP'
 	graph = log --color --graph --abbrev-commit
+	h = log --pretty=format:'%h'
+	H = log --pretty=format:'%H'
+	history = log --patch
 	g = graph
 	head = symbolic-ref --short HEAD
 	upstream = !git rev-parse --abbrev-ref $(git head)@{upstream}
@@ -31,8 +34,6 @@
 	d = diff --name-only
 	branches = branch -vv
 	f = fetch
-	h = log --pretty=format:'%h'
-	H = log --pretty=format:'%H'
 	staash = stash --all
 	names = diff --name-only
 	feat = "!f() { feat_arity=$(git branch --list | grep $1 | wc -l); if [ $feat_arity -gt 1 ]; then git branch --list | grep $1 | fzf --height=20% --query=$1 | xargs git checkout >/dev/null; elif [ $feat_arity -eq 1 ]; then git checkout $1; else git checkout -b FEATURES/M-$1; fi; git status; }; f"
