@@ -6,6 +6,10 @@
             "user": "igor.descayrac",
             "host": "methcb@nrcoadl-meth01.awseuw1.em-nrco.int"
         },
+        "appmanager": {
+            "user": "igor.descayrac",
+            "host": "appmanager@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
         "controller": {
             "user": "igor.descayrac",
             "host": "appmanager@nrcoadl-meth01.awseuw1.em-nrco.int"

@@ -14,7 +14,7 @@ jump() {
   user=$(jq -r ".$ENV.$SERVER.user" ~/dotfiles/nrco/jump.json)
   host=$(jq -r ".$ENV.$SERVER.host" ~/dotfiles/nrco/jump.json)
 
-  if [[ -z $user ]] || [[ -z $host ]]; then
+  if [[ "$user" == null ]] || [[ "$host" == null ]]; then
     echo >&2 "user/host not found"
   fi
 
