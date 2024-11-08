@@ -14,8 +14,9 @@ jump() {
   user=$(jq -r ".$ENV.$SERVER.user" ~/dotfiles/nrco/jump.json)
   host=$(jq -r ".$ENV.$SERVER.host" ~/dotfiles/nrco/jump.json)
 
-  if [[ "$user" == null ]] || [[ "$host" == null ]]; then
+  if [[ "$user" == "null" ]] || [[ "$host" == "null" ]]; then
     echo >&2 "user/host not found"
+    return
   fi
 
   if [[ $CMD == "--echo" ]]; then
@@ -43,13 +44,13 @@ jump_help() {
   t="        " # indentation for boundary
   case $1 in
     DEV)
-      type jump|sed -n "/${t}DEV)/,/^${t};;/p"|grep ")"|bat --number
+      type jump|sed -n "/${t}DEV)/,/^${t};;/p"|grep ")"
       ;;
     QA)
-      type jump|sed -n "/${t}QA)/,/^${t};;/p"|grep ")"|bat --number
+      type jump|sed -n "/${t}QA)/,/^${t};;/p"|grep ")"
       ;;
     *|"")
-      type jump|grep -v "="|bat --number --language bash
+      type jump
       ;;
   esac
 }
