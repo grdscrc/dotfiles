@@ -4,6 +4,8 @@ alias dctail='docker-compose logs --follow'
 alias dps="docker ps --format=\"table {{.Names}}\t{{.Status}}\t{{.Image}}\""
 alias dcps="docker-compose ps --format=\"table {{.Name}}\t{{.Status}}\t{{.Image}}\""
 alias v="vim"
+alias pscpu="ps aux --forest --sort=-%cpu"
+alias psmem="ps aux --forest --sort=-%mem"
 
 source ~/dotfiles/nrco/jump.sh
 
