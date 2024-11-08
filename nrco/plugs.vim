@@ -114,6 +114,8 @@ Plug 'rhysd/conflict-marker.vim'
 
 Plug 'vim-scripts/AnsiEsc.vim'
 
+Plug 'mtdl9/vim-log-highlighting'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
