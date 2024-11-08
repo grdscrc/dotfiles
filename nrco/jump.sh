@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 jump() {
-  AWS_HOST="awseuw1.em-nrco.int"
-  DEV_JMP="nrcoadl-meth01.$AWS_HOST"
-
   ENV="${1^^}" # UPPERCASE
   shift
   SERVER="${1,,}" # lowercase
+  if [[ "$SERVER" == "appmanager" ]]; then
+    SERVER="controller"
+  fi
   shift
   CMD="$1"
   shift
