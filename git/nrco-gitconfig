@@ -14,6 +14,7 @@
 	directory = /home/unix/dev/novactive-nr-clusterone-rubedo-738c5d43a97d
 	directory = /home/unix/dev/Eidos
 	directory = /home/unix/dev/eidos-export
+	directory = /home/unix/dev/eidos-align
 
 [alias]
 	amend = commit --amend
