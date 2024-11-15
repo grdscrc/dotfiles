@@ -1,0 +1,13 @@
+# /home/unix/.config/tmuxinator/align.yml
+
+name: align
+root: ~/dev/eidos-export
+
+windows:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim
+        - wdocker && npm run test:integration
+  - gpt(js): sgpt --repl js
+  # - logs: tail -f log/development.log

@@ -1,0 +1,9 @@
+# /home/unix/.config/tmuxinator/Eidos.yml
+
+name: Eidos-test
+root: ~/dev/Eidos/agile
+
+windows:
+  - pytest: npm run test:py
+  - med: med_mss
+  - jump: jump_help|head -50

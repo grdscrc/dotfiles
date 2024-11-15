@@ -1,0 +1,13 @@
+# /home/unix/.config/tmuxinator/align.yml
+
+name: align
+root: ~/
+
+windows:
+  - scripts:
+      layout: even-horizontal
+      panes:
+        - bat dev/eidos_align*
+        - bat dev/eidos-cross-panel/gitignored/*
+  - ssh: 
+      layout: even-vertical

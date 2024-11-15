@@ -1,0 +1,21 @@
+# /home/unix/.config/tmuxinator/crossobjectpanel.yml
+
+name: crossobjectpanel
+root: ~/dev/eidos-cross-panel
+
+windows:
+  - code:
+      layout: main-vertical
+      # layout: even-horizontal
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - vim # -S ~/.vimrc -S ~/xop-push-session.vim
+        - npm run test
+  - server:
+      layout: main-vertical
+      panes:
+        - clear && prompt 'Launch server ? ' && npm run dev
+        - htop
+  - gpt: clear && sgpt --repl temp
