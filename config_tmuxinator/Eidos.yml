@@ -10,8 +10,8 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - vim
         - (cd agile && npm run test:py)
+        - vim
   # - server: bundle exec rails s
   # - logs: tail -f log/development.log
   - gpt: sgpt --repl temp

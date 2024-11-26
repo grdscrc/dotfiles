@@ -54,4 +54,4 @@ windows:
         - vim
         - npm run test
   - server: npm run dev
-  # - logs: tail -f log/development.log
+  - graphql: cd ~/dev/albedo-api ; vim +GFiles
