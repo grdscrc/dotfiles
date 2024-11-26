@@ -196,3 +196,7 @@ eval "$(pyenv init -)"
 # the following to ~/.bashrc:
 
 eval "$(pyenv virtualenv-init -)"
+
+# https://github.com/jarun/nnn/wiki/Basic-use-cases#detached-text
+export PATH="/home/unix/dotfiles/scripts:$PATH"
+export VISUAL=ewrap

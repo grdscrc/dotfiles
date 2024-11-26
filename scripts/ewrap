@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if [ -n "$TMUX" ] ; then
+    # tmux session running
+    tmux split-window -h "vim \"$*\""
+else
+    # Remove option --tab for new window
+    xfce4-terminal --tab -e "vim \"$*\""
+fi
