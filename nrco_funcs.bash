@@ -218,9 +218,7 @@ tight() {
 alias codium=/mnt/c/Users/igor.descayrac/AppData/Local/Programs/VSCodium/bin/codium
 
 jump_exp() {
-  host=${1:-appmanager}
-  shift
-  jump "$host" "$*";
+  jump dev appmanager "cd mnt/express && $*";
 }
 
 alias functions="bind -P"

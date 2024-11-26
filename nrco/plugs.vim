@@ -64,17 +64,10 @@ let g:SexyScroller_ScrollTime = 150
 let g:SexyScroller_CursorTime = 50
 let g:SexyScroller_EasingStyle = 3
 
-Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
-let g:minimap_width = 80
-
 Plug 'dominikduda/vim_current_word'
 let g:vim_current_word#highlight_current_word = 0
 
-nmap <c-t><c-t> :terminal<CR>
-nmap <c-t>v :vertical terminal<CR>
 Plug 'voldikss/vim-floaterm'
-nmap <c-t>f :FloatermNew<CR>
-nmap <c-t>n :FloatermNew node<CR>
 
 Plug 'tpope/vim-rsi'
 

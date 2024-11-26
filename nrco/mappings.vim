@@ -38,8 +38,8 @@ nnoremap <Leader>f :BLines<CR>
 nnoremap <Leader>g :Gedit :<CR>
 nnoremap <Leader>h :Helptags<CR>
 nnoremap <Leader>i :Index<CR>
-nnoremap <Leader>j )
-nnoremap <Leader>k (
+nnoremap <Leader>k :Rg<CR>
+nnoremap K :Rg <C-R>=expand('<cword>')<CR><CR>
 nnoremap <Leader>n :bnext<CR>
 nnoremap <Leader>o :Files<CR>
 nnoremap <Leader>p :bprevious<CR>
@@ -75,7 +75,6 @@ nnoremap Z1 :2,$bd<CR>
 nnoremap ZA :%bdelete<CR>
 nnoremap ZF :bdelete<bar>FZF<CR>
 nnoremap ZX :hide<CR>
-nnoremap ZZ :bdelete<CR>
 nnoremap Z\ :1, $-1bd<CR>
 nnoremap g/ /\<\><Left><Left>
 nnoremap gR :ALERename<CR>
@@ -87,6 +86,13 @@ nnoremap zm :let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :let folddirection=-1<CR>zr:set foldlevel?<CR>
 
 nnoremap ga <C-^>:echo "Alternate to " expand('#')
+nnoremap g! :echo system('')<Left><Left>
 
 vmap <C-n> y/<C-r>"<CR>
 vmap <C-p> y?<C-r>"<CR>
+
+nmap <c-t><c-t> :terminal<CR>
+nmap <c-t>v :vertical terminal<CR>
+
+nmap <c-t>f :FloatermNew<CR>
+nmap <c-t>n :FloatermNew node<CR>

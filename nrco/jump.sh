@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 jump() {
-  ENV="${1^^}" # UPPERCASE
+  local ENV="${1^^}" # UPPERCASE
   shift
-  SERVER="${1,,}" # lowercase
+  local SERVER="${1,,}" # lowercase
   if [[ "$SERVER" == "appmanager" ]]; then
     SERVER="controller"
   fi
   shift
-  CMD="$1"
+  local CMD="$1"
   shift
 
-  user=$(jq -r ".$ENV.$SERVER.user" ~/dotfiles/nrco/jump.json)
-  host=$(jq -r ".$ENV.$SERVER.host" ~/dotfiles/nrco/jump.json)
+  local user=$(jq -r ".$ENV.$SERVER.user" ~/dotfiles/nrco/jump.json)
+  local host=$(jq -r ".$ENV.$SERVER.host" ~/dotfiles/nrco/jump.json)
 
   if [[ "$user" == "null" ]] || [[ "$host" == "null" ]]; then
     echo >&2 "user/host not found"
@@ -32,11 +32,11 @@ jump() {
   fi
 
   local SSH=$user@$host@jump
-  echo >&2 ">>>ssh "$SSH"<<<"
+  local PASSWORD=~/passwords/.nrco_jump_dev
+  echo >&2 ">>>sshpass -f $PASSWORD ssh "$SSH"<<<"
   if [[ $CMD != "" ]]; then
     echo >&2 ">>>:$CMD<<<"
   fi
-  PASSWORD=~/passwords/.nrco_jump_dev
   sshpass -f $PASSWORD ssh $SSH "$CMD"
 }
 
