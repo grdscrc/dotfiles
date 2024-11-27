@@ -177,7 +177,7 @@ source "$HOME/.cargo/env"
 
 source /home/unix/.config/broot/launcher/bash/br
 
-source ~/dotfiles/nrco_funcs.bash
+source ~/dotfiles/nrco/funcs.bash
 
 # WARNING: seems you still have not added 'pyenv' to the load path.
 

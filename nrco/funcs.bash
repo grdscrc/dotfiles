@@ -6,6 +6,7 @@ alias dcps="docker-compose ps --format=\"table {{.Name}}\t{{.Status}}\t{{.Image}
 alias v="vim"
 alias pscpu="ps aux --forest --sort=-%cpu"
 alias psmem="ps aux --forest --sort=-%mem"
+alias ranger="VISUAL=vim ranger"
 
 source ~/dotfiles/nrco/jump.sh
 
