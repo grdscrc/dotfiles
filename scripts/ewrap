@@ -1,9 +1,14 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-if [ -n "$TMUX" ] ; then
-    # tmux session running
-    tmux split-window -h "vim \"$*\""
-else
-    # Remove option --tab for new window
-    xfce4-terminal --tab -e "vim \"$*\""
-fi
+[ -z "$TMUX" ] && vim "$*" && exit
+
+# Find vim pane to send files to edit
+PANES=$(tmux list-panes | wc -l)
+for (( PANE_I=0; PANE_I<$PANES; PANE_I++ )); do
+    PANE_PID=$(tmux display-message -t$PANE_I -p "#{pane_pid}")
+    PANE_CMD=$(ps -o cmd= -p $PANE_PID)
+    [[ "$PANE_CMD" =~ ^vim ]] && \
+        tmux send-keys -t$PANE_I Escape ":args $*" Enter && exit
+done
+# Make vim pane with files to edit
+tmux split-window -h "vim +:args $*"
