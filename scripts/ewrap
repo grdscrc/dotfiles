@@ -11,4 +11,4 @@ for (( PANE_I=0; PANE_I<$PANES; PANE_I++ )); do
         tmux send-keys -t$PANE_I Escape ":args $*" Enter && exit
 done
 # Make vim pane with files to edit
-tmux split-window -h "vim +:args $*"
+tmux split-window -h "vim $*"
