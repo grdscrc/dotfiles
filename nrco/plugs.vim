@@ -109,6 +109,8 @@ Plug 'vim-scripts/AnsiEsc.vim'
 
 Plug 'mtdl9/vim-log-highlighting'
 
+Plug 'zivyangll/git-blame.vim'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()

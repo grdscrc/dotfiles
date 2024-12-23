@@ -61,4 +61,6 @@ let g:fzf_preview_window = ['up:10']
 autocmd CursorHold * echo
 " autocmd TextYankPost * echo len(getreg(v:register))"chars,"len(split(getreg(v:register), '\n'))"lines, <yank>"substitute(getreg(v:register), '\n', ' // ', 'g')[0:50]"</yank>"
 
+let g:ranger_map_keys = 1 
+let g:ale_lint_on_enter = 0
 

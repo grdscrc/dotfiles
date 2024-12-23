@@ -5,6 +5,7 @@ nmap <c-t>n :FloatermNew node<CR>
 nmap <c-t>v :vertical terminal<CR>
 
 nnoremap <C-w>. 20<C-w>>
+nnoremap <C-w>, 20<C-w><
 
 nnoremap <Leader><Leader> :
 nnoremap <Leader>/ :History/<CR>
@@ -27,9 +28,10 @@ nnoremap <Leader>Q :cclose<CR>
 nnoremap <Leader>S :set syntax=
 nnoremap <Leader>S :split<bar>GFiles<CR>
 nnoremap <Leader>V :vsplit<bar>GFiles?<CR>
-nnoremap <Leader>W <C-w>p
+nnoremap <Leader>W :w!<CR>
 nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>b :buffers<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>B :buffers<CR>:buffer<Space>
 nnoremap <Leader>c :Colors<CR>
 nnoremap <Leader>d :bd<CR>
 nnoremap <Leader>D :bufdo bd<CR>
@@ -50,7 +52,7 @@ nnoremap <Leader>rp :r !pbpaste<CR>
 nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
-nnoremap <Leader>w <C-w>w
+nnoremap <Leader>w :w<CR>
 nnoremap <Leader>x :close<CR>
 
 nnoremap <c-g>/ /[<bar><>=]\{7}<CR>
@@ -85,11 +87,13 @@ nnoremap gr :ALEFindReferences<CR>
 nnoremap zm :let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :let folddirection=-1<CR>zr:set foldlevel?<CR>
 
-nnoremap ga <C-^>:echo "Alternate to " expand('#')
+nnoremap ga <C-^>:echo "Alternate to " expand('#')<CR>
 nnoremap g! :echo system('')<Left><Left>
 
 vmap <C-n> y/<C-r>"<CR>
 vmap <C-p> y?<C-r>"<CR>
+
+nmap <c-h> :set hlsearch!<CR>
 
 nmap <c-t><c-t> :terminal<CR>
 nmap <c-t>v :vertical terminal<CR>
