@@ -1,6 +1,6 @@
-# /home/unix/.config/tmuxinator/align.yml
+# /home/unix/.config/tmuxinator/tex.yml
 
-name: align
+name: tex
 root: ~/dev/eidos-export
 
 windows:
