@@ -87,6 +87,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
 
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators=1 " Display if unsaved buffer
@@ -110,6 +111,24 @@ Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'mtdl9/vim-log-highlighting'
 
 Plug 'zivyangll/git-blame.vim'
+
+" Plug 'https://github.com/slakkenhuis/vim-margin'
+" let g:margin_enabled=0
+" let &textwidth=100
+
+" Plug 'junegunn/limelight.vim'
+
+let g:limelight_default_coefficient = 0.3
+let g:limelight_paragraph_span = 1
+
+Plug 'rbong/vim-flog'
+
+Plug 'tracyone/fzf-funky', {'on': 'FzfFunky'}
+
+Plug 'junegunn/gv.vim'
+
+Plug 'junegunn/vim-peekaboo'
+let g:peekaboo_window = 'vert bo 50new'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.

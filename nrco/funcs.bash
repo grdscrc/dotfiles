@@ -258,21 +258,21 @@ meq_service() {
 mee_service() {
   EENV=$1 # ENV Eidos
   shift
-  SERVICE=$1
+  APP=$1
   shift
   opts=$*
   if [ -n "$*" ]; then
     echo === ENV:${EENV^^} $opts ===
   fi
-  if [ -z $SERVICE ] || [ "$SERVICE" == "-" ]; then
+  if [ -z $APP ] || [ "$APP" == "-" ]; then
     MEDJSON=/home/unix/dev/Eidos/agile/med.json
-    SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
-    SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
-    if [ -z "$SERVICE" ]; then
+    APPS_COUNT=`jq -r 'keys | length' $MEDJSON`
+    APP=`jq -r 'keys[]' $MEDJSON | fzf --height=$((APPS_COUNT + 1)) --info=inline`
+    if [ -z "$APP" ]; then
       return 1
     fi
   fi
-  echo "=== SERVICE:$SERVICE ==="
+  echo "=== APP:$APP ==="
   if [ $EENV == "dev" ]; then
     task=med
   elif [ $EENV == "qa" ]; then
@@ -281,11 +281,11 @@ mee_service() {
     return 1
   fi
   (cd /home/unix/dev/Eidos/agile &&
-    npm run $task -- $SERVICE igor.descayrac ~/passwords/.nrco_jump_dev $opts)
+    npm run $task -- $APP igor.descayrac ~/passwords/.nrco_jump_dev $opts)
   if [ $? -eq 0 ]; then
-    echo "=== $SERVICE a ete Mise En $EENV ==="
+    echo "=== $APP a ete Mise En $EENV ==="
   else
-    echo "!!! $SERVICE n'a pas ete Mise En $EENV !!!"
+    echo "!!! $APP n'a pas ete Mise En $EENV !!!"
   fi
 }
 
@@ -296,34 +296,34 @@ meq_delta() {
   mee_delta qa "$@"
 }
 mee_delta() {
-  EENV=$1 # ENV Eidos
+  local EENV=$1 # ENV Eidos
   shift
-  SERVICE=$1
+  local APP=$1
   shift
   files=$@
-  MEDJSON=/home/unix/dev/Eidos/agile/med.json
-  if [ -z $SERVICE ] || [ "$SERVICE" == "-" ]; then
-    SERVICES_COUNT=`jq -r 'keys | length' $MEDJSON`
-    SERVICE=`jq -r 'keys[]' $MEDJSON | fzf --height=$((SERVICES_COUNT + 1)) --info=inline`
-    if [ -z "$SERVICE" ]; then
+  local CONF=/home/unix/dev/Eidos/agile/apps_chemins.json
+  if [ -z $APP ] || [ "$APP" == "-" ]; then
+    APPS_COUNT=`jq -r 'keys | length' $CONF`
+    APP=`jq -r 'keys[]' $CONF | fzf --height=$((APPS_COUNT + 1)) --info=inline`
+    if [ -z "$APP" ]; then
       return 1
     fi
   fi
-  echo "=== MED delta $SERVICE ==="
-  CHEMINS_LOCAUX=$(jq -r ".$SERVICE.chemins[][0]")
-  CHEMINS_SERVRS=$(jq -r ".$SERVICE.chemins[][1]")
+  echo "=== Delta $APP local<>$EENV ==="
+  CHEMINS_LOCAUX=$(jq -r ".$APP.chemins[][0]")
+  CHEMINS_SERVRS=$(jq -r ".$APP.chemins[][1]")
   for file in "$files"; do
     for index in "${!CHEMINS_LOCAUX[@]}"; do
       CHEMIN_LOCAL=${CHEMINS_LOCAUX[$index]}
       CHEMIN_SERVR=${CHEMINS_SERVRS[$index]}
       if [ -f "$CHEMIN_LOCAL/$file" ]; then
-        echo "Local : $CHEMIN_LOCAL/$file"
-        echo "Remote: $CHEMIN_SERVR/$file"
+        # echo "Local : $CHEMIN_LOCAL/$file"
+        # echo "Remote: $CHEMIN_SERVR/$file"
         jump $EENV methed "cat $CHEMIN_SERVR/$file" 2>/dev/null | \
           delta $CHEMIN_LOCAL/$file -
       elif [ -f "$CHEMIN_LOCAL" ]; then
-        echo "Local : $CHEMIN_LOCAL"
-        echo "Remote: $CHEMIN_SERVR"
+        # echo "Local : $CHEMIN_LOCAL"
+        # echo "Remote: $CHEMIN_SERVR"
         jump $EENV methed "cat $CHEMIN_SERVR" 2>/dev/null | \
           delta $CHEMIN_LOCAL -
       fi

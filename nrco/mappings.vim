@@ -2,9 +2,6 @@ inoremap <c-c> <esc>:undo<cr>
 
 nmap <c-h> :set hlsearch!<CR>
 
-nmap <c-t><c-t> :terminal<CR>
-nmap <c-t>v :vertical terminal<CR>
-
 nnoremap <C-w>. 20<C-w>>
 nnoremap <C-w>, 20<C-w><
 
@@ -19,25 +16,27 @@ nnoremap <Leader>J :tabnext<CR>
 nnoremap <Leader>K :tabprev<CR>
 nnoremap <Leader>l :lopen<CR>
 nnoremap <Leader>L :lclose<CR>
-nnoremap <Leader>N :ene<CR>
+nnoremap <Leader>N :enew<CR>
 nnoremap <Leader>q :copen<CR>
 nnoremap <Leader>Q :cclose<CR>
 nnoremap <Leader>S :set syntax=
-nnoremap <Leader>W :w!<CR>
+nnoremap <Leader>W :write!<CR>
 nnoremap <Leader>B :buffers<CR>:buffer<Space>
-nnoremap <Leader>d :bd<CR>
+nnoremap <Leader>d :bdelete<CR>
 nnoremap <Leader>D :bufdo bd<CR>
 nnoremap <Leader>n :bnext<CR>
 nnoremap <Leader>p :bprevious<CR>
 nnoremap <Leader>rR :let @"=@0 \| let @0=@1 \| let @1=@2 \| let @2=@3 \| register " 0 1 2<CR>
 nnoremap <Leader>rr :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| register " 0 a b<CR>
-nnoremap <Leader>rf :let @f=@%<CR>
+nnoremap <Leader>rf :let @f=@%<bar>echo @f<CR>
 nnoremap <Leader>rp :r !pbpaste<CR>
-nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<CR>
+nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<bar>echo @0<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
-nnoremap <Leader>w :w<CR>
+nnoremap <Leader>w :write<CR>
 nnoremap <Leader>x :close<CR>
+" z like Zoom
+nnoremap <Leader>z :only<CR>
 
 nnoremap <c-n> *
 nnoremap <c-p> #
@@ -46,7 +45,7 @@ nnoremap <c-p> #
 " display foldlevel on `zm`/`zr`
 " allow repeat with `z;`/undo with `zu`
 let folddirection=0
-nnoremap <expr> <M-f> folddirection>0 ? 'zm:set foldlevel?<CR>' : 'zr:set foldlevel?<CR>'
+nnoremap <expr> z; folddirection>0 ? 'zm:set foldlevel?<CR>' : 'zr:set foldlevel?<CR>'
 nnoremap <expr> zu folddirection>0 ? 'zr:set foldlevel?<CR>' : 'zm:set foldlevel?<CR>'
 nnoremap zm :silent let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :silent let folddirection=-1<CR>zr:set foldlevel?<CR>
@@ -67,29 +66,45 @@ nnoremap gS :%s///g<Left><Left><Left>
 
 """ Plugs mappings
 " floaterm.vim
-nmap <c-t>f :FloatermNew<CR>
+nmap <c-t>t :terminal<CR>
+nmap <c-t>v :vertical terminal<CR>
+nmap <c-t><space> :FloatermNew<CR>
 nmap <c-t>n :FloatermNew node<CR>
+nmap <c-t>g :FloatermNew sgpt --repl chat<CR>
 
 
 " fzf.vim
-nnoremap <Leader>/ :History/<CR>
-nnoremap <Leader>; :History:<CR>
-nnoremap <Leader>E :GFiles?<CR>
-nnoremap <Leader>O :Files ~<CR>
-nnoremap <Leader>a :Ag<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>c :Colors<CR>
-nnoremap <Leader>e :GFiles<CR>
-nnoremap <Leader>f :BLines<CR>
-nnoremap <Leader>g :Gedit :<CR>
-nnoremap <Leader>h :Helptags<CR>
-nnoremap <Leader>i :Index<CR>
-nnoremap <Leader>k :Rg<CR>
+nnoremap <Leader>f/ :BLines<CR>
+nnoremap <Leader>f: :History:<CR>
+nnoremap <Leader>f; :History/<CR>
+nnoremap <Leader>fo :Files<CR>
+nnoremap <Leader>fO :Files ~<CR>
+nnoremap <Leader>f. :Files ~/dotfiles<CR>
+nnoremap <Leader>fa :Ag<CR>
+nnoremap <Leader>fb :Buffers<CR>
+nnoremap <Leader>fe :GFiles<CR>
+nnoremap <Leader>fg :GFiles?<CR>
+nnoremap <Leader>fG :Gedit :<CR>
+nnoremap <Leader>ff :FzfFunky<CR>
+nnoremap <Leader>fh :Helptags<CR>
+nnoremap <Leader>fk :Rg<CR>
 nnoremap K :Rg <C-R>=expand('<cword>')<CR><CR>
-nnoremap <Leader>o :Files<CR>
 " :Index shows index.txt (with all key-combinations) using fzf-vim
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
+nnoremap <Leader>fi :Index<CR>
+command! -bang -nargs=* GCheckout
+      \ call fzf#run({
+      \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
+      \ 'sink':    '!git checkout',
+      \ 'options': '--ansi',
+      \ 'down':    '40%'}) |
+      \ execute ":Git status"
+nnoremap <Leader>fc :GCheckout<CR>
+nnoremap <Leader>f<Space> :map <lt>Space\>f<CR>
 
+imap <c-x>w <plug>(fzf-complete-word)
+imap <c-x>p <plug>(fzf-complete-path)
+imap <c-x>l <plug>(fzf-complete-line)
 
 " GitGutter.vim
 nnoremap <c-g>/ /[<bar><>=]\{7}<CR>
@@ -103,9 +118,28 @@ nnoremap <c-g>s :GitGutterStageHunk<CR>
 nnoremap <c-g>v :GitGutterPreviewHunk<CR>
 nnoremap <c-g>c :GitGutterPreviewHunk<CR>
 nnoremap <c-g>x :GitGutterUndoHunk<CR>
+nnoremap <c-g>e :GFiles?<CR>
 
 " ale.vim
 nnoremap gR :ALERename<CR>
 nnoremap gd :ALEGoToDefinition<CR>
 nnoremap gh :ALEHover<CR>
 nnoremap gr :ALEFindReferences<CR>
+
+command! InsDate call append(line('.'), strftime('%c'))
+command! InsTime call append(line('.'), strftime('%s000'))
+
+command! DateToTime call YankDateTimeToTimestamp()
+function! YankDateTimeToTimestamp()
+    let datetime = expand('<cWORD>')
+    let timestamp = str2nr(strftime('%s', datetime))
+    echom timestamp
+    call setreg('+', timestamp)
+endfunction
+command! TimeToDate call YankTimestampToDateTime()
+function! YankTimestampToDateTime()
+    let timestamp = expand('<cword>')
+    let datetime = strftime('%c', str2nr(timestamp))
+    echom datetime
+    call setreg('+', datetime)
+endfunction
