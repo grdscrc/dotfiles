@@ -248,13 +248,8 @@ alias ripgrep=rg
 alias med_mss="prompt 'MED' && (cd /home/unix/dev/Eidos/agile && npm run med -- mss igor.descayrac ~/passwords/.nrco_jump_dev)"
 # alias med_mss="med_mss_dry && med_mss_live"
 
-med_service() {
-  mee_service dev $*
-}
-meq_service() {
-  mee_service qa $*
-}
-
+med_service() { mee_service dev $* ; }
+meq_service() { mee_service qa $* ; }
 mee_service() {
   EENV=$1 # ENV Eidos
   shift
@@ -289,12 +284,40 @@ mee_service() {
   fi
 }
 
-med_delta() {
-  mee_delta dev "$@"
+med_xop() { livrer_xop dev $@ ; }
+meq_xop() { livrer_xop qa $@ ; }
+livrer_xop() {
+  APP=cross-panel
+  EENV=$1 # ENV Eidos
+  shift
+  OPTS=$*
+  if [ -n "$OPTS" ]; then
+    echo === OPTS:$OPTS ===
+  fi
+  if [ $EENV == "dev" ]; then
+    TASK=med
+  elif [ $EENV == "qa" ]; then
+    TASK=meq
+  else
+    return 1
+  fi
+  (cd /home/unix/dev/eidos-cross-panel &&
+    echo "=== ${APP^^}:PUBLISH ===" &&
+    npm run publish:debug)
+  (cd /home/unix/dev/Eidos/agile &&
+    echo "=== EIDOS:UPDATE:${APP^^} ===" &&
+    npm run update:xop:debug &&
+    echo "=== EIDOS:${TASK^^}:${APP^^} ===" &&
+    npm run $TASK -- $APP igor.descayrac ~/passwords/.nrco_jump_dev $opts)
+  if [ $? -eq 0 ]; then
+    echo "=== $APP a ete Mise En $EENV ==="
+  else
+    echo "!!! $APP n'a pas ete Mise En $EENV !!!"
+  fi
 }
-meq_delta() {
-  mee_delta qa "$@"
-}
+
+med_delta() { mee_delta dev "$@" ; }
+meq_delta() { mee_delta qa "$@" ; }
 mee_delta() {
   local EENV=$1 # ENV Eidos
   shift
@@ -331,9 +354,7 @@ mee_delta() {
   done
 }
 
-eigile() {
-  (cd ./agile/ && npm run $*)
-}
+jog() { (cd ./agile/ && npm run $*) ; }
 
 alias jump_tail_dev_mss_archive="jump DEV methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"
 alias jump_tail_qa_mss_archive="jump QA methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"

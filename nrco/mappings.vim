@@ -72,8 +72,7 @@ nmap <c-t><space> :FloatermNew<CR>
 nmap <c-t>n :FloatermNew node<CR>
 nmap <c-t>g :FloatermNew sgpt --repl chat<CR>
 
-
-" fzf.vim
+" fzf-vim
 nnoremap <Leader>f/ :BLines<CR>
 nnoremap <Leader>f: :History:<CR>
 nnoremap <Leader>f; :History/<CR>
@@ -84,7 +83,6 @@ nnoremap <Leader>fa :Ag<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fe :GFiles<CR>
 nnoremap <Leader>fg :GFiles?<CR>
-nnoremap <Leader>fG :Gedit :<CR>
 nnoremap <Leader>ff :FzfFunky<CR>
 nnoremap <Leader>fh :Helptags<CR>
 nnoremap <Leader>fk :Rg<CR>
@@ -100,25 +98,27 @@ command! -bang -nargs=* GCheckout
       \ 'down':    '40%'}) |
       \ execute ":Git status"
 nnoremap <Leader>fc :GCheckout<CR>
-nnoremap <Leader>f<Space> :map <lt>Space\>f<CR>
 
 imap <c-x>w <plug>(fzf-complete-word)
 imap <c-x>p <plug>(fzf-complete-path)
 imap <c-x>l <plug>(fzf-complete-line)
 
+" fugitive.vim
+nnoremap <Leader>GG :Gedit :<CR>
+nnoremap <Leader>Gl :Gclog<CR>
+
 " GitGutter.vim
-nnoremap <c-g>/ /[<bar><>=]\{7}<CR>
-nnoremap <c-g><c-g> <c-g>
-nnoremap <c-g>V :bdelete gitgutter<CR>
-nnoremap <c-g>C :bdelete gitgutter<CR>
-nnoremap <c-g>g :GitGutter<CR>
-nnoremap <c-g>n :GitGutterNextHunk<CR>
-nnoremap <c-g>p :GitGutterPrevHunk<CR>
-nnoremap <c-g>s :GitGutterStageHunk<CR>
-nnoremap <c-g>v :GitGutterPreviewHunk<CR>
-nnoremap <c-g>c :GitGutterPreviewHunk<CR>
-nnoremap <c-g>x :GitGutterUndoHunk<CR>
-nnoremap <c-g>e :GFiles?<CR>
+nnoremap <Leader>g/ /[<bar><>=]\{7}<CR>
+nnoremap <Leader>gV :bdelete gitgutter<CR>
+nnoremap <Leader>gC :bdelete gitgutter<CR>
+nnoremap <Leader>gg :GitGutter<CR>
+nnoremap <Leader>gn :GitGutterNextHunk<CR>
+nnoremap <Leader>gp :GitGutterPrevHunk<CR>
+nnoremap <Leader>gs :GitGutterStageHunk<CR>
+nnoremap <Leader>gv :GitGutterPreviewHunk<CR>
+nnoremap <Leader>gc :GitGutterPreviewHunk<CR>
+nnoremap <Leader>gx :GitGutterUndoHunk<CR>
+nnoremap <Leader>ge :GFiles?<CR>
 
 " ale.vim
 nnoremap gR :ALERename<CR>
