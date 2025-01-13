@@ -301,14 +301,24 @@ livrer_xop() {
   else
     return 1
   fi
-  (cd /home/unix/dev/eidos-cross-panel &&
-    echo "=== ${APP^^}:PUBLISH ===" &&
-    npm run publish:debug)
-  (cd /home/unix/dev/Eidos/agile &&
-    echo "=== EIDOS:UPDATE:${APP^^} ===" &&
-    npm run update:xop:debug &&
-    echo "=== EIDOS:${TASK^^}:${APP^^} ===" &&
-    npm run $TASK -- $APP igor.descayrac ~/passwords/.nrco_jump_dev $opts)
+
+  XOP_DIR=/home/unix/dev/eidos-cross-panel
+  EID_DIR=/home/unix/dev/Eidos/agile
+  (cd XOP_DIR && git diff --quiet --exit-code)
+  if [ $? -ne 0 ]; then
+    echo >&2 "!!! $APP worktree dirty !!!"
+    git status
+    return 1
+  fi
+  echo "=== ${APP^^}:PUBLISH ==="
+
+  (cd XOP_DIR && npm run publish:debug)
+  echo "=== EIDOS:UPDATE:${APP^^} ==="
+
+  (cd EID_DIR && npm run update:xop:debug)
+  echo "=== EIDOS:${TASK^^}:${APP^^} ==="
+
+  (cd EID_DIR && npm run $TASK -- $APP igor.descayrac ~/passwords/.nrco_jump_dev $OPTS)
   if [ $? -eq 0 ]; then
     echo "=== $APP a ete Mise En $EENV ==="
   else
