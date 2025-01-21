@@ -130,6 +130,8 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_window = 'vert bo 50new'
 
+Plug 'github/copilot.vim'
+
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
 call plug#end()
