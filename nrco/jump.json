@@ -10,14 +10,6 @@
             "user": "igor.descayrac",
             "host": "appmanager@nrcoadl-meth01.awseuw1.em-nrco.int"
         },
-        "methdig": {
-            "user": "igor.descayrac",
-            "host": "methdig@nrcoadl-meth01.awseuw1.em-nrco.int"
-        },
-        "methed": {
-            "user": "igor.descayrac",
-            "host": "methed@nrcoadl-meth01.awseuw1.em-nrco.int"
-        },
         "elasticsearch_x_archive": {
             "user": "cust-nrco",
             "host": "es_arc@nrcoadl-meth01.awseuw1.em-nrco.int"
@@ -25,6 +17,10 @@
         "elasticsearch_x_cobalt": {
             "user": "cust-nrco",
             "host": "es_cb@nrcoadl-meth01.awseuw1.em-nrco.int"
+        },
+        "methdig": {
+            "user": "igor.descayrac",
+            "host": "methdig@nrcoadl-meth01.awseuw1.em-nrco.int"
         },
         "methed": {
             "user": "igor.descayrac",
@@ -56,15 +52,15 @@
         }
     },
     "QA": {
-        "cobalt:nrcoaql-methed01": {
+        "cobalt/nrcoaql-methed01": {
             "user": "cust-nrco",
             "host": "methcb@nrcoaql-methed01.awseuw1.em-nrco.int"
         },
-        "cobalt:nrcocql-cobcore-baseimage": {
+        "cobalt/nrcocql-cobcore-baseimage": {
             "user": "cust-nrco",
             "host": "methcb@nrcocql-cobcore-baseimage.awseuw1.em-nrco.int"
         },
-        "cobalt:nrcocql-cobfe-baseimage": {
+        "cobalt/nrcocql-cobfe-baseimage": {
             "user": "cust-nrco",
             "host": "methcb@nrcocql-cobfe-baseimage.awseuw1.em-nrco.int"
         },
@@ -76,15 +72,15 @@
             "user": "cust-nrco",
             "host": "elastic@nrcoaql-metharc01search.awseuw1.em-nrco.int"
         },
-        "elasticsearch_x_cobalt:cobelastic01": {
+        "elasticsearch_x_cobalt/cobelastic01": {
             "user": "cust-nrco",
             "host": "es_cb@nrcoaql-cobelastic01.awseuw1.em-nrco.int"
         },
-        "elasticsearch_x_cobalt:cobelastic02": {
+        "elasticsearch_x_cobalt/cobelastic02": {
             "user": "cust-nrco",
             "host": "es_cb@nrcobql-cobelastic02.awseuw1.em-nrco.int"
         },
-        "elasticsearch_x_cobalt:cobelastic03": {
+        "elasticsearch_x_cobalt/cobelastic03": {
             "user": "cust-nrco",
             "host": "es_cb@nrcocql-cobelastic03.awseuw1.em-nrco.int"
         },
@@ -100,7 +96,7 @@
             "user": "igor.descayrac",
             "host": "methdig@nrcocql-methdig01-baseimage.awseuw1.em-nrco.int"
         },
-        "methdig:2": {
+        "methdig2": {
             "user": "igor.descayrac",
             "host": "methdig@nrcocpl-methdig01-baseimage.awseuw1.em-nrco.int"
         },
@@ -108,11 +104,11 @@
             "user": "igor.descayrac",
             "host": "methed@nrcoaql-methed01.awseuw1.em-nrco.int"
         },
-        "ptrack:be": {
+        "ptrack/be": {
             "user": "cust-nrco",
             "host": "methptr@nrcocql-ptr01-baseimage.awseuw1.em-nrco.int"
         },
-        "ptrack:fe": {
+        "ptrack/fe": {
             "user": "",
             "host": "ust-nrco@methptr@nrcoaql-methed01.awseuw1.em-nrco.int"
         },
