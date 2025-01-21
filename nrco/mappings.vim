@@ -37,6 +37,8 @@ nnoremap <Leader>w :write<CR>
 nnoremap <Leader>x :close<CR>
 " z like Zoom
 nnoremap <Leader>z :only<CR>
+" List mappings in buffer
+nnoremap <Leader>m :redir @m <bar> vnew <bar> silent map <bar> redir END <bar> put m <bar> silent file mappings <bar> silent set readonly syntax=vim <bar>normal gg<CR>
 
 nnoremap <c-n> *
 nnoremap <c-p> #
@@ -73,23 +75,23 @@ nmap <c-t>n :FloatermNew node<CR>
 nmap <c-t>g :FloatermNew sgpt --repl chat<CR>
 
 " fzf-vim
-nnoremap <Leader>f/ :BLines<CR>
-nnoremap <Leader>f: :History:<CR>
-nnoremap <Leader>f; :History/<CR>
-nnoremap <Leader>fo :Files<CR>
-nnoremap <Leader>fO :Files ~<CR>
-nnoremap <Leader>f. :Files ~/dotfiles<CR>
-nnoremap <Leader>fa :Ag<CR>
-nnoremap <Leader>fb :Buffers<CR>
-nnoremap <Leader>fe :GFiles<CR>
-nnoremap <Leader>fg :GFiles?<CR>
-nnoremap <Leader>ff :FzfFunky<CR>
-nnoremap <Leader>fh :Helptags<CR>
-nnoremap <Leader>fk :Rg<CR>
+nnoremap <Tab>/ :BLines<CR>
+nnoremap <Tab>: :History:<CR>
+nnoremap <Tab>; :History/<CR>
+nnoremap <Tab>o :Files<CR>
+nnoremap <Tab>O :Files ~<CR>
+nnoremap <Tab>. :Files ~/dotfiles<CR>
+nnoremap <Tab>a :Ag<CR>
+nnoremap <Tab>b :Buffers<CR>
+nnoremap <Tab>e :GFiles<CR>
+nnoremap <Tab>g :GFiles?<CR>
+nnoremap <Tab>f :FzfFunky<CR>
+nnoremap <Tab>h :Helptags<CR>
+nnoremap <Tab>k :Rg<CR>
 nnoremap K :Rg <C-R>=expand('<cword>')<CR><CR>
 " :Index shows index.txt (with all key-combinations) using fzf-vim
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
-nnoremap <Leader>fi :Index<CR>
+nnoremap <Tab>i :Index<CR>
 command! -bang -nargs=* GCheckout
       \ call fzf#run({
       \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
@@ -97,28 +99,28 @@ command! -bang -nargs=* GCheckout
       \ 'options': '--ansi',
       \ 'down':    '40%'}) |
       \ execute ":Git status"
-nnoremap <Leader>fc :GCheckout<CR>
+nnoremap <Tab>c :GCheckout<CR>
 
 imap <c-x>w <plug>(fzf-complete-word)
 imap <c-x>p <plug>(fzf-complete-path)
 imap <c-x>l <plug>(fzf-complete-line)
 
 " fugitive.vim
-nnoremap <Leader>GG :Gedit :<CR>
-nnoremap <Leader>Gl :Gclog<CR>
+nnoremap <Leader>G :Gedit :<CR>
+" nnoremap <Leader>L :Gclog<CR>
 
 " GitGutter.vim
-nnoremap <Leader>g/ /[<bar><>=]\{7}<CR>
-nnoremap <Leader>gV :bdelete gitgutter<CR>
-nnoremap <Leader>gC :bdelete gitgutter<CR>
-nnoremap <Leader>gg :GitGutter<CR>
-nnoremap <Leader>gn :GitGutterNextHunk<CR>
-nnoremap <Leader>gp :GitGutterPrevHunk<CR>
-nnoremap <Leader>gs :GitGutterStageHunk<CR>
-nnoremap <Leader>gv :GitGutterPreviewHunk<CR>
-nnoremap <Leader>gc :GitGutterPreviewHunk<CR>
-nnoremap <Leader>gx :GitGutterUndoHunk<CR>
-nnoremap <Leader>ge :GFiles?<CR>
+nnoremap <C-g>/ /[<bar><>=]\{7}<CR>
+nnoremap <C-g>V :bdelete gitgutter<CR>
+nnoremap <C-g>C :bdelete gitgutter<CR>
+nnoremap <C-g>g :GitGutter<CR>
+nnoremap <C-g>n :GitGutterNextHunk<CR>
+nnoremap <C-g>p :GitGutterPrevHunk<CR>
+nnoremap <C-g>s :GitGutterStageHunk<CR>
+nnoremap <C-g>v :GitGutterPreviewHunk<CR>
+nnoremap <C-g>c :GitGutterPreviewHunk<CR>
+nnoremap <C-g>x :GitGutterUndoHunk<CR>
+nnoremap <C-g>e :GFiles?<CR>
 
 " ale.vim
 nnoremap gR :ALERename<CR>
