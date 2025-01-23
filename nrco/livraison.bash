@@ -10,9 +10,9 @@ livrer_service() {
     echo === ENV:${EENV^^} $opts ===
   fi
   if [ -z $APP ] || [ "$APP" == "-" ]; then
-    MEDJSON=/home/unix/dev/Eidos/agile/med.json
-    APPS_COUNT=`jq -r 'keys | length' $MEDJSON`
-    APP=`jq -r 'keys[]' $MEDJSON | fzf --height=$((APPS_COUNT + 1)) --info=inline`
+    CHEMINS=/home/unix/dev/Eidos/agile/apps_chemins.json
+    APPS_COUNT=`jq -r 'keys | length' $CHEMINS`
+    APP=`jq -r 'keys[]' $CHEMINS | fzf --height=$((APPS_COUNT + 1)) --info=inline`
     if [ -z "$APP" ]; then
       return 1
     fi
@@ -70,7 +70,7 @@ med_xop() {
   echo "=== EIDOS:MED:XOP ==="
   (cd $EID_DIR && npm run med:xop -- igor.descayrac ~/passwords/.nrco_jump_dev $OPTS)
   if [ $? -ne 0 ]; then
-    echo "!!! $APP n'a pas ete Mise En DEV !!!"
+    echo >&2 "!!! $APP n'a pas ete Mise En DEV !!!"
     return 1
   fi
   echo "=== $APP a ete Mise En DEV ==="
@@ -78,6 +78,7 @@ med_xop() {
 
 xop_version() { 
   if [[ $1 == "" ]]; then
+    echo >&2 "!!! Environnement non specifie !!!"
     return 1
   fi
   (cd /home/unix/dev/Eidos/agile && \
