@@ -6,6 +6,8 @@ nnoremap <C-w>. 20<C-w>>
 nnoremap <C-w>, 20<C-w><
 
 nnoremap <Leader><Leader> :
+
+" Search cword in all files
 nnoremap <Leader><C-d> yiw/<Bslash>v<C-r>0(<Bslash> <Bar><Bslash>n)*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
 nnoremap <Leader>Fj :%!jq .<CR>
 nnoremap <Leader>Fx :%!xmllint --format -<CR>
@@ -26,19 +28,26 @@ nnoremap <Leader>d :bdelete<CR>
 nnoremap <Leader>D :bufdo bd<CR>
 nnoremap <Leader>n :bnext<CR>
 nnoremap <Leader>p :bprevious<CR>
-nnoremap <Leader>rR :let @"=@0 \| let @0=@1 \| let @1=@2 \| let @2=@3 \| register " 0 1 2<CR>
-nnoremap <Leader>rr :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| register " 0 a b<CR>
-nnoremap <Leader>rf :let @f=@%<bar>echo @f<CR>
-nnoremap <Leader>rp :r !pbpaste<CR>
-nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<bar>echo @0<CR>
 nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>x :close<CR>
-" z like Zoom
+" Close all windows except current (z like Zoom)
 nnoremap <Leader>z :only<CR>
 " List mappings in buffer
 nnoremap <Leader>m :redir @m <bar> vnew <bar> silent map <bar> redir END <bar> put m <bar> silent file mappings <bar> silent set readonly syntax=vim <bar>normal gg<CR>
+
+" Rotate registers 0, 1, 2
+nnoremap <Leader>rR :let @"=@0 \| let @0=@1 \| let @1=@2 \| let @2=@3 \| register " 0 1 2<CR>
+nnoremap <Leader>rr :let @x=@" \| let @"=@a \| let @a=@b \| let @b=@x \| register " 0 a b<CR>
+" Store filename into register f
+nnoremap <Leader>rf :let @f=@%<bar>echo @f<CR>
+" Read from system clipboard
+nnoremap <Leader>rp :r !pbpaste<CR>
+" Store last yanked register to system clipboard
+nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<bar>echo @0<CR>
+" Revert order of next 3 words
+nnoremap <Leader>r3 "jdw"kdwe"kp"jp
 
 nnoremap <c-n> *
 nnoremap <c-p> #
