@@ -15,7 +15,7 @@ jump() {
   local SERVER="${1,,}" # lowercase
   if [[ "$SERVER" == "" ]]; then
     echo Select server
-    SERVER=$(jq -r ".$ENV | keys[]" $JUMPJSON | fzf --height=10%)
+    SERVER=$(jq -r ".$ENV | keys[]" $JUMPJSON | fzf --no-sort --height=50%)
     if [[ "$SERVER" == "" ]]; then
       return 1
     fi
