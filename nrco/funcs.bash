@@ -8,7 +8,9 @@ alias pscpu="ps aux --forest --sort=-%cpu"
 alias psmem="ps aux --forest --sort=-%mem"
 alias ranger="VISUAL=vim ranger"
 
+source ~/dotfiles/nrco/methode.sh
 source ~/dotfiles/nrco/jump.sh
+source ~/dotfiles/nrco/livraison.bash
 
 epoch() {
   date +"%s"
@@ -218,10 +220,6 @@ tight() {
 
 alias codium=/mnt/c/Users/igor.descayrac/AppData/Local/Programs/VSCodium/bin/codium
 
-jump_exp() {
-  jump dev appmanager "cd mnt/express && $*";
-}
-
 alias functions="bind -P"
 
 prompt () {
@@ -247,17 +245,4 @@ alias ripgrep=rg
 
 jog() { (cd ./agile/ && npm run $*) ; }
 
-alias jump_tail_dev_mss_archive="jump DEV methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"
-alias jump_tail_qa_mss_archive="jump QA methed 'tail -f ./logfiles/methode-servlets/mss/subscriptions/Archive-subscription.log'"
-alias jump_tail_dev_mss="jump DEV methed 'ls -lah ./logfiles/methode-servlets/mss/subscriptions/*.log'"
-alias jump_tail_dev="jump DEV methed 'ls -lahd ./logfiles/methode-servlets/*/'"
-jump_tail(){
-  ENV=${1:-DEV}
-  servlet=${2:-mss}
-  sub=${3:-Archive}
-  jump $ENV methed "tail -f ./logfiles/methode-servlets/$servlet/subscriptions/$sub-subscription.log"
-}
-
 alias op="~/windows.c/Users/igor.descayrac/AppData/Local/Microsoft/WinGet/Links/op.exe" # C:\Users\igor.descayrac\AppData\Local\Microsoft\WinGet\Links\op.exe
-
-source ~/dotfiles/nrco/livraison.bash
