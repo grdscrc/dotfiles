@@ -1,0 +1,82 @@
+{
+  "checkin": {
+    "server": "metharc",
+    "service": "tomcat-core",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4400/checkin"
+  },
+  "formats": {
+    "server": "metharc",
+    "service": "tomcat-core",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4400/formats"
+  },
+  "preview": {
+    "server": "metharc",
+    "service": "tomcat-core",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4400/preview"
+  },
+  "rhelper": {
+    "server": "metharc",
+    "service": "tomcat-core",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4400/rhelper"
+  },
+  "mss": {
+    "server": "methed",
+    "service": "tomcat-inout",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3410/mss"
+  },
+  "adorder": {
+    "server": "methed",
+    "service": "tomcat-inout",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3410/adorder"
+  },
+  "imgserv": {
+    "server": "methed",
+    "service": "tomcat-inout",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3410/imgserv"
+  },
+  "mis": {
+    "server": "metharc",
+    "service": "tomcat-inout",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4410/mis"
+  },
+  "mms": {
+    "server": "metharc",
+    "service": "tomcat-mms",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4420/mms"
+  },
+  "om": {
+    "server": "methed",
+    "service": "tomcat-output",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3440/om"
+  },
+  "mfm": {
+    "server": "metharc",
+    "service": "tomcat-tools",
+    "web": "http://metharc01-qa.nrco.em-cms.cloud:4430/mfm"
+  },
+  "mws": {
+    "server": "methed",
+    "service": "tomcat-tools",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3430/mws"
+  },
+  "dma": {
+    "server": "methed",
+    "service": "tomcat-tools",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3430/dma"
+  },
+  "mls": {
+    "server": "methed",
+    "service": "tomcat-tools",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3430/mls"
+  },
+  "planimport": {
+    "server": "methed",
+    "service": "tomcat-plan",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3470/planimport"
+  },
+  "Htmlpub": {
+    "server": "methed",
+    "service": "tomcat-pub",
+    "web": "http://methed01-qa.nrco.em-cms.cloud:3450/htmlpub"
+  }
+}
