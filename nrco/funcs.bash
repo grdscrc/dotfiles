@@ -110,6 +110,13 @@ git_in_prompt() {
   fi
 }
 
+background_jobs() {
+  J=$(jobs -l | grep -v "fasd" | wc -l)
+  if [[ $J -ge 1 ]]; then
+    echo "(bg_jobs:$J)"
+  fi
+}
+
 lines() {
   tr "${1:-:}" '\n'
 }

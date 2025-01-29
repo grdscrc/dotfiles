@@ -140,11 +140,12 @@ PATH=$PATH":/mnt/c/Program Files/Microsoft VS Code/bin"
 GREEN="38;5;46;3m"
 BLUE="38;5;33;1m"
 RED="38;5;204m"
-export PS1="\[\e[$GREEN\]\u\[\e[0m\]@"
+# export PS1="\[\e[$GREEN\]\u\[\e[0m\]@" # user
 #PS1=$PS1"\[\e[$BLUE\]\h "
-PS1=$PS1"\[\e[$BLUE\]"
-PS1=$PS1"\[\e[22m\]\w \[\e[0m\]"
-PS1=$PS1"\[\e[$RED\]\$(git_in_prompt)\[\e[0m\]\n"
+PS1="\[\e[$GREEN\]\w \[\e[0m\]" # working directory
+PS1=$PS1"\[\e[$BLUE\]\$(git_in_prompt)\[\e[0m\]"
+PS1=$PS1"\[\e[$RED\]\$(background_jobs)\[\e[0m\]\n"
+export PS1
 
 # Enable keybindings for fzf
 # source /usr/share/doc/fzf/examples/key-bindings.bash
