@@ -9,28 +9,28 @@ nnoremap <Leader><Leader> :
 
 " Search cword in all files
 nnoremap <Leader><C-d> yiw/<Bslash>v<C-r>0(<Bslash> <Bar><Bslash>n)*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
-nnoremap <Leader>Fj :%!jq .<CR>
-nnoremap <Leader>Fx :%!xmllint --format -<CR>
+
+nnoremap <Leader>fj :%!jq .<CR>
+nnoremap <Leader>fx :%!xmllint --format -<CR>
+nnoremap <Leader>ff :%!
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>T :tabnew<bar>GFiles<CR>
 nnoremap <Leader>X :tabclose<CR>
 nnoremap <Leader>J :tabnext<CR>
 nnoremap <Leader>K :tabprev<CR>
-nnoremap <Leader>l :lopen<CR>
-nnoremap <Leader>L :lclose<CR>
+nnoremap <Leader>L :lwindow<CR>
 nnoremap <Leader>N :enew<CR>
-nnoremap <Leader>q :copen<CR>
-nnoremap <Leader>Q :cclose<CR>
-nnoremap <Leader>S :set syntax=
-nnoremap <Leader>W :write!<CR>
+nnoremap <Leader>c :cwindow<CR>
+nnoremap <Leader>q :qa<CR>
+nnoremap <Leader>s :set syntax=
 nnoremap <Leader>B :buffers<CR>:buffer<Space>
 nnoremap <Leader>d :bdelete<CR>
 nnoremap <Leader>D :bufdo bd<CR>
 nnoremap <Leader>n :bnext<CR>
 nnoremap <Leader>p :bprevious<CR>
-nnoremap <Leader>s :split<CR>
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>w :write<CR>
+nnoremap <Leader>W :write<bar>sleep<bar>echo "Quitting..."<bar>sleep<bar>quit<CR>
 nnoremap <Leader>x :close<CR>
 " Close all windows except current (z like Zoom)
 nnoremap <Leader>z :only<CR>
@@ -47,7 +47,7 @@ nnoremap <Leader>rp :r !pbpaste<CR>
 " Store last yanked register to system clipboard
 nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<bar>echo @0<CR>
 " Revert order of next 3 words
-nnoremap <Leader>r3 "jdw"kdwe"kp"jp
+nnoremap <Leader>r3 "jdw"kdww"kP"jP
 
 nnoremap <c-n> *
 nnoremap <c-p> #
@@ -116,7 +116,9 @@ imap <c-x>l <plug>(fzf-complete-line)
 
 " fugitive.vim
 nnoremap <Leader>G :Gedit :<CR>
-" nnoremap <Leader>L :Gclog<CR>
+nnoremap <c-g>f :Gedit :<CR>
+" gv.vim - git log browser
+nnoremap <Leader>l :GV<CR>
 
 " GitGutter.vim
 nnoremap <C-g>/ /[<bar><>=]\{7}<CR>
