@@ -23,4 +23,3 @@ autocmd CursorHold * echo
 
 let g:fzf_preview_window = ['up:10']
 let g:ranger_map_keys = 1 
-let g:ale_lint_on_enter = 0

@@ -71,9 +71,6 @@ Plug 'voldikss/vim-floaterm'
 
 Plug 'tpope/vim-rsi'
 
-Plug 'dense-analysis/ale'
-" Remap usual
-let g:ale_fixers = { 'python': 'ruff' }
 
 " Better color schemes
 Plug 'rafi/awesome-vim-colorschemes'

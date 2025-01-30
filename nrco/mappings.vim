@@ -131,12 +131,6 @@ nnoremap <C-g>c :GitGutterPreviewHunk<CR>
 nnoremap <C-g>x :GitGutterUndoHunk<CR>
 nnoremap <C-g>e :GFiles?<CR>
 
-" ale.vim
-nnoremap gR :ALERename<CR>
-nnoremap gd :ALEGoToDefinition<CR>
-nnoremap gh :ALEHover<CR>
-nnoremap gr :ALEFindReferences<CR>
-
 command! InsDate call append(line('.'), strftime('%c'))
 command! InsTime call append(line('.'), strftime('%s000'))
 
