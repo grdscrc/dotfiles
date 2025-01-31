@@ -2,42 +2,49 @@
 
 jump() {
   JUMPJSON=~/dotfiles/nrco/jump.json
-  local ENV="${1^^}" # UPPERCASE
-  if [[ "$ENV" == "" ]]; then
+
+  local ENVIRONMENT="${1^^}" # UPPERCASE
+  if jq -e --arg KEY "$ENVIRONMENT" 'has($KEY) | not' $JUMPJSON >/dev/null; then
     echo Select env
-    ENV=$(echo "DEV" "QA" | tr ' ' '\n' | fzf --height=4)
-    if [[ "$ENV" == "" ]]; then
-      return 1
-    fi
-    echo ENV $ENV
+    select ENVIRONMENT in DEV QA; do
+      case $option in
+        DEV)
+          echo "DEV selected"
+          break
+          ;;
+        QA)
+          echo "QA selected"
+          break
+          ;;
+        *)
+          echo "Invalid option"
+          ;;
+      esac
+    done
+    echo ENVIRONMENT $ENVIRONMENT
   fi
   shift
+
   local SERVER="${1,,}" # lowercase
-  if [[ "$SERVER" == "" ]]; then
-    echo Select server
-    SERVER=$(jq -r ".$ENV | keys[]" $JUMPJSON | fzf --no-sort --height=50%)
-    if [[ "$SERVER" == "" ]]; then
-      return 1
-    fi
+  if jq --arg ENVIRONMENT "$ENVIRONMENT" --arg SERVER "$SERVER" -e '.[$ENVIRONMENT]|has($SERVER) | not' $JUMPJSON >/dev/null; then
+    select SERVER in $(jq -r ".$ENVIRONMENT | keys[]" $JUMPJSON); do
+      if [[ $SERVER == "" ]];  then
+        echo >&2 "aborted"
+        return 1
+      fi
+      echo "$SERVER selected"
+    done
   fi
   if [[ "$SERVER" == "appmanager" ]]; then
     SERVER="controller"
   fi
   shift
+
   local CMD="$1"
   shift
 
-  if jq -e "has(\"$ENV\") | not" $JUMPJSON >/dev/null; then
-    echo >&2 "ENV $ENV not found"
-    return 1
-  fi
-  if jq -e ".$ENV|has(\"$SERVER\") | not" $JUMPJSON >/dev/null; then
-    echo >&2 "SERVER $SERVER not found in ENV $ENV"
-    return 1
-  fi
-
-  local user=$(jq -r ".$ENV.$SERVER.user" $JUMPJSON)
-  local host=$(jq -r ".$ENV.$SERVER.host" $JUMPJSON)
+  local user=$(jq -r ".$ENVIRONMENT.$SERVER.user" $JUMPJSON)
+  local host=$(jq -r ".$ENVIRONMENT.$SERVER.host" $JUMPJSON)
 
   if [[ "$user" == "null" ]] || [[ "$host" == "null" ]]; then
     echo >&2 "user/host not found"
@@ -89,9 +96,9 @@ alias jump_tail_qa_mss_archive="jump QA methed 'tail -f ./logfiles/methode-servl
 alias jump_tail_dev_mss="jump DEV methed 'ls -lah ./logfiles/methode-servlets/mss/subscriptions/*.log'"
 alias jump_tail_dev="jump DEV methed 'ls -lahd ./logfiles/methode-servlets/*/'"
 jump_tail(){
-  ENV=${1:-DEV}
+  ENVIRONMENT=${1:-DEV}
   servlet=${2:-mss}
   sub=${3:-Archive}
-  jump $ENV methed "tail -f ./logfiles/methode-servlets/$servlet/subscriptions/$sub-subscription.log"
+  jump $ENVIRONMENT methed "tail -f ./logfiles/methode-servlets/$servlet/subscriptions/$sub-subscription.log"
 }
 
