@@ -16,8 +16,8 @@ nnoremap <Leader>ff :%!
 nnoremap <Leader>t :tabnew<CR>
 nnoremap <Leader>T :tabnew<bar>GFiles<CR>
 nnoremap <Leader>X :tabclose<CR>
-nnoremap <Leader>J :tabnext<CR>
-nnoremap <Leader>K :tabprev<CR>
+nnoremap <Leader>n :tabnext<CR>
+nnoremap <Leader>p :tabprev<CR>
 nnoremap <Leader>L :lwindow<CR>
 nnoremap <Leader>N :enew<CR>
 nnoremap <Leader>c :cwindow<CR>
@@ -26,8 +26,8 @@ nnoremap <Leader>s :set syntax=
 nnoremap <Leader>B :buffers<CR>:buffer<Space>
 nnoremap <Leader>d :bdelete<CR>
 nnoremap <Leader>D :bufdo bd<CR>
-nnoremap <Leader>n :bnext<CR>
-nnoremap <Leader>p :bprevious<CR>
+nnoremap <Leader>j :bnext<CR>
+nnoremap <Leader>k :bprevious<CR>
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>W :write<bar>sleep<bar>echo "Quitting..."<bar>sleep<bar>quit<CR>
@@ -84,9 +84,8 @@ nmap <c-t>n :FloatermNew node<CR>
 nmap <c-t>g :FloatermNew sgpt --repl chat<CR>
 
 " fzf-vim
-nnoremap <Tab>/ :BLines<CR>
-nnoremap <Tab>: :History:<CR>
-nnoremap <Tab>; :History/<CR>
+nnoremap <Tab>/ :History/<CR>
+nnoremap <Tab>; :History:<CR>
 nnoremap <Tab>o :Files<CR>
 nnoremap <Tab>O :Files ~<CR>
 nnoremap <Tab>. :Files ~/dotfiles<CR>
@@ -106,7 +105,7 @@ command! -bang -nargs=* GCheckout
       \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
       \ 'sink':    '!git checkout',
       \ 'options': '--ansi',
-      \ 'down':    '40%'}) |
+      \ 'window':    {'width': 0.9, 'height': 0.6}}) |
       \ execute ":Git status"
 nnoremap <Tab>c :GCheckout<CR>
 
@@ -119,6 +118,13 @@ nnoremap <Leader>G :Gedit :<CR>
 nnoremap <c-g>f :Gedit :<CR>
 " gv.vim - git log browser
 nnoremap <Leader>l :GV<CR>
+nnoremap <Tab>l :GVBranch<CR>
+command! -bang -nargs=* GVBranch
+      \ call fzf#run({
+      \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
+      \ 'sink':    'GV',
+      \ 'options': '--ansi',
+      \ 'window':    {'width': 0.9, 'height': 0.6}})
 
 " GitGutter.vim
 nnoremap <C-g>/ /[<bar><>=]\{7}<CR>
