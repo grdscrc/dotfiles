@@ -7,12 +7,12 @@ methode() {
   local ACT="${1,,}" # lowercase
   shift
 
-  local ENV="${1^^}" # UPPERCASE
-  if [ "$ENV" != "DEV" ] && [ "$ENV" != "QA" ] ; then
+  local ENVIRONMENT="${1^^}" # UPPERCASE
+  if [ "$ENVIRONMENT" != "DEV" ] && [ "$ENVIRONMENT" != "QA" ] ; then
     if [[ $FZSELECT == "true" ]]; then
       echo Select methode env
-      ENV=$(echo "DEV\nQA" | fzf --height=4)
-      if [[ $ENV == "" ]];  then
+      ENVIRONMENT=$(echo -e "DEV\nQA" | fzf --height=4)
+      if [[ $ENVIRONMENT == "" ]];  then
         echo >&2 "aborted"
         return 1
       fi
@@ -22,6 +22,28 @@ methode() {
     fi
   fi
   shift
+
+  echo ACT $ACT
+  echo ENVIRONMENT $ENVIRONMENT
+  if [[ $ACT == "instances" ]]; then
+    if [[ $ENVIRONMENT != "QA" ]]; then
+      echo >&2 "Only QA env is supported"
+      return 1
+    fi
+    jump QA controller "~/admin/get_aws_as_instaces_qa.py"
+    return 0
+  elif [[ $ACT == "xopversionqa" ]]; then
+    if [[ $ENVIRONMENT != "QA" ]]; then
+      echo >&2 "Only QA env is supported"
+      return 1
+    fi
+    IP1="10.18.112.210"
+    IP2="10.18.113.90"
+    GIT_FILES="methode-servlets/conf/swing/com.eidosmedia.swing.web-app/templates/objectpanel/cross-panel/{BRANCH,COMMITHASH,LASTCOMMITDATETIME,VERSION}"
+    jump QA controller "ssh methdig@$IP1 'for f in $GIT_FILES; do echo \$f; echo -en \t ; cat \$f; echo; done'" 
+    jump QA controller "ssh methdig@$IP2 'for f in $GIT_FILES; do echo \$f; echo -en \t ; cat \$f; echo; done'"
+    return 0
+  fi
 
   local APP="${1,,}" # lowercase
   if jq -e --arg KEY "$APP" 'has($KEY) | not' $JSON >/dev/null; then
@@ -46,10 +68,10 @@ methode() {
 
   case $ACT in
     restart|start_stop|stop_start)
-      jump $ENV $SERVER "~/cluster/start_stop_$SERVICE.bash stop ; ~/cluster/start_stop_$SERVICE.bash start"
+      jump $ENVIRONMENT $SERVER "~/cluster/start_stop_$SERVICE.bash stop ; ~/cluster/start_stop_$SERVICE.bash start"
       ;;
     check)
-      jump $ENV $SERVER "~/cluster/check_$SERVICE.bash ; test \$? -eq 110 && echo '$SERVICE($APP) running' || echo '$SERVICE($APP) NOT running'"
+      jump $ENVIRONMENT $SERVER "~/cluster/check_$SERVICE.bash ; test \$? -eq 110 && echo '$SERVICE($APP) running' || echo '$SERVICE($APP) NOT running'"
       ;;
     *)
       echo >&2 "act not found"
