@@ -214,3 +214,5 @@ bind -x '"\C-l": _sgpt_bash'
 # Shell-GPT integration BASH v0.2
 
 source ~/repos/fzf-git.sh/fzf-git.sh
+
+source ~/repos/fzf-simple-completion/fzf-simple-completion.sh
