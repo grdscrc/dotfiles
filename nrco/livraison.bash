@@ -82,5 +82,5 @@ xop_version() {
     return 1
   fi
   (cd /home/unix/dev/Eidos/agile && \
-    npm run xop:version -- "$1" cross-panel igor.descayrac ~/passwords/.nrco_jump_dev)
+    npm run version:$1:xop -- igor.descayrac ~/passwords/.nrco_jump_dev)
 }
