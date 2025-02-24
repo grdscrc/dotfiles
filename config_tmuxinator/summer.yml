@@ -1,0 +1,7 @@
+# /home/unix/.config/tmuxinator/summer.yml
+
+name: summer
+root: ~/dev/summer-perl
+
+windows:
+  - repo: vim +GV
