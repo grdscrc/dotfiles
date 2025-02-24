@@ -29,3 +29,6 @@ set modelines=5
 set background=dark
 set splitbelow
 set splitright
+set shortmess-=S " Show search count
+set iskeyword+=$ " Allow $ in words
+set guitablabel=%{exists('t:tabname')?t:tabname\ :''}

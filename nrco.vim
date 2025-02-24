@@ -14,7 +14,7 @@ endif
 autocmd InsertEnter * set cursorline cursorcolumn list
 autocmd InsertLeave * set nocursorline nocursorcolumn nolist
 
-colorscheme gruvbox
+colorscheme one
 
 
 " auto-clear prompt on inactivity
@@ -23,3 +23,5 @@ autocmd CursorHold * echo
 
 let g:fzf_preview_window = ['up:10']
 let g:ranger_map_keys = 1 
+
+" Copilot disable

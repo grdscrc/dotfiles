@@ -19,7 +19,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " On-demand loading
-" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 " Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
 " Using a non-default branch
@@ -36,6 +36,7 @@ Plug 'junegunn/fzf.vim'
 " https://github.com/airblade/vim-gitgutter
 
 Plug 'https://github.com/tpope/vim-fugitive.git'
+" autocmd BufEnter fugitive file fugitive
 " keep fugitive when hidden
 autocmd User FugitiveObject setlocal bufhidden=
 augroup fugitive_pager_mappings
@@ -127,7 +128,12 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_window = 'vert bo 50new'
 
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
+
+Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
+
+Plug 'gcmt/taboo.vim'
+call plug#end()
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.

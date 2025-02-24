@@ -2,30 +2,61 @@ inoremap <c-c> <esc>:undo<cr>
 
 nmap <c-h> :set hlsearch!<CR>
 
-nnoremap <C-w>. 20<C-w>>
-nnoremap <C-w>, 20<C-w><
+" Center cursor on page next/prev
+nnoremap <c-f> <c-f>M
+nnoremap <c-b> <c-b>M
+nnoremap <c-d> L<c-d>M
+nnoremap <c-u> H<c-u>M
+
+nnoremap <c-w>. 20<c-w>>
+nnoremap <c-w>, 20<c-w><
 
 nnoremap <Leader><Leader> :
 
 " Search cword in all files
-nnoremap <Leader><C-d> yiw/<Bslash>v<C-r>0(<Bslash> <Bar><Bslash>n)*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
+nnoremap <Leader><c-d> yiw/<Bslash>v<c-r>0(<Bslash> <Bar><Bslash>n)*(<Bslash>{<Bar><Bslash>=<Bar>:)<CR>
 
+nnoremap <Leader>A :NERDTreeToggle<CR>
+nnoremap <Leader>aa :NERDTreeFocus<CR>
+nnoremap <Leader>af :NERDTreeFind<CR>
+nnoremap <Leader>a  :NERDTree
 nnoremap <Leader>fj :%!jq .<CR>
 nnoremap <Leader>fx :%!xmllint --format -<CR>
 nnoremap <Leader>ff :%!
-nnoremap <Leader>t :tabnew<CR>
-nnoremap <Leader>T :tabnew<bar>GFiles<CR>
+nnoremap <Leader>T :tabnew<CR>
+nnoremap <Leader>tN :tabm +1<CR>
+nnoremap <Leader>tP :tabm -1<CR>
+nnoremap <Leader>t :tab
 nnoremap <Leader>X :tabclose<CR>
 nnoremap <Leader>n :tabnext<CR>
 nnoremap <Leader>p :tabprev<CR>
+nnoremap <Leader>N :$tabnext<CR>
+nnoremap <Leader>P :1tabnext<CR>
 nnoremap <Leader>L :lwindow<CR>
-nnoremap <Leader>N :enew<CR>
+nnoremap <Leader>e :enew<CR>
 nnoremap <Leader>c :cwindow<CR>
 nnoremap <Leader>q :qa<CR>
 nnoremap <Leader>s :set syntax=
+nnoremap <Leader>sj :set syntax=json<CR>
+nnoremap <Leader>sx :set syntax=xml<CR>
+nnoremap <Leader>su :set fileformat=unix<Bar>w<CR>
+nnoremap <Leader>sd :set fileformat=dos<Bar>w<CR>
+nnoremap <Leader>sm :set fileformat=mac<Bar>w<CR>
 nnoremap <Leader>B :buffers<CR>:buffer<Space>
-nnoremap <Leader>d :bdelete<CR>
+nnoremap <Leader>d :bnext<bar>bdelete #<CR>
 nnoremap <Leader>D :bufdo bd<CR>
+" function! PopupBuffers()
+"   " let buffer_list = filter(range(1, bufnr('$')), 'bufexists(v:val)')
+"   let buffer_list = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.bufnr')
+"   " let current_buffer = bufname('%')
+"   " let popup_content = map(
+"   "   buffer_list,
+"   "   'v:val ==# current_buffer ? ">> ".v:val : "   ".v:val'
+"   " )
+"   call popup_notification(buffer_list, {'line': 10, 'col': 50})
+" endfunction
+" nnoremap <Leader>j :bnext<CR>:call PopupBuffers()<CR>
+" nnoremap <Leader>k :bprevious<CR>:call PopupBuffers()<CR>
 nnoremap <Leader>j :bnext<CR>
 nnoremap <Leader>k :bprevious<CR>
 nnoremap <Leader>v :vsplit<CR>
@@ -45,7 +76,7 @@ nnoremap <Leader>rf :let @f=@%<bar>echo @f<CR>
 " Read from system clipboard
 nnoremap <Leader>rp :r !pbpaste<CR>
 " Store last yanked register to system clipboard
-nnoremap <Leader>ry :<C-u>call system("pbcopy", @0)<bar>echo @0<CR>
+nnoremap <Leader>ry :<c-u>call system("pbcopy", @0)<bar>echo @0<CR>
 " Revert order of next 3 words
 nnoremap <Leader>r3 "jdw"kdww"kP"jP
 
@@ -61,11 +92,11 @@ nnoremap <expr> zu folddirection>0 ? 'zr:set foldlevel?<CR>' : 'zm:set foldlevel
 nnoremap zm :silent let folddirection=+1<CR>zm:set foldlevel?<CR>
 nnoremap zr :silent let folddirection=-1<CR>zr:set foldlevel?<CR>
 
-nnoremap ga <C-^>:echo "Alternate to " expand('#')<CR>
+nnoremap ga <c-^>:echo "Alternate to " expand('#')<CR>
 nnoremap g! :echo system('')<Left><Left>
 
-vmap <C-n> y/<C-r>"<CR>
-vmap <C-p> y?<C-r>"<CR>
+vmap <c-n> y/<c-r>"<CR>
+vmap <c-p> y?<c-r>"<CR>
 
 nnoremap Z1 :2,$bd<CR>
 nnoremap ZA :%bdelete<CR>
@@ -84,19 +115,22 @@ nmap <c-t>n :FloatermNew node<CR>
 nmap <c-t>g :FloatermNew sgpt --repl chat<CR>
 
 " fzf-vim
+nnoremap <Tab><Tab> :Windows<CR>
 nnoremap <Tab>/ :History/<CR>
-nnoremap <Tab>; :History:<CR>
+nnoremap <Tab>: :History:<CR>
+nnoremap <Tab>; :BLines<CR>
 nnoremap <Tab>o :Files<CR>
 nnoremap <Tab>O :Files ~<CR>
 nnoremap <Tab>. :Files ~/dotfiles<CR>
 nnoremap <Tab>a :Ag<CR>
-nnoremap <Tab>b :Buffers<CR>
+nnoremap <Tab>q :Buffers<CR>
 nnoremap <Tab>e :GFiles<CR>
+nnoremap <Tab>t :tabnew<bar>GFiles<CR>
 nnoremap <Tab>g :GFiles?<CR>
 nnoremap <Tab>f :FzfFunky<CR>
 nnoremap <Tab>h :Helptags<CR>
 nnoremap <Tab>k :Rg<CR>
-nnoremap K :Rg <C-R>=expand('<cword>')<CR><CR>
+nnoremap K :Rg <c-r>=expand('<cword>')<CR><CR>
 " :Index shows index.txt (with all key-combinations) using fzf-vim
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
 nnoremap <Tab>i :Index<CR>
@@ -105,8 +139,8 @@ command! -bang -nargs=* GCheckout
       \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
       \ 'sink':    '!git checkout',
       \ 'options': '--ansi',
-      \ 'window':    {'width': 0.9, 'height': 0.6}}) |
-      \ execute ":Git status"
+      \ 'window':    {'width': 0.9, 'height': 0.6}}) " |
+      " \ execute ":Git status"
 nnoremap <Tab>c :GCheckout<CR>
 
 imap <c-x>w <plug>(fzf-complete-word)
@@ -114,7 +148,8 @@ imap <c-x>p <plug>(fzf-complete-path)
 imap <c-x>l <plug>(fzf-complete-line)
 
 " fugitive.vim
-nnoremap <Leader>G :Gedit :<CR>
+nnoremap <Leader>g :Gedit :<CR>
+nnoremap <Leader>G :G 
 nnoremap <c-g>f :Gedit :<CR>
 " gv.vim - git log browser
 nnoremap <Leader>l :GV<CR>
@@ -127,17 +162,18 @@ command! -bang -nargs=* GVBranch
       \ 'window':    {'width': 0.9, 'height': 0.6}})
 
 " GitGutter.vim
-nnoremap <C-g>/ /[<bar><>=]\{7}<CR>
-nnoremap <C-g>V :bdelete gitgutter<CR>
-nnoremap <C-g>C :bdelete gitgutter<CR>
-nnoremap <C-g>g :GitGutter<CR>
-nnoremap <C-g>n :GitGutterNextHunk<CR>
-nnoremap <C-g>p :GitGutterPrevHunk<CR>
-nnoremap <C-g>s :GitGutterStageHunk<CR>
-nnoremap <C-g>v :GitGutterPreviewHunk<CR>
-nnoremap <C-g>c :GitGutterPreviewHunk<CR>
-nnoremap <C-g>x :GitGutterUndoHunk<CR>
-nnoremap <C-g>e :GFiles?<CR>
+nnoremap <c-g>V :bdelete gitgutter<CR>
+nnoremap <c-g>C :bdelete gitgutter<CR>
+nnoremap <c-g>g :GitGutter<CR>
+nnoremap <c-g>n :GitGutterNextHunk<CR>
+nnoremap <c-g>p :GitGutterPrevHunk<CR>
+nnoremap <c-g>s :GitGutterStageHunk<CR>
+nnoremap <c-g>v :GitGutterPreviewHunk<CR>
+nnoremap <c-g>c :GitGutterPreviewHunk<CR>
+nnoremap <c-g>x :GitGutterUndoHunk<CR>
+nnoremap <c-g>e :GFiles?<CR>
+" Find next git conflict
+nnoremap <c-g>/ /^[<bar><>=]\{7}$<CR>
 
 command! InsDate call append(line('.'), strftime('%c'))
 command! InsTime call append(line('.'), strftime('%s000'))
