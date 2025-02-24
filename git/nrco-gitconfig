@@ -24,7 +24,8 @@
 	ci = commit
 	co = checkout
 	pop = reset HEAD^
-	wip = commit -au -m 'WIP'
+	ADD = add .
+	wip = !git ADD && git commit --all --message='WIP'
 	graph = log --color --graph --abbrev-commit
 	h = log --pretty=format:'%h'
 	H = log --pretty=format:'%H'
