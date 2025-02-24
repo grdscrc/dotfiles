@@ -3,7 +3,7 @@ alias docc=docker-compose
 alias dctail='docker-compose logs --follow'
 alias dps="docker ps --format=\"table {{.Names}}\t{{.Status}}\t{{.Image}}\""
 alias dcps="docker-compose ps --format=\"table {{.Name}}\t{{.Status}}\t{{.Image}}\""
-alias v="vim"
+alias v="vim ."
 alias pscpu="ps aux --forest --sort=-%cpu"
 alias psmem="ps aux --forest --sort=-%mem"
 alias ranger="VISUAL=vim ranger"
@@ -180,7 +180,7 @@ wdocker() {
   local CARRIAGE_RETURN
   CARRIAGE_RETURN=\\r
   echo
-  while ! pgrep -l docker; do
+  while ! pgrep -l docker || ! docker ps; do
     echo -ne ${CARRIAGE_RETURN}Waited for ${i}s...
     sleep 2
     ((i+=2))

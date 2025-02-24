@@ -201,7 +201,8 @@ eval "$(pyenv virtualenv-init -)"
 export NNN_OPTS="e"
 # https://github.com/jarun/nnn/wiki/Basic-use-cases#detached-text
 export PATH="/home/unix/dotfiles/scripts:$PATH"
-export VISUAL=ewrap
+# export VISUAL=ewrap
+export VISUAL=vim
 
 # Shell-GPT integration BASH v0.2
 _sgpt_bash() {
@@ -216,3 +217,13 @@ bind -x '"\C-l": _sgpt_bash'
 source ~/repos/fzf-git.sh/fzf-git.sh
 
 source ~/repos/fzf-simple-completion/fzf-simple-completion.sh
+
+sgpt_debug_chats() {
+    for chat in $(sgpt --list-chats); do
+        echo -n $chat" roles: "
+        jq '[.[] | .role] | unique | join(",")' $chat
+    done
+}
+sgpt_fix_chat() {
+    [[ $1 == "" ]] && echo no chat supplied || vimdiff $(sgpt --list-chats | grep -C 1 $1)
+}
