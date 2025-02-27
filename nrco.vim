@@ -14,7 +14,10 @@ endif
 autocmd InsertEnter * set cursorline cursorcolumn list
 autocmd InsertLeave * set nocursorline nocursorcolumn nolist
 
-colorscheme one
+autocmd FileType bash setlocal iskeyword+=$
+autocmd FileType perl setlocal iskeyword-=$
+
+colorscheme OceanicNext
 
 
 " auto-clear prompt on inactivity

@@ -97,8 +97,6 @@ Plug 'preservim/vimux'
 Plug 'vim-test/vim-test'
 let test#strategy = "vimux"
 let g:test#javascript#runner = 'jest'
-" let g:test#strategy = 'jest'
-" let g:test#javascript#jest#executable = 'jest'
 
 Plug 'sedm0784/vim-rainbow-trails'
 

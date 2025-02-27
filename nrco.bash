@@ -6,12 +6,12 @@ export EDITOR=vim
 
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-  *) return;;
+    *i*) ;;
+    *) return;;
 esac
 
 if [[ ! "$PROMPT_COMMAND" =~ "history" ]]; then
-  export PROMPT_COMMAND="history -a;"
+    export PROMPT_COMMAND="history -a;"
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -56,12 +56,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  # We have color support; assume it's compliant with Ecma-48
-  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-  # a case would tend to support setf rather than setaf.)
-  color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-  color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -74,11 +74,11 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+    xterm*|rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *)
+        ;;
 esac
 
 export PAGER=less
@@ -113,18 +113,18 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+    . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 export NVM_DIR="$HOME/.nvm"
@@ -206,10 +206,10 @@ export VISUAL=vim
 
 # Shell-GPT integration BASH v0.2
 _sgpt_bash() {
-if [[ -n "$READLINE_LINE" ]]; then
-    READLINE_LINE=$(sgpt --shell <<< "$READLINE_LINE" --no-interaction)
-    READLINE_POINT=${#READLINE_LINE}
-fi
+    if [[ -n "$READLINE_LINE" ]]; then
+        READLINE_LINE=$(sgpt --shell <<< "$READLINE_LINE" --no-interaction)
+        READLINE_POINT=${#READLINE_LINE}
+    fi
 }
 bind -x '"\C-l": _sgpt_bash'
 # Shell-GPT integration BASH v0.2
@@ -218,12 +218,33 @@ source ~/repos/fzf-git.sh/fzf-git.sh
 
 source ~/repos/fzf-simple-completion/fzf-simple-completion.sh
 
-sgpt_debug_chats() {
+sgpt_bugged_chats() {
     for chat in $(sgpt --list-chats); do
-        echo -n $chat" roles: "
-        jq '[.[] | .role] | unique | join(",")' $chat
+        echo -n $chat...
+        ROLE1=$(jq -r '.[0].role' $chat)
+        CARRIAGE_RETURN=\\r
+        if [[ $ROLE1 == "system" ]]; then
+            echo -e "$CARRIAGE_RETURN $chat ok"
+        else
+            echo -e "$CARRIAGE_RETURN $chat ko"
+        fi
     done
 }
-sgpt_fix_chat() {
-    [[ $1 == "" ]] && echo no chat supplied || vimdiff $(sgpt --list-chats | grep -C 1 $1)
+sgpt_fix_chats() {
+    [[ $1 == "" ]] && \
+        echo no chat supplied || \
+        vimdiff $(sgpt --list-chats | grep -C 1 $1)
 }
+
+scaffold_docker() {
+    echo "version: '3.8'" > docker-compose.yml
+    echo 'services:' >> docker-compose.yml
+    echo '  my_service:' >> docker-compose.yml
+    echo '    image: my_image' >> docker-compose.yml
+    echo '    command: ["command_to_run"]' >> docker-compose.yml
+
+    echo "FROM ubuntu:latest" > Dockerfile
+    echo "# Add your commands here" >> Dockerfile
+    echo 'CMD ["/bin/bash"]' >> Dockerfile
+ }
+. "/home/unix/.deno/env"

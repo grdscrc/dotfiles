@@ -7,6 +7,8 @@ nnoremap <c-f> <c-f>M
 nnoremap <c-b> <c-b>M
 nnoremap <c-d> L<c-d>M
 nnoremap <c-u> H<c-u>M
+nnoremap n nzz
+nnoremap N Nzz
 
 nnoremap <c-w>. 20<c-w>>
 nnoremap <c-w>, 20<c-w><
@@ -20,10 +22,13 @@ nnoremap <Leader>A :NERDTreeToggle<CR>
 nnoremap <Leader>aa :NERDTreeFocus<CR>
 nnoremap <Leader>af :NERDTreeFind<CR>
 nnoremap <Leader>a  :NERDTree
+nnoremap <Leader>o  <c-w>w
+nnoremap <Leader>O  <c-w>W
 nnoremap <Leader>fj :%!jq .<CR>
 nnoremap <Leader>fx :%!xmllint --format -<CR>
 nnoremap <Leader>ff :%!
-nnoremap <Leader>T :tabnew<CR>
+nnoremap <Leader>tn :tabnew<CR>
+nnoremap <Leader>tp :-tabnew<CR>
 nnoremap <Leader>tN :tabm +1<CR>
 nnoremap <Leader>tP :tabm -1<CR>
 nnoremap <Leader>t :tab
@@ -32,7 +37,7 @@ nnoremap <Leader>n :tabnext<CR>
 nnoremap <Leader>p :tabprev<CR>
 nnoremap <Leader>N :$tabnext<CR>
 nnoremap <Leader>P :1tabnext<CR>
-nnoremap <Leader>L :lwindow<CR>
+nnoremap <Leader>l :lwindow<CR>
 nnoremap <Leader>e :enew<CR>
 nnoremap <Leader>c :cwindow<CR>
 nnoremap <Leader>q :qa<CR>
@@ -43,22 +48,21 @@ nnoremap <Leader>su :set fileformat=unix<Bar>w<CR>
 nnoremap <Leader>sd :set fileformat=dos<Bar>w<CR>
 nnoremap <Leader>sm :set fileformat=mac<Bar>w<CR>
 nnoremap <Leader>B :buffers<CR>:buffer<Space>
-nnoremap <Leader>d :bnext<bar>bdelete #<CR>
 nnoremap <Leader>D :bufdo bd<CR>
-" function! PopupBuffers()
-"   " let buffer_list = filter(range(1, bufnr('$')), 'bufexists(v:val)')
-"   let buffer_list = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.bufnr')
-"   " let current_buffer = bufname('%')
-"   " let popup_content = map(
-"   "   buffer_list,
-"   "   'v:val ==# current_buffer ? ">> ".v:val : "   ".v:val'
-"   " )
-"   call popup_notification(buffer_list, {'line': 10, 'col': 50})
-" endfunction
-" nnoremap <Leader>j :bnext<CR>:call PopupBuffers()<CR>
-" nnoremap <Leader>k :bprevious<CR>:call PopupBuffers()<CR>
-nnoremap <Leader>j :bnext<CR>
-nnoremap <Leader>k :bprevious<CR>
+function! PopupBuffers()
+  call popup_clear()
+  let ls = execute('ls')
+  let lines = split(ls, '\n')
+  call popup_notification(lines, #{
+        \ line: 0,
+        \ col: 0,
+        \ time: 1500,
+        \ highlight: 'Normal'
+        \ })
+endfunction
+nnoremap <Leader>j :bnext<CR>:call PopupBuffers()<CR>
+nnoremap <Leader>k :bprev<CR>:call PopupBuffers()<CR>
+nnoremap <Leader>d :buffer #<bar>bdelete #<CR>:call PopupBuffers()<CR>
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>w :write<CR>
 nnoremap <Leader>W :write<bar>sleep<bar>echo "Quitting..."<bar>sleep<bar>quit<CR>
@@ -126,7 +130,7 @@ nnoremap <Tab>a :Ag<CR>
 nnoremap <Tab>q :Buffers<CR>
 nnoremap <Tab>e :GFiles<CR>
 nnoremap <Tab>t :tabnew<bar>GFiles<CR>
-nnoremap <Tab>g :GFiles?<CR>
+nnoremap <Tab>s :GFiles?<CR>
 nnoremap <Tab>f :FzfFunky<CR>
 nnoremap <Tab>h :Helptags<CR>
 nnoremap <Tab>k :Rg<CR>
@@ -134,26 +138,18 @@ nnoremap K :Rg <c-r>=expand('<cword>')<CR><CR>
 " :Index shows index.txt (with all key-combinations) using fzf-vim
 command! Index silent execute ":help index.txt" | silent execute ":BLines!"
 nnoremap <Tab>i :Index<CR>
-command! -bang -nargs=* GCheckout
-      \ call fzf#run({
-      \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
-      \ 'sink':    '!git checkout',
-      \ 'options': '--ansi',
-      \ 'window':    {'width': 0.9, 'height': 0.6}}) " |
-      " \ execute ":Git status"
-nnoremap <Tab>c :GCheckout<CR>
 
 imap <c-x>w <plug>(fzf-complete-word)
 imap <c-x>p <plug>(fzf-complete-path)
 imap <c-x>l <plug>(fzf-complete-line)
 
 " fugitive.vim
-nnoremap <Leader>g :Gedit :<CR>
+nnoremap <Leader>g :0tabnew<bar>:Gedit :<CR>
 nnoremap <Leader>G :G 
 nnoremap <c-g>f :Gedit :<CR>
 " gv.vim - git log browser
-nnoremap <Leader>l :GV<CR>
-nnoremap <Tab>l :GVBranch<CR>
+nnoremap <Leader>L :GV<CR>
+nnoremap <Tab>g :GVBranch<CR>
 command! -bang -nargs=* GVBranch
       \ call fzf#run({
       \ 'source':  'git branch --sort=-committerdate --format="%(refname:short)"',
@@ -165,15 +161,15 @@ command! -bang -nargs=* GVBranch
 nnoremap <c-g>V :bdelete gitgutter<CR>
 nnoremap <c-g>C :bdelete gitgutter<CR>
 nnoremap <c-g>g :GitGutter<CR>
-nnoremap <c-g>n :GitGutterNextHunk<CR>
-nnoremap <c-g>p :GitGutterPrevHunk<CR>
+nnoremap <c-g>n :GitGutterNextHunk<CR>zz
+nnoremap <c-g>p :GitGutterPrevHunk<CR>zz
 nnoremap <c-g>s :GitGutterStageHunk<CR>
 nnoremap <c-g>v :GitGutterPreviewHunk<CR>
 nnoremap <c-g>c :GitGutterPreviewHunk<CR>
 nnoremap <c-g>x :GitGutterUndoHunk<CR>
 nnoremap <c-g>e :GFiles?<CR>
 " Find next git conflict
-nnoremap <c-g>/ /^[<bar><>=]\{7}$<CR>
+nnoremap <c-g>/ /^[<bar><>=]\{7}$<CR>zz
 
 command! InsDate call append(line('.'), strftime('%c'))
 command! InsTime call append(line('.'), strftime('%s000'))
