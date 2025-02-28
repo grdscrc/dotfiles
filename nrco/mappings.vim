@@ -32,11 +32,22 @@ nnoremap <Leader>tp :-tabnew<CR>
 nnoremap <Leader>tN :tabm +1<CR>
 nnoremap <Leader>tP :tabm -1<CR>
 nnoremap <Leader>t :tab
-nnoremap <Leader>X :tabclose<CR>
-nnoremap <Leader>n :tabnext<CR>
-nnoremap <Leader>p :tabprev<CR>
-nnoremap <Leader>N :$tabnext<CR>
-nnoremap <Leader>P :1tabnext<CR>
+function! PopupTabs()
+  call popup_clear()
+  let ls = execute('tabs')
+  let lines = split(ls, '\n')
+  call popup_notification(lines, #{
+        \ line: 0,
+        \ col: 0,
+        \ time: 1500,
+        \ highlight: 'Normal'
+        \ })
+endfunction
+nnoremap <Leader>X :tabclose<CR>:call PopupTabs()<CR>
+nnoremap <Leader>n :tabnext<CR>:call PopupTabs()<CR>
+nnoremap <Leader>p :tabprev<CR>:call PopupTabs()<CR>
+nnoremap <Leader>N :$tabnext<CR>:call PopupTabs()<CR>
+nnoremap <Leader>P :1tabnext<CR>:call PopupTabs()<CR>
 nnoremap <Leader>l :lwindow<CR>
 nnoremap <Leader>e :enew<CR>
 nnoremap <Leader>c :cwindow<CR>
@@ -130,6 +141,8 @@ nnoremap <Tab>a :Ag<CR>
 nnoremap <Tab>q :Buffers<CR>
 nnoremap <Tab>e :GFiles<CR>
 nnoremap <Tab>t :tabnew<bar>GFiles<CR>
+nnoremap <Tab>T :-tabnew<bar>GFiles<CR>
+nnoremap <Tab>v :vsplit<bar>GFiles<CR>
 nnoremap <Tab>s :GFiles?<CR>
 nnoremap <Tab>f :FzfFunky<CR>
 nnoremap <Tab>h :Helptags<CR>
