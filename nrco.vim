@@ -14,8 +14,8 @@ endif
 autocmd InsertEnter * set cursorline cursorcolumn list
 autocmd InsertLeave * set nocursorline nocursorcolumn nolist
 
-autocmd FileType bash setlocal iskeyword+=$
-autocmd FileType perl setlocal iskeyword-=$
+autocmd FileType bash setlocal iskeyword-=$
+autocmd FileType perl setlocal iskeyword+=$
 
 colorscheme OceanicNext
 
