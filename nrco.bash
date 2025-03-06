@@ -224,9 +224,9 @@ sgpt_bugged_chats() {
         ROLE1=$(jq -r '.[0].role' $chat)
         CARRIAGE_RETURN=\\r
         if [[ $ROLE1 == "system" ]]; then
-            echo -e "$CARRIAGE_RETURN $chat ok"
+            echo -e "$CARRIAGE_RETURN $chat: ok"
         else
-            echo -e "$CARRIAGE_RETURN $chat ko"
+            echo -e "$CARRIAGE_RETURN $chat: >>> KO <<<"
         fi
     done
 }
