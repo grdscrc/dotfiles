@@ -207,7 +207,11 @@ export VISUAL=vim
 # Shell-GPT integration BASH v0.2
 _sgpt_bash() {
     if [[ -n "$READLINE_LINE" ]]; then
-        READLINE_LINE=$(sgpt --shell <<< "$READLINE_LINE" --no-interaction)
+        INIT_LINE="$READLINE_LINE"
+        echo -n 'GPT converting to shell...'
+        RESULT=$(sgpt --shell <<< "$INIT_LINE" --no-interaction)
+        echo -ne "\r\033[2K" # delete message
+        READLINE_LINE="$RESULT # $INIT_LINE"
         READLINE_POINT=${#READLINE_LINE}
     fi
 }
