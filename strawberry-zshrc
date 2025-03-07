@@ -1,3 +1,12 @@
+set -o vi
+bindkey "^p" up-line-or-history
+bindkey "^n" down-line-or-history
+bindkey "^a" beginning-of-line
+bindkey "^e" end-of-line
+bindkey "^f" vi-forward-char
+bindkey "^b" vi-backward-char
+bindkey "jk" vi-cmd-mode
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -103,3 +112,10 @@ source $ZSH/oh-my-zsh.sh
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(fzf --zsh)"
+
+PATH=$PATH:$HOME/.local/bin
+PATH=$PATH:$(brew --prefix python)/libexec/bin
+
+. /opt/homebrew/etc/profile.d/z.sh
+alias v.z="vim ~/.zshrc"
+alias v.b="vim ~/.vimrc"

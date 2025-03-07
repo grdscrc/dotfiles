@@ -1,3 +1,5 @@
+# Used by bash, not zsh
+set show-all-if-ambiguous on
 set editing-mode vi
 set blink-matching-paren on
 # GRAY='\033[1;30m'
