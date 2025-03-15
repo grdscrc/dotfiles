@@ -97,5 +97,5 @@ alias fd=fdfind
 alias a='eza -l'
 alias aa='a -a'
 
-alias pbcopy='xclip -selection clipboard'
-alias pbpaste='xclip -selection clipboard -o'
+which pbcopy || alias pbcopy='xclip -selection clipboard'
+which pbpaste || alias pbpaste='xclip -selection clipboard -o'
