@@ -248,3 +248,6 @@ scaffold_docker() {
  }
 
 [ -e "$HOME/.deno/env" ] && . "$HOME/.deno/env"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
