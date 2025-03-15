@@ -96,3 +96,6 @@ alias bat=batcat
 alias fd=fdfind
 alias a='eza -l'
 alias aa='a -a'
+
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
