@@ -16,6 +16,7 @@
 	directory = /home/unix/dev/eidos-export
 	directory = /home/unix/dev/eidos-align
 	directory = /home/unix/dev/albedo-api
+	directory = /home/unix/dev/summer-perl
 
 [alias]
 	amend = commit --amend

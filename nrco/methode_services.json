@@ -1,0 +1,49 @@
+{
+  "methed": [
+    "activemq",
+    "alerter",
+    "alerter1",
+    "artemis",
+    "eomdb",
+    "eomdb1",
+    "eomdb2",
+    "eomdb3",
+    "eomdb4",
+    "eomjqc",
+    "eomjse",
+    "eomjse1",
+    "eomnc",
+    "nameservice",
+    "nginx",
+    "ssd",
+    "tomcat_adobe",
+    "tomcat_afp",
+    "tomcat_core",
+    "tomcat_edapi",
+    "tomcat_inout",
+    "tomcat_mms",
+    "tomcat_output",
+    "tomcat_plan",
+    "tomcat_preview",
+    "tomcat_pub",
+    "tomcat_tools",
+    "versant"
+  ],
+  "cobalt": [
+    "cobalt",
+    "cobaltpub",
+    "nginx"
+  ],
+  "controller": [
+    "jenkins",
+    "kibana",
+    "kibana1",
+    "kibana2",
+    "kibana3"
+  ],
+  "methdig": [
+    "nginx",
+    "tomcat_swing"
+  ]
+}
+

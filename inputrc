@@ -1,5 +1,3 @@
-# Used by bash, not zsh
-set show-all-if-ambiguous on
 set editing-mode vi
 set blink-matching-paren on
 # GRAY='\033[1;30m'
@@ -13,6 +11,7 @@ set vi-cmd-mode-string ": "
 "\C-x\C-x": re-read-init-file
 "\C-l": clear-screen
 "\C-a": beginning-of-line
+"\C-h": delete-char
 "\C-e": end-of-line
 "\C-gg": "git "
 "\C-gp": "git pull"

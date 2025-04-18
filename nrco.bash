@@ -223,21 +223,49 @@ source ~/repos/fzf-git.sh/fzf-git.sh
 source ~/repos/fzf-simple-completion/fzf-simple-completion.sh
 
 sgpt_bugged_chats() {
-    for chat in $(sgpt --list-chats); do
-        echo -n $chat...
-        ROLE1=$(jq -r '.[0].role' $chat)
-        CARRIAGE_RETURN=\\r
+    for CHAT in $(sgpt --list-chats); do
+        echo -n $CHAT...
+        local ROLE1=$(jq -r '.[0].role' $CHAT)
+        local CARRIAGE_RETURN=\\r
         if [[ $ROLE1 == "system" ]]; then
-            echo -e "$CARRIAGE_RETURN $chat: ok"
+            echo -e "$CARRIAGE_RETURN $CHAT: ok"
         else
-            echo -e "$CARRIAGE_RETURN $chat: >>> KO <<<"
+            echo -e "$CARRIAGE_RETURN $CHAT: >>> KO <<<"
         fi
     done
 }
-sgpt_fix_chats() {
-    [[ $1 == "" ]] && \
-        echo no chat supplied || \
-        vimdiff $(sgpt --list-chats | grep -C 1 $1)
+sgpt_diff_chats() {
+    [[ $1 == "" ]] && echo >2 no chat supplied && return 1
+    vimdiff $(sgpt --list-chats | grep -C 1 $1)
+}
+
+sgpt_copy_first_el() {
+    [[ $1 == "" ]] && echo >2 no chat 1 supplied && return 1
+    [[ $2 == "" ]] && echo >2 no chat 2 supplied && return 1
+    local FIRST_ELEMENT=$(jq '.[0]' /tmp/chat_cache/$1)
+    jq --argjson fe "$FIRST_ELEMENT" '. = [$fe] + .' /tmp/chat_cache/$2 > temp.json && mv temp.json /tmp/chat_cache/$2
+}
+
+sgpt_autofix() {
+    local BUGGED=0
+    for chat in $(sgpt --list-chats); do
+        local ROLE1=$(jq -r '.[0].role' $chat)
+        [[ $ROLE1 != "system" ]] && BUGGED=1
+    done
+    [[ $BUGGED == "0" ]] && return
+    sgpt_bugged_chats
+    echo >&2 "Autofixing sgpt chats..."
+    local CHATS=$(sgpt_bugged_chats|cut -d':' -f1)
+    local OKs=$(sgpt_bugged_chats|grep -v KO|cut -d':' -f1)
+    local OK=$(sgpt_bugged_chats|grep -v KO|cut -d':' -f1|head -1)
+    echo OKs "$OKs"
+    echo OK "$OK"
+    [[ $OK == "" ]] && echo >&2 "ALL CHATS BUGGED"
+    local KO=$(sgpt_bugged_chats|grep KO|cut -d':' -f1)
+    for CHAT in "$KO"; do
+        sgpt_copy_first_el "$OK" "$CHAT"
+    done
+    sgpt_bugged_chats
 }
 
 scaffold_docker() {

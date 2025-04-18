@@ -1,0 +1,23 @@
+elasticsearch_x_archive
+PSPSD072E Perform session error occurred. Reason: PSPSD033E Error receiving PSMP server response (Extra information: 289E Failed to impersonate as user cust-nrco. Error: ITATS004E Authentication failure for User cust-nrco., 1). (Codes: -1, 1)
+
+elasticsearch_x_cobalt
+=
+
+postgresql
+=
+
+ptrack
+=
+
+sso
+=
+
+swing_x_cobalt
+=
+
+swing_x_prime
+=
+
+vside
+=

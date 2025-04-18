@@ -4,7 +4,6 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin()
 " The default plugin directory will be as follows:
 "   - Vim (Linux/macOS): '~/.vim/plugged'
 "   - Vim (Windows): '~/vimfiles/plugged'
@@ -14,6 +13,8 @@ call plug#begin()
 "   - Avoid using standard Vim directory names like 'plugin'
 
 " Make sure you use single quotes
+
+call plug#begin()
 
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'junegunn/vim-easy-align'
@@ -35,6 +36,7 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim' 
 
 " Unmanaged plugin (manually installed and updated)
 " Plug '~/my-prototype-plugin'
@@ -71,9 +73,6 @@ let g:SexyScroller_ScrollTime = 150
 let g:SexyScroller_CursorTime = 50
 let g:SexyScroller_EasingStyle = 3
 
-" Plug 'wfxr/minimap.vim', {'do': ':!cargo install --locked code-minimap'}
-let g:minimap_width = 80
-
 Plug 'dominikduda/vim_current_word'
 let g:vim_current_word#highlight_current_word = 0
 
@@ -99,7 +98,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'ap/vim-buftabline'
 let g:buftabline_indicators=1 " Display if unsaved buffer
 
-" Plug 'wellle/context.vim'
+Plug 'wellle/context.vim'
 " autocmd VimEnter * if &diff | ContextDisable | endif " Disable on vimdiff
 
 Plug 'preservim/vimux'
@@ -135,12 +134,16 @@ Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-peekaboo'
 let g:peekaboo_window = 'vert bo 50new'
 
-" Plug 'github/copilot.vim'
+Plug 'github/copilot.vim'
 
 Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-pragmas moose test-more try-tiny' }
 
 Plug 'gcmt/taboo.vim'
-call plug#end()
+
+" Plug 'ubaldot/vim-poptools'
+" Plug 'ubaldot/vim-open-recent'
+
+Plug 'christoomey/vim-tmux-navigator'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
